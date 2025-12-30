@@ -6,4 +6,3 @@ class Slime : public Monster
 public:
 	Slime(int playerLevel) : Monster("Slime", playerLevel) {}
 };
-

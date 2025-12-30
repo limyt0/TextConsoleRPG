@@ -4,24 +4,28 @@
 
 using namespace std;
 
-GameManager::GameManager() :isGameOver(false) {};
+GameManager::GameManager() :isGameOver(false), monster(nullptr) {};
 
 Monster* GameManager::generateMonster(int level) {
-    random_device rd;   // ë‚œìˆ˜ ì‹œë“œ
-    mt19937 gen(rd());  // Mersenne Twister ì—”ì§„
-    uniform_int_distribution<> dis(1, 4);   // 1~4 ê· ë“± ë¶„í¬
+    random_device rd;   // ³­¼ö ½Ãµå
+    mt19937 gen(rd());  // Mersenne Twister ¿£Áø
+    uniform_int_distribution<> dis(1, 4);   // 1~4 ±Õµî ºĞÆ÷
 
-    int monsterNumber = dis(gen);   // ë‚œìˆ˜ ìƒì„±
+    int monsterNumber = dis(gen);   // ³­¼ö »ı¼º
 
     switch (monsterNumber) {
     case(1):
         monster = new Goblin(level);
+        break;
     case(2):
         monster = new Orc(level);
+        break;
     case(3):
         monster = new Troll(level);
+        break;
     case(4):
         monster = new Slime(level);
+        break;
     }
 
     return monster;
@@ -29,37 +33,40 @@ Monster* GameManager::generateMonster(int level) {
 
 void GameManager::battle(Character* player) {
     if (monster == nullptr) {
-        cout << "ëª¬ìŠ¤í„°ê°€ ìƒì„±ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
+        cout << "¸ó½ºÅÍ°¡ »ı¼ºµÇ¾îÀÖÁö ¾Ê½À´Ï´Ù." << endl;
         return;
     }
-    cout << "ëª¬ìŠ¤í„° " << monster->getName() << " ë“±ì¥! ì²´ë ¥: " << monster->getHealth() << ", ê³µê²©ë ¥: " << monster->getAttack() << endl;
+    cout << "¸ó½ºÅÍ " << monster->getName() << " µîÀå! Ã¼·Â: " << monster->getHealth() << ", °ø°İ·Â: " << monster->getAttack() << endl;
     while (true) {
+        if (monster == nullptr) {
+            break;
+        }
         monster->takeDamage(player->getAttack());
         if (monster->getHealth() > 0) {
-            cout << player->getName() << "ì´(ê°€) " << monster->getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! " << monster->getName() << " ì²´ë ¥: " << monster->getHealth() << endl;
+            cout << player->getName() << "ÀÌ(°¡) " << monster->getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! " << monster->getName() << " Ã¼·Â: " << monster->getHealth() << endl;
         }
         else {
+            cout << player->getName() << "ÀÌ(°¡) " << monster->getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! " << monster->getName() << " Ã³Ä¡!" << endl;
             delete monster;
             monster = nullptr;
-            cout << player->getName() << "ì´(ê°€) " << monster->getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! " << monster->getName() << " ì²˜ì¹˜!" << endl;
-            random_device rd;   // ë‚œìˆ˜ ì‹œë“œ
-            mt19937 gen(rd());  // Mersenne Twister ì—”ì§„
-            uniform_int_distribution<> dis(10, 20);   // 1~4 ê· ë“± ë¶„í¬
+            random_device rd;   // ³­¼ö ½Ãµå
+            mt19937 gen(rd());  // Mersenne Twister ¿£Áø
+            uniform_int_distribution<> dis(10, 20);   // 1~4 ±Õµî ºĞÆ÷
 
-            int gold = dis(gen);   // ë‚œìˆ˜ ìƒì„±
+            int gold = dis(gen);   // ³­¼ö »ı¼º
             player->setExperence(player->getExperence()+50);
             player->levelup();
             player->setGold(player->getGold() + gold);
-            cout << player->getName() << "ì´(ê°€) 50 EXPì™€ " << gold << " ê³¨ë“œë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤. í˜„ì¬ EXP: " << player->getExperence() << "/100, ê³¨ë“œ: " << player->getGold() << endl;
+            cout << player->getName() << "ÀÌ(°¡) 50 EXP¿Í " << gold << " °ñµå¸¦ È¹µæÇß½À´Ï´Ù. ÇöÀç EXP: " << player->getExperence() << "/100, °ñµå: " << player->getGold() << endl;
             return;
         }
         player->takeDamage(monster->getAttack());
         if (player->getHealth() > 0) {
-            cout << monster->getName() << "ì´(ê°€) " << player->getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! " << player->getName() << " ì²´ë ¥: " << player->getHealth() << endl;
+            cout << monster->getName() << "ÀÌ(°¡) " << player->getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! " << player->getName() << " Ã¼·Â: " << player->getHealth() << endl;
         }
         else {
-            cout << monster->getName() << "ì´(ê°€) " << player->getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! " << player->getName() << " ì²´ë ¥: 0" << endl;
-            cout << player->getName() << "ì´(ê°€) ì‚¬ë§í–ˆìŠµë‹ˆë‹¤. ê²Œì„ ì˜¤ë²„!" << endl;
+            cout << monster->getName() << "ÀÌ(°¡) " << player->getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! " << player->getName() << " Ã¼·Â: 0" << endl;
+            cout << player->getName() << "ÀÌ(°¡) »ç¸ÁÇß½À´Ï´Ù. °ÔÀÓ ¿À¹ö!" << endl;
 
             delete monster;
             isGameOver = true;
@@ -71,7 +78,7 @@ void GameManager::battle(Character* player) {
 void GameManager::displayInventory(Character* player) {
     if (player == nullptr) return;
 
-    cout << "==========ì¸ë²¤í† ë¦¬==========" << endl;
+    cout << "==========ÀÎº¥Åä¸®==========" << endl;
     for (int i = 0; i < player->getInventory().size(); ++i) {
         cout << player->getInventory()[i]->getName();
         if (i != player->getInventory().size() - 1) {
