@@ -25,7 +25,7 @@ Monster* GameManager::generateMonster(int level) {
     return monster;
 }
 
-void GameManager::battle(Chatacter* player) {
+void GameManager::battle(Character* player) {
     if (monster == nullptr) {
         cout << "몬스터가 생성되어있지 않습니다." << endl;
         return;
@@ -45,8 +45,8 @@ void GameManager::battle(Chatacter* player) {
             uniform_int_distribution<> dis(10, 20);   // 1~4 균등 분포
 
             int gold = dis(gen);   // 난수 생성
-            // 캐릭터 경험치 50 증가
-            // 캐릭터 골드 10~20 증가
+            player->setExp(player->getExp()+50);
+            player->setGold(player->getGold() + gold);
             cout << player->getName() << "이(가) 50 EXP와 " << gold << " 골드를 획득했습니다. 현재 EXP: " << player->getExp() << "/100, 골드: " << player->getGold() << endl;
             return;
         }
