@@ -80,3 +80,7 @@ void GameManager::displayInventory(Character* player) {
     }
     cout << "============================" << endl;
 }
+
+bool GameManager::getIsGameOver() {
+    return isGameOver;
+}
