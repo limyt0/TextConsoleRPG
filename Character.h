@@ -1,32 +1,50 @@
 #pragma once
 #include <iostream>
 #include <string>
+using namespace std;
 
-class Character {
+class Character
+{
 private:
-    std::string _Name;
-    int _Level;
-    int _Health;
-    int _MaxHealth;
-    int _Attack;
-    int _Experence;
-    int _Gold;
+	string _Name;
+	int _Level;
+	int _Health;
+	int _MaxHealth;
+	int _Attack;
+	int _Experence;
+	int _Gold;
 
 public:
-    Character(std::string name);
+	Character(string name);
+	int GetLevel()const;
 
-    int GetLevel() const;
-    int GetHealth() const;
-    int GetMaxHealth() const;
-    int GetAttack() const;
-    int GetExperence() const;
-    int GetGold() const;
+	int GetHealth()const;
+	
+	int GetMaxHealth()const;
+	
+	int GetAttack()const;
+	
 
-    void SetLevel();
-    void SetHealth(int amount); 
-    void LevelUp();         
-    void GainExperience(int exp);
-    void GainGold(int gold);
+	int GetExperence()const;
+	
 
-    void ShowStatus() const;
+	int GetGold()const;
+	
+	void takeDamage(int damage);
+	void AddExp();
+	
+	// 수정 사항 생길수있음
+	void levelup();
+	//int SetHealth()
+	//{
+	//	return _Health;
+	//	// 포션사용시 50 회복
+	//	// 레벨업시 maxhealth만큼 회복
+	//}
+	void SetHealth(int health);
+	void SetAttack(int attack);
+	void SetExperence(int exp);
+	void SetGold(int gold);
+	void ShowStatus()const;
+	
 };
