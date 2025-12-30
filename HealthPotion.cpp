@@ -20,7 +20,7 @@ public:
 			return;
 		}
 
-		character->SetHealth(character->GetHealth() + healthRestore);
+		character->setHealth(character->getHealth() + healthRestore);
 	}
 
 private:

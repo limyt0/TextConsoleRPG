@@ -20,7 +20,7 @@ public:
 			return;
 		}
 
-		character->SetAttack(character->GetAttack() + attackincrease);
+		character->setAttack(character->getAttack() + attackincrease);
 	}
 
 private:
