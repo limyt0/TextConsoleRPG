@@ -1,12 +1,12 @@
 #pragma once
 
 #include <string>
-#include "Character.h"
+class Character;//전방선언
 
 class Item
 {
 public:
 	//Item(string name, int value );
-	std::string getName() {}
-	void use(Character* character) {}
+	virtual std::string getName() =0;
+	virtual void use(Character* character) = 0;
 };

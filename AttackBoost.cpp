@@ -1,5 +1,6 @@
 #include <string>
 #include "Item.h"
+#include "Character.h"
 
 using namespace std;
 

@@ -2,8 +2,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Item.h"
+//#include "Item.h"
 using namespace std;
+
+class Item;
 
 class Character
 {
@@ -16,6 +18,7 @@ private:
 	int _Experence;
 	int _Gold;
 	vector<Item*> _inventory;
+	
 
 public:
 	Character(string name);
