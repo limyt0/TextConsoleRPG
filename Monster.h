@@ -6,8 +6,8 @@
 class Monster{
 protected:
 	std::string Name;
-	int Health;
-	int Attack;
+	int Health = 0;
+	int Attack = 0;
 	bool isAlive = true;
 
 public:
