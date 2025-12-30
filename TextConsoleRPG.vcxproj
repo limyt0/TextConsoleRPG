@@ -127,6 +127,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="AttackBoost.cpp" />
     <ClCompile Include="Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
