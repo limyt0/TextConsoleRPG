@@ -1,5 +1,16 @@
 #include "Monster.h"
 
+
+// 몬스터 생성자 스탯 랜덤 생성
+Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	
+	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
+	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
+	std::uniform_int_distribution<int> attackDist(playerLevel * 5, playerLevel * 10);
+}
+
 	std::string Monster::getName() const {
 		return Name;
 	}
@@ -19,11 +30,7 @@
 		if (Health <= 0) {
 			isAlive = false; // 사망시 isAlive 상태를 false로 변경
 			OnDeath();
-		}else{
-		std::cout << getName() << " 의 체력이 " << getHealth() << " 만큼 남았습니다." << std::endl;
 		}
 	}
 
-	void Monster::OnDeath() {
-		std::cout << getName() << " 가 사망했습니다." << std::endl;
-	}
+	void Monster::OnDeath() {}
