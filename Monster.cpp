@@ -8,7 +8,10 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 	
 	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
 	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
+	Health = healthDist(gen);
+
 	std::uniform_int_distribution<int> attackDist(playerLevel * 5, playerLevel * 10);
+	Attack = attackDist(gen);
 }
 
 	std::string Monster::getName() const {
