@@ -31,6 +31,5 @@ public:
 
   //몬스터가 죽었을때 호출되는 가상 함수입니다.
   virtual void onDeath();
-  // 
 };
 
