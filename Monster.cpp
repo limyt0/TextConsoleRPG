@@ -3,12 +3,15 @@
 
 // 몬스터 생성자 스탯 랜덤 생성
 Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
-	std::random_device rd;
-	std::mt19937 gen(rd());
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
 	
 	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
 	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
+	Health = healthDist(gen);
+
 	std::uniform_int_distribution<int> attackDist(playerLevel * 5, playerLevel * 10);
+	Attack = attackDist(gen);
 }
 
 	std::string Monster::getName() const {
@@ -19,7 +22,7 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		return Health;
 	}
 
-	int Monster::getattack() const {
+	int Monster::getAttack() const {
 		return Attack;
 	}
 
@@ -29,8 +32,8 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		Health -= damage;
 		if (Health <= 0) {
 			isAlive = false; // 사망시 isAlive 상태를 false로 변경
-			OnDeath();
+			onDeath();
 		}
 	}
 
-	void Monster::OnDeath() {}
+	void Monster::onDeath() {}
