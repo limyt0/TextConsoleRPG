@@ -3,8 +3,8 @@
 
 // 몬스터 생성자 스탯 랜덤 생성
 Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
+	std::random_device rd;
+	std::mt19937 gen(rd());
 	
 	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
 	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);

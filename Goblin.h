@@ -4,6 +4,6 @@
 class Goblin : public Monster
 {
 public:
-	Goblin(int playerLevel) : Monster("고블린", playerLevel) {}
+	Goblin(int playerLevel) : Monster("Gobline", playerLevel) {}
 };
 

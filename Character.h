@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Item.h"
 using namespace std;
 
 class Character
@@ -34,7 +35,7 @@ public:
 	int getGold()const;
 	vector<Item*> getInventory();
 	void takeDamage(int damage);
-	void addExp();
+	//void addExp();
 
 	// 수정 사항 생길수있음
 	void levelup();

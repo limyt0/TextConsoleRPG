@@ -15,8 +15,9 @@ private:
     Monster* monster;
     bool isGameOver;
 public:
+    GameManager();
     Monster* generateMonster(int level);
     void battle(Character* player);
     void displayInventory(Character* player);
+    bool getIsGameOver();
 };
-
