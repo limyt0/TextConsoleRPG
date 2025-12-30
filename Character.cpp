@@ -7,17 +7,17 @@ class Character
 {
 private:
 	string _Name;
-	int _Level ;
+	int _Level;
 	/*int _MaxLevel;*/
 	int _Health;
 	int _MaxHealth;
-	int _Attack ;
+	int _Attack;
 	int _Experence;
 	int _Gold;
 
 public:
 	Character(string name) :
-		_Name(name),_Level(1), _Health(200), _MaxHealth(200), _Attack(30), _Experence(0), _Gold(0)
+		_Name(name), _Level(1), _Health(200), _MaxHealth(200), _Attack(30), _Experence(0), _Gold(0)
 	{
 	}
 	int GetLevel()const
