@@ -13,25 +13,26 @@ private:
 	int _Attack;
 	int _Experence;
 	int _Gold;
+	vector<Item*>inventory;
 
 public:
 	Character(string name);
-	int GetLevel()const;
+	int getLevel()const;
 
-	int GetHealth()const;
+	int getHealth()const;
 	
-	int GetMaxHealth()const;
+	int getMaxHealth()const;
 	
-	int GetAttack()const;
-	
-
-	int GetExperence()const;
+	int getAttack()const;
 	
 
-	int GetGold()const;
+	int getExperence()const;
 	
+
+	int getGold()const;
+	vector<Item*> getInventory();
 	void takeDamage(int damage);
-	void AddExp();
+	void addExp();
 	
 	// 수정 사항 생길수있음
 	void levelup();
@@ -41,10 +42,10 @@ public:
 	//	// 포션사용시 50 회복
 	//	// 레벨업시 maxhealth만큼 회복
 	//}
-	void SetHealth(int health);
-	void SetAttack(int attack);
-	void SetExperence(int exp);
-	void SetGold(int gold);
-	void ShowStatus()const;
+	void setHealth(int health);
+	void setAttack(int attack);
+	void setExperence(int exp);
+	void setGold(int gold);
+	void showStatus()const;
 	
 };

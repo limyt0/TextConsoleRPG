@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "Character.h"
+#include "Item.h"
 using namespace std;
 
 
@@ -13,39 +14,45 @@ Character::Character(string name) :
 
 
 
-int Character::GetLevel()const
+int Character::getLevel()const
 {
 	return _Level;
 }
 
-int Character::GetHealth()const
+int Character::getHealth()const
 {
 	return _Health;
 }
 
-int Character::GetMaxHealth()const
+int Character::getMaxHealth()const
 {
 	return _MaxHealth;
 }
 
-int Character::GetAttack()const
+int Character::getAttack()const
 {
 	return _Attack;
 }
 
 
-int Character::GetExperence()const
+int Character::getExperence()const
 {
 	return _Experence;
 }
 
-int Character::GetGold()const
+int Character::getGold()const
 {
 	return _Gold;
 }
 
 
 
+
+
+vector<Item*> Character:: getInventory()
+{
+	return inventory;
+}
 
 
 
@@ -60,7 +67,7 @@ void Character::takeDamage(int damage)
 	}
 }
 
-void Character::AddExp()
+void Character::addExp()
 {
 	if (_Level < 10)
 	{
@@ -104,28 +111,28 @@ void Character::levelup()
 	}
 }
 
-void Character::SetHealth(int health)
+void Character::setHealth(int health)
 {
 	_Health = health;
 }
 
-void Character::SetAttack(int attack)
+void Character::setAttack(int attack)
 {
 	_Attack = attack;
 }
 
-void Character::SetExperence(int exp)
+void Character::setExperence(int exp)
 {
 	_Experence = exp;
 }
 
 
-void Character::SetGold(int gold)
+void Character::setGold(int gold)
 {
 	_Gold = gold;
 }
 
-void Character::ShowStatus()const
+void Character::showStatus()const
 {
 	cout << "현재 스테이터스창" << endl;
 	cout << "이       름:" << _Name << endl;
