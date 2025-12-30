@@ -29,8 +29,11 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>소스 파일</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="AttackBoost.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
