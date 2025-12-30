@@ -19,7 +19,7 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		return Health;
 	}
 
-	int Monster::getattack() const {
+	int Monster::getAttack() const {
 		return Attack;
 	}
 
@@ -29,8 +29,8 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		Health -= damage;
 		if (Health <= 0) {
 			isAlive = false; // 사망시 isAlive 상태를 false로 변경
-			OnDeath();
+			onDeath();
 		}
 	}
 
-	void Monster::OnDeath() {}
+	void Monster::onDeath() {}
