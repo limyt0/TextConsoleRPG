@@ -4,6 +4,8 @@
 
 using namespace std;
 
+GameManager::GameManager() :isGameOver(false) {};
+
 Monster* GameManager::generateMonster(int level) {
     random_device rd;   // 난수 시드
     mt19937 gen(rd());  // Mersenne Twister 엔진
@@ -45,9 +47,10 @@ void GameManager::battle(Character* player) {
             uniform_int_distribution<> dis(10, 20);   // 1~4 균등 분포
 
             int gold = dis(gen);   // 난수 생성
-            player->setExp(player->getExp()+50);
+            player->setExperence(player->getExperence()+50);
+            player->levelup();
             player->setGold(player->getGold() + gold);
-            cout << player->getName() << "이(가) 50 EXP와 " << gold << " 골드를 획득했습니다. 현재 EXP: " << player->getExp() << "/100, 골드: " << player->getGold() << endl;
+            cout << player->getName() << "이(가) 50 EXP와 " << gold << " 골드를 획득했습니다. 현재 EXP: " << player->getExperence() << "/100, 골드: " << player->getGold() << endl;
             return;
         }
         player->takeDamage(monster->getAttack());
@@ -59,10 +62,21 @@ void GameManager::battle(Character* player) {
             cout << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
 
             delete monster;
-            // 게임 오버 설정
+            isGameOver = true;
             return;
         }
     }
 }
 
-void GameManager::displayInventory(Character* player);
+void GameManager::displayInventory(Character* player) {
+    if (player == nullptr) return;
+
+    cout << "==========인벤토리==========" << endl;
+    for (int i = 0; i < player->getInventory().size(); ++i) {
+        cout << player->getInventory()[i]->getName();
+        if (i != player->getInventory().size() - 1) {
+            cout << ", ";
+        }
+    }
+    cout << "============================" << endl;
+}

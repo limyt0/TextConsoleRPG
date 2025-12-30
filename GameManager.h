@@ -3,6 +3,10 @@
 #include <vector>
 #include "Character.h"
 #include "Monster.h"
+#include "Goblin.h"
+#include "Orc.h"
+#include "Troll.h"
+#include "Slime.h"
 #include "Item.h"
 
 class GameManager
