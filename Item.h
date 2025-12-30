@@ -9,5 +9,4 @@ public:
 
 	std::string getName() {}
 	void use(Character* character) {}
-
 };

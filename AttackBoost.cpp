@@ -3,10 +3,10 @@
 
 using namespace std;
 
-class HealthPotion : public Item
+class Attackincrease : public Item
 {
 public:
-	HealthPotion() : name("HealthPotion"), healthRestore(50) {}
+	Attackincrease() : name("AttackBoost"), attackincrease(10) {}
 
 	string getName()
 	{
@@ -20,10 +20,10 @@ public:
 			return;
 		}
 
-		character->SetHealth(character->GetHealth() + healthRestore);
+		character->SetAttack(character->GetAttack() + attackincrease);
 	}
 
 private:
 	string name;
-	int healthRestore;
+	int attackincrease;
 };
