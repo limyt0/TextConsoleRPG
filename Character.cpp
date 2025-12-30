@@ -12,7 +12,10 @@ Character::Character(string name) :
 {
 }
 
-
+string Character::getName()const
+{
+	return _Name;
+}
 
 int Character::getLevel()const
 {
@@ -45,17 +48,10 @@ int Character::getGold()const
 	return _Gold;
 }
 
-
-
-
-
-vector<Item*> Character:: getInventory()
+vector<Item*> Character::getInventory()
 {
-	return inventory;
+	return _inventory;
 }
-
-
-
 
 
 void Character::takeDamage(int damage)
@@ -67,18 +63,18 @@ void Character::takeDamage(int damage)
 	}
 }
 
-void Character::addExp()
-{
-	if (_Level < 10)
-	{
-		_Experence += 50;
-		levelup();
-	}
-	else
-	{
-		_Experence = 0;
-	}
-}
+//void Character::addExp()
+//{
+//	if (_Level < 10)
+//	{
+//		_Experence += 50;
+//		levelup();
+//	}
+//	else
+//	{
+//		_Experence = 0;
+//	}
+//}
 
 
 

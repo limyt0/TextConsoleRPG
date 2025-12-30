@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 class Character
@@ -13,27 +14,28 @@ private:
 	int _Attack;
 	int _Experence;
 	int _Gold;
-	vector<Item*>inventory;
+	vector<Item*> _inventory;
 
 public:
 	Character(string name);
+	string getName()const;
 	int getLevel()const;
 
 	int getHealth()const;
-	
+
 	int getMaxHealth()const;
-	
+
 	int getAttack()const;
-	
+
 
 	int getExperence()const;
-	
+
 
 	int getGold()const;
 	vector<Item*> getInventory();
 	void takeDamage(int damage);
 	void addExp();
-	
+
 	// 수정 사항 생길수있음
 	void levelup();
 	//int SetHealth()
@@ -47,5 +49,5 @@ public:
 	void setExperence(int exp);
 	void setGold(int gold);
 	void showStatus()const;
-	
+
 };
