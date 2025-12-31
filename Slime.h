@@ -10,4 +10,6 @@ public:
 	Slime(int playerLevel) : Monster("ΩΩ∂Û¿”", playerLevel) {}
 
 	virtual int attackPlayer(Character* player) override;
+
+	virtual void onDeath() override;
 };
