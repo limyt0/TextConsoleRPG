@@ -20,4 +20,9 @@ void HealthPotion::use(Character* character)
 	}
 
 	character->setHealth(character->getHealth() + healthRestore);
+	
+	if (character->getHealth() > character->getMaxHealth())
+	{
+		character->setHealth(character->getMaxHealth());
+	}
 }
