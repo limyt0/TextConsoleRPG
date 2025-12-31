@@ -1,30 +1,23 @@
 #include <string>
-#include "Item.h"
+#include "AttackBoost.h"
 #include "Character.h"
 
 using namespace std;
 
-class Attackincrease : public Item
+AttackBoost::AttackBoost() : name("AttackBoost"), attackincrease(10) {}
+
+
+string AttackBoost::getName()
 {
-public:
-	Attackincrease() : name("AttackBoost"), attackincrease(10) {}
+	return name;
+}
 
-	string getName()
+void AttackBoost::use(Character* character)
+{
+	if (!character)
 	{
-		return name;
+		return;
 	}
 
-	void use(Character* character)
-	{
-		if (!character)
-		{
-			return;
-		}
-
-		character->setAttack(character->getAttack() + attackincrease);
-	}
-
-private:
-	string name;
-	int attackincrease;
-};
+	character->setAttack(character->getAttack() + attackincrease);
+}

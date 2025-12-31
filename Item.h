@@ -1,12 +1,12 @@
 #pragma once
 
 #include <string>
-class Character;//穿号識情
+class Character; //穿号識情
 
 class Item
 {
 public:
 	//Item(string name, int value );
-	virtual std::string getName() =0;
+	virtual std::string getName() = 0;
 	virtual void use(Character* character) = 0;
 };

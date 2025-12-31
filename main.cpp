@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Character.h"
 #include "GameManager.h"
+#include "HealthPotion.h"
+#include "AttackBoost.h"
 
 using namespace std;
 

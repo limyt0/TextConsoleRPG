@@ -136,9 +136,11 @@
     <ClCompile Include="Slime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttackBoost.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
+    <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
