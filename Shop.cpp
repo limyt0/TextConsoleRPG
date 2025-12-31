@@ -26,7 +26,7 @@ vector<Item*> Shop:: getSellList()
 	return sellList;
 }
 
-void itemSell(Character* character)   
+void itemSell(Character* character)
 {
 	character->setGold(character->getGold() + 18);
 }
