@@ -1,30 +1,23 @@
 #include <string>
-#include "Item.h"
+#include "HealthPotion.h"
 #include "Character.h"
 
 using namespace std;
 
-class HealthPotion : public Item
+HealthPotion::HealthPotion() : name("HealthPotion"), healthRestore(50) {}
+
+	
+string HealthPotion::getName()
 {
-public:
-	HealthPotion() : name("HealthPotion"), healthRestore(50) {}
+	return name;
+}
 
-	string getName()
+void HealthPotion::use(Character* character)
+{
+	if (!character)
 	{
-		return name;
+		return;
 	}
 
-	void use(Character* character)
-	{
-		if (!character)
-		{
-			return;
-		}
-
-		character->setHealth(character->getHealth() + healthRestore);
-	}
-
-private:
-	string name;
-	int healthRestore;
-};
+	character->setHealth(character->getHealth() + healthRestore);
+}
