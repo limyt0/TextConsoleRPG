@@ -13,9 +13,10 @@ int main() {
 	Character character(name);
 	cout << "캐릭터 " << character.getName() << "생성 완료! 레벨: " << character.getLevel() << ", 체력: " << character.getHealth() << ", 공격력: " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
-	/*while (!gameManager.getIsGameOver()) {
-	}*/
+	while (!gameManager.getIsGameOver()) {
 		gameManager.generateMonster(character.getLevel());
 		gameManager.battle(&character);
+		cin.get();
+	}
 	return 0; 
 }
