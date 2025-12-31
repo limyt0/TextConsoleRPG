@@ -5,6 +5,7 @@
 
 using namespace std;
 class GameMnager;
+class Monster;
 class Item;
 class Shop;
 
