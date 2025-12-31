@@ -3,6 +3,7 @@
 #include <string>
 #include "Character.h"
 #include "Item.h"
+
 using namespace std;
 
 
@@ -59,6 +60,7 @@ vector<Item*> Character::getInventory()
 }
 
 
+
 void Character::takeDamage(int damage)
 {
 	_Health -= damage;
@@ -97,12 +99,22 @@ void Character:: addItem(Item* item)
 	_inventory.push_back(item);
 }
 
+
+
 void Character:: useItem (int index)
 {
 	_inventory[index]->use(this);
+	deleteItem(index);
+}  
+
+void Character::deleteItem(int index)
+{
 	delete _inventory[index];
 	_inventory.erase(_inventory.begin() + index);
-}      
+}
+
+
+
 void Character ::setisBoosted(int boost)
 {
 	_isBoosted = boost;
