@@ -92,8 +92,11 @@ void Character::takeDamage(int damage)
 void Character:: useItem (int index)
 {
 	_inventory[index]->use(this);
+	delete _inventory[index];
 	_inventory.erase(_inventory.begin() + index);
-}
+	
+
+}      
 
 
 
