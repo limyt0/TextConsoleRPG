@@ -8,21 +8,23 @@ using namespace std;
 
 int main() {
 	string name;
-	cout << "Ä³¸¯ÅÍ ÀÌ¸§À» ¼³Á¤ÇÏ¼¼¿ä: " << endl;
-	cin >> name;
+	cout << "| ìºë¦­í„° ì´ë¦„ì„ ì„¤ì •í•˜ì„¸ìš” |" << endl;
+	cin >>   name;
+	cout << endl;
 	Character character(name);
-	cout << "Ä³¸¯ÅÍ " << character.getName() << "»ý¼º ¿Ï·á! ·¹º§: " << character.getLevel() << ", Ã¼·Â: " << character.getHealth() << ", °ø°Ý·Â: " << character.getAttack() << endl;
+	cout << "============================= ìºë¦­í„° ìƒì„± ì™„ë£Œ =======================================" << endl;
+	cout << "  ì´ë¦„: " << character.getName() << ", ë ˆë²¨:" << character.getLevel() << ", ì²´ë ¥ : " << character.getHealth() << ", ê³µê²©ë ¥ : " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
     gameManager.generateMonster(character.getLevel());
     gameManager.battle(&character);
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
-		cout << "=======================================================" << endl;
-		cout << "1: ¹èÆ² 2: ½ºÅÈº¸±â 3: ÀÎº¥Åä¸® È®ÀÎÇÏ±â" << endl;
-		cout << "4: ¸ó½ºÅÍ Ã³Ä¡ ·Î±× È®ÀÎÇÏ±â 0: °ÔÀÓÁ¾·á." << endl;
-		cout << "=======================================================" << endl;
+		cout << "\n================================= í–‰ë™ì„ íƒ ===========================================" << endl;
+		cout << "  1. [ë°°í‹€] \n  2. [ìŠ¤íƒ¯ë³´ê¸°] \n  3. [ì¸ë²¤í† ë¦¬ í™•ì¸í•˜ê¸°] \n  4. [ëª¬ìŠ¤í„° ì²˜ì¹˜ ë¡œê·¸ í™•ì¸í•˜ê¸°] \n  0. [ê²Œìž„ì¢…ë£Œ]" << endl;
+		cout << "======================================================================================" << endl;
 		int select;
 		cin >> select;
+		cout << endl;
 		switch (select) {
 		case 1:
 			gameManager.generateMonster(character.getLevel());
@@ -33,7 +35,7 @@ int main() {
 			character.showStatus();
 			break;
 		case 3: 
-			//ÀÎº¥Åä¸® È®ÀÎ
+			//ì¸ë²¤í† ë¦¬ í™•ì¸
 			gameManager.displayInventory(&character);
 			break;
 		case 4:
@@ -43,7 +45,7 @@ int main() {
 			isContinue = false;
 			break;
 		default:
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+			cout << "ìž˜ëª»ëœ ìž…ë ¥ìž…ë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 			break;
 
 		}

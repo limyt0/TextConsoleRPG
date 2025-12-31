@@ -55,10 +55,10 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 
 	   switch (choice) {
 
-	   case 1: std::cout << Name << "이(가) 체력포션을 드랍했다!" << std::endl;
+	   case 1: std::cout << "  " << Name << "이(가) 체력포션을 드랍했다!" << std::endl;
 		   return new HealthPotion();
 
-	   case 2: std::cout << Name << "이(가) 공격력 포션을 드랍했다!" << std::endl;
+	   case 2: std::cout << "  " << Name << "이(가) 공격력 포션을 드랍했다!" << std::endl;
 		   return new AttackBoost();	
 
 	   default: return nullptr;

@@ -118,12 +118,13 @@ void Character::levelup()
 		if (_Level < 10)
 		{
 			_Level++;
+			cout << "  ㅁ             레벨 업!             ㅁ " << endl;
 			_MaxHealth += (_Level * 20);
-			cout << "최대체력이 증가했습니다. 현재 최대체력:" << _MaxHealth << endl;
+			cout << "  최대체력이 증가했습니다. 현재 최대체력 [" << _MaxHealth << "]" << endl;
 			_Attack += (_Level * 5);
-			cout << "공격력이 증가했습니다. 현재 공격력:" << _Attack << endl;
+			cout << "  공격력이 증가했습니다. 현재 공격력 [" << _Attack << "]" << endl;
 			_Health = _MaxHealth;
-			cout << "체력이 회복되었습니다. 현재 체력:" << _Health << endl;
+			cout << "  체력이 회복되었습니다. 현재 체력 [" << _Health << "]\n" << endl;
 		}
 	_Experence -= 100;
 	}
@@ -152,13 +153,13 @@ void Character::setGold(int gold)
 
 void Character::showStatus()const
 {
-	cout << "현재 스테이터스창" << endl;
-	cout << "이       름:" << _Name << endl;
-	cout << "현재   레벨:" << _Level << endl;
-	cout << "현재 공격력:" << _Attack << endl;
-	cout << "현재   체력:" << _Health << endl;
-	cout << "현재   골드:" << _Gold << endl;
-	cout << "현재 경험치:" << _Experence << endl;
+	cout << "================================ 캐릭터 정보 =========================================" << endl;
+	cout << "  캐릭터 이름 [ " << _Name << " ] " << endl;
+	cout << "  현재  레벨  [ " << _Level << " ] " << endl;
+	cout << "  현재 공격력 [ " << _Attack << " ] " << endl;
+	cout << "  현재  체력  [ " << _Health << " ] " << endl;
+	cout << "  현재  골드  [ " << _Gold << " ] " << endl;
+	cout << "  현재 경험치 [ " << _Experence << " ] " << endl;
 }
 
 
