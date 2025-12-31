@@ -9,6 +9,9 @@
 #include "Troll.h"
 #include "Slime.h"
 #include "Item.h"
+#include <random>
+
+
 
 class GameManager
 {

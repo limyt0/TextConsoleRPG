@@ -1,10 +1,12 @@
 #include "GameManager.h"
 #include <iostream>
-#include <random>
+
 
 using namespace std;
 
-GameManager::GameManager() :isGameOver(false), monster(nullptr) {
+
+
+    GameManager::GameManager() :isGameOver(false), monster(nullptr) {
     killCount.insert({ "고블린", 0 });
     killCount.insert({ "오크", 0 });
     killCount.insert({ "트롤", 0 });
@@ -12,9 +14,11 @@ GameManager::GameManager() :isGameOver(false), monster(nullptr) {
 };
 
 Monster* GameManager::generateMonster(int level) {
-    random_device rd;   // 난수 시드
-    mt19937 gen(rd());  // Mersenne Twister 엔진
+    random_device rd1;   // 난수 시드
+    mt19937 gen(rd1());  // Mersenne Twister 엔진
+
     uniform_int_distribution<> dis(1, 4);   // 1~4 균등 분포
+    
 
     int monsterNumber = dis(gen);   // 난수 생성
 
@@ -71,6 +75,23 @@ void GameManager::battle(Character* player) {
             monster = nullptr;
             return;
         }
+        //cout << "아이템전" << endl;
+        int itemsize = player->getInventory().size();
+        //cout << "아이템후" << endl;
+        if (itemsize >= 1) {
+        
+            random_device rd1;   // 난수 시드
+            mt19937 gen(rd1());  // Mersenne Twister 엔진
+            uniform_int_distribution<> dis(1, 2);   // 1~2 균등 분포
+            int useitemrandom = dis(gen);   // 난수 생성
+            //cout << "itemsize: " << itemsize << endl;
+            uniform_int_distribution<> dis2(0,itemsize-1);   // 1~2 균등 분포
+            int itemindex = dis2(gen);   // 난수 생성
+            if (useitemrandom == 1) {
+                cout << player->getInventory()[itemindex]->getName() <<"아이템 사용" << endl;
+                player->useItem(itemindex);
+            }
+        }
         player->takeDamage(monster->getAttack());
         if (player->getHealth() > 0) {
             cout << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: " << player->getHealth() << endl;
@@ -96,7 +117,7 @@ void GameManager::displayInventory(Character* player) {
             cout << ", ";
         }
     }
-    cout << "============================" << endl;
+    cout << "\n============================" << endl;
 }
 
 void GameManager::displayKillCount(Character* player) {
