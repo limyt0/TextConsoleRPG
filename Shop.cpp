@@ -19,7 +19,7 @@ Shop:: ~Shop()
 	delete sellList[1];
 }
 
-void itemSell(Character* character)   //¿©±â ¸Å°³º¯¼ö´Â ¹»³Ö¾î¾î¾ßÇÏ³ª
+void itemSell(Character* character)   //ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ï³ï¿½
 {
 	character->setGold(character->getGold() + 18);
 }
