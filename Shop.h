@@ -25,4 +25,6 @@ public:
 
 	int itemSell(int index, Character* player);     //여기 매개변수는 뭘넣어어야하나
 	Item* buyItem(int itemindex, Character* player);    //여기도
+
+	vector<Item*>getSellList();
 };
