@@ -71,9 +71,7 @@ void GameManager::battle(Character* player) {
             }
             cout << player->getName() << "이(가) " << monster->getExpReward() << "EXP와 " << monster->getGoldReward() << " 골드를 획득했습니다. 현재 EXP : " << player->getExperence() << " / 100, 골드 : " << player->getGold() << endl;
             
-            delete monster;
-            monster = nullptr;
-            return;
+            break;
         }
         //cout << "아이템전" << endl;
         int itemsize = player->getInventory().size();
@@ -89,6 +87,9 @@ void GameManager::battle(Character* player) {
             int itemindex = dis2(gen);   // 난수 생성
             if (useitemrandom == 1) {
                 cout << player->getInventory()[itemindex]->getName() <<"아이템 사용" << endl;
+                if (player->getInventory()[itemindex]->getName() == "AttackBoost") {
+                    player->setisBoosted(player->getisBoosted()+1);
+                }
                 player->useItem(itemindex);
             }
         }
@@ -100,11 +101,17 @@ void GameManager::battle(Character* player) {
             cout << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: 0" << endl;
             cout << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
 
-            delete monster;
             isGameOver = true;
-            return;
+            break;
         }
     }
+    delete monster;
+    monster = nullptr;
+    if (player->getisBoosted() > 0) {
+        player->setAttack(player->getAttack() - (20 * player->getisBoosted()));
+        player->setisBoosted(0);
+    }
+
 }
 
 void GameManager::displayInventory(Character* player) {
