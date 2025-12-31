@@ -205,17 +205,20 @@ void GameManager::useShop(int input, Character* player) {
         break;
     // 상점 나가기
     case 3:
+        cout << "상점을 나갑니다." << endl;
+        isContinue = false;
         break;
     default:
         break;
     }
+    return;
 }
 
 void GameManager::buyItem(Shop* shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
-        for (Item* item : /*상점 아이템 리스트*/) {
-            cout << item->getName();
+        for (int i = 0; i < /*상점 아이템 리스트 크기*/; i++) {
+            cout << i+1 << ": " << /*상점 아이템 리스트*/[i]->getName() << endl;
         }
         string select;
         cin >> select;
@@ -249,8 +252,8 @@ void GameManager::buyItem(Shop* shop, Character* player) {
 void GameManager::sellItem(Shop * shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
-        for (Item* item : player->getInventory()) {
-            cout << item->getName();
+        for (int i = 0; i < player->getInventory().size(); i++) {
+            cout << i+1 << ": " << player->getInventory()[i]->getName() << endl;
         }
         string select;
         cin >> select;
