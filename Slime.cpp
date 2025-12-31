@@ -1,1 +1,38 @@
 #include "Slime.h"
+#include "Character.h"
+
+
+int Slime::attackPlayer(Character* player) {
+	if (player == nullptr || player->getHealth() <= 0) return 0;
+
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(1, 100);
+
+	cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "에게 날라듭니다!" << "\033[0m" << std::endl;
+
+	if (!isGlued) {
+		if(dist(gen) <= 30) { // 30% 확률로 달라붙기 시도
+			isGlued = true;
+			std::cout << "\n  " << "\033[1;33m" << Name << "이 " << player->getName() << "에게 달라붙었습니다!" << "\033[0m" << std::endl;
+		}
+		player->takeDamage(getAttack());
+	}
+	else
+	{
+		std::cout << "  " << Name << "이(가) 달라붙어 있습니다!" << std::endl;
+		player->takeDamage(getAttack());
+		// 달라 붙은 후 떼어내기 시도 50%
+		if (dist(gen) <= 50) {
+			isGlued = false;
+			std::cout << player->getName() << "이 몸을 흔들어 " << Name << "을(를) 떼어냈습니다!" << std::endl;
+			return 1;
+		}
+	}
+	return (player->getHealth() <= 0) ? 0 : 1;
+}
+
+void Slime::onDeath() {
+	isGlued = false;
+	std::cout << "\n\n\033[1;33m 슬라임 : " << Name << "을(를) 물리쳤다! ]\033[0m" << std::endl;
+}
