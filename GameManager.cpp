@@ -108,7 +108,7 @@ void GameManager::battle(Character* player) {
     delete monster;
     monster = nullptr;
     if (player->getisBoosted() > 0) {
-        player->setAttack(player->getAttack() - (20 * player->getisBoosted()));
+        player->setAttack(player->getAttack() - (10 * player->getisBoosted()));
         player->setisBoosted(0);
     }
 
