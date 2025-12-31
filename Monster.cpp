@@ -1,12 +1,14 @@
 #include "Monster.h"
+#include "HealthPotion.h"
+#include "AttackBoost.h"
 
 
-// ëª¬ìŠ¤í„° ìƒì„±ì ìŠ¤íƒ¯ ëœë¤ ìƒì„±
+// ¸ó½ºÅÍ »ı¼ºÀÚ ½ºÅÈ ·£´ı »ı¼º
 Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
-	std::random_device rd;
-	std::mt19937 gen(rd());
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
 	
-	//ì²´ë ¥ì€ 20~30 * í”Œë ˆì´ì–´ ë ˆë²¨, ê³µê²©ë ¥ì€ 5~10 * í”Œë ˆì´ì–´ ë ˆë²¨ ë²”ìœ„ì—ì„œ ëœë¤ ìƒì„±
+	//Ã¼·ÂÀº 20~30 * ÇÃ·¹ÀÌ¾î ·¹º§, °ø°İ·ÂÀº 5~10 * ÇÃ·¹ÀÌ¾î ·¹º§ ¹üÀ§¿¡¼­ ·£´ı »ı¼º
 	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
 	Health = healthDist(gen);
 
@@ -27,13 +29,54 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 	}
 
 	void Monster::takeDamage(int damage) {
-		if (isAlive == false) { return; } // ì´ë¯¸ ì‚¬ë§í•œ ëª¬ìŠ¤í„°ì¸ì§€ í™•ì¸
+		if (isAlive == false) { return; } // ÀÌ¹Ì »ç¸ÁÇÑ ¸ó½ºÅÍÀÎÁö È®ÀÎ
 
 		Health -= damage;
 		if (Health <= 0) {
-			isAlive = false; // ì‚¬ë§ì‹œ isAlive ìƒíƒœë¥¼ falseë¡œ ë³€ê²½
+			isAlive = false; // »ç¸Á½Ã isAlive »óÅÂ¸¦ false·Î º¯°æ
 			onDeath();
 		}
 	}
 
 	void Monster::onDeath() {}
+
+
+	Item* Monster::dropItem() {
+	   static std::random_device rd;
+	   static std::mt19937 gen(rd());
+	   std::uniform_int_distribution<> dist(1, 100);
+
+	   if (dist(gen) > dropChance) {
+		  return nullptr;
+	   }
+
+	   std::uniform_int_distribution<> itemSelector(1, 2);
+	   int choice = itemSelector(gen);
+
+	   switch (choice) {
+
+	   case 1: std::cout << Name << "ÀÌ(°¡) Ã¼·ÂÆ÷¼ÇÀ» µå¶øÇß´Ù!" << std::endl;
+		   return new HealthPotion();
+
+	   case 2: std::cout << Name << "ÀÌ(°¡) °ø°İ·Â Æ÷¼ÇÀ» µå¶øÇß´Ù!" << std::endl;
+		   return new AttackBoost();	
+
+	   default: return nullptr;
+	   }
+	}
+
+
+	int Monster::getExpReward() const {
+		return expDrop;
+	}
+
+
+
+	int Monster::getGoldReward() const {
+		static std::random_device rd;
+		static std::mt19937 gen(rd());
+
+		std::uniform_int_distribution<int> goldDist(10, 20);
+
+		return goldDist(gen);
+	}
