@@ -3,6 +3,8 @@
 #include <string>
 #include <random>
 
+class Item; // Àü¹æ ¼±¾ğ
+
 class Monster{
 protected:
 	std::string Name;
@@ -10,26 +12,38 @@ protected:
 	int Attack = 0;
 	bool isAlive = true;
 
+	int dropChance = 30; // ¾ÆÀÌÅÛ µå¶ø È®·ü (±âº»°ª 30%)
+	int expDrop = 50; // °æÇèÄ¡ º¸»ó°ª (±âº»°ª 50)
+
 public:
   Monster(std::string name, int playerLevel);
 
   virtual ~Monster() {}
   
-  std::string getName() const; //ëª¬ìŠ¤í„°ì˜ ì´ë¦„ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
+  std::string getName() const; //¸ó½ºÅÍÀÇ ÀÌ¸§À» ¹İÈ¯ÇÕ´Ï´Ù.
 
-  int getHealth() const; // ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
+  int getHealth() const; // ¸ó½ºÅÍÀÇ Ã¼·ÂÀ» ¹İÈ¯ÇÕ´Ï´Ù.
 
-  int getAttack() const; // ëª¬ìŠ¤í„°ì˜ ê³µê²©ë ¥ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
+  int getAttack() const; // ¸ó½ºÅÍÀÇ °ø°İ·ÂÀ» ¹İÈ¯ÇÕ´Ï´Ù.
 
 
-  // ëª¬ìŠ¤í„°ê°€ ë°ë¯¸ì§€ë¥¼ ì…ì—ˆì„ ë•Œ ì²´ë ¥ì„ ê°ì†Œì‹œí‚¤ê³ , ì²´ë ¥ì´ 0 ì´í•˜ê°€ ë˜ë©´ isAlive ë¥¼ falseë¡œ ë³€ê²½í•©ë‹ˆë‹¤.
+  // ¸ó½ºÅÍ°¡ µ¥¹ÌÁö¸¦ ÀÔ¾úÀ» ¶§ Ã¼·ÂÀ» °¨¼Ò½ÃÅ°°í, Ã¼·ÂÀÌ 0 ÀÌÇÏ°¡ µÇ¸é isAlive ¸¦ false·Î º¯°æÇÕ´Ï´Ù.
   void takeDamage(int damage);
 
 
-  //ëª¬ìŠ¤í„°ê°€ í”Œë ˆì´ì–´ë¥¼ ê³µê²©í•  ë•Œ í˜¸ì¶œë˜ëŠ” ê°€ìƒ í•¨ìˆ˜ì…ë‹ˆë‹¤.
+  //¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¸¦ °ø°İÇÒ ¶§ È£ÃâµÇ´Â °¡»ó ÇÔ¼öÀÔ´Ï´Ù.
   virtual void attackPlayer() {}
 
-  //ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆì„ë•Œ í˜¸ì¶œë˜ëŠ” ê°€ìƒ í•¨ìˆ˜ì…ë‹ˆë‹¤.
+  //¸ó½ºÅÍ°¡ Á×¾úÀ»¶§ È£ÃâµÇ´Â °¡»ó ÇÔ¼öÀÔ´Ï´Ù.
   virtual void onDeath();
+
+  //¾ÆÀÌÅÛ ·£´ı µå¶ø ÇÔ¼ö
+  virtual Item* dropItem();
+
+  //°æÇèÄ¡ º¸»ó °ª ¹İÈ¯
+  virtual int getExpReward() const;
+
+  //°ñµå º¸»ó °ª ·£´ı ¹İÈ¯
+  virtual int getGoldReward() const;
 };
 
