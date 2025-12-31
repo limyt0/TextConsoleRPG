@@ -45,8 +45,14 @@ int main() {
 		cout << endl;
 		switch (a) {
 		case  1:
-			gameManager.generateMonster(character.getLevel());
-			gameManager.battle(&character);
+			if (character.getLevel() >= 10) {
+				gameManager.generateBossMonster(character.getLevel());
+				gameManager.bossBattle(&character);
+			}
+			else {
+				gameManager.generateMonster(character.getLevel());
+				gameManager.battle(&character);
+			}
 			break;
 		case 2:
 			//

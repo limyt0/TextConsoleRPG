@@ -8,9 +8,9 @@ Boss::Boss(int playerLevel) : Monster("보스 몬스터", playerLevel)
 	Attack += playerLevel * 20;  // 보스 추가 공격력 보너스
 }
 
-int Boss::attackPlayer(class Character* player) {
-
-}
+//int Boss::attackPlayer(class Character* player) {
+//
+//}
 
 void Boss::onDeath() {
 

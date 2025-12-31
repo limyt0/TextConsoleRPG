@@ -9,7 +9,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
-//#include "Boss.h"
+#include "Boss.h"
 #include "Item.h"
 #include "Shop.h"
 
@@ -25,7 +25,7 @@ public:
     // 몬스터 생성
     Monster* generateMonster(int level);
     // 보스 몬스터 생성
-    //Monster* generateBossMonster(int level);
+    Monster* generateBossMonster(int level);
     // 배틀
     void battle(Character* player);
     // 보스 배틀
