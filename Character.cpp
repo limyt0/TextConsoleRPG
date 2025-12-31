@@ -95,7 +95,6 @@ void Character::levelup()
 		if (_Level < 10)
 		{
 			_Level++;
-			_Experence -= 100;
 			_MaxHealth += (_Level * 20);
 			cout << "최대체력이 증가했습니다. 현재 최대체력:" << _MaxHealth << endl;
 			_Attack += (_Level * 5);
@@ -103,6 +102,7 @@ void Character::levelup()
 			_Health = _MaxHealth;
 			cout << "체력이 회복되었습니다. 현재 체력:" << _Health << endl;
 		}
+	_Experence -= 100;
 	}
 }
 
