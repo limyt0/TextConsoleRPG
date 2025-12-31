@@ -7,15 +7,11 @@
 #include "AttackBoost.h"
 using namespace std;
 
-
-
 Shop::Shop() : priceHealthPotion(30), priceAttackBoost(30) 
 {
 	sellList.push_back(new HealthPotion);
 	sellList.push_back(new AttackBoost);
-	
 }
-
 
 Shop:: ~Shop() 
 {
@@ -23,15 +19,6 @@ Shop:: ~Shop()
 	delete sellList[1];
 }
 
-
-//int Shop:: setPriceHealthPotion(int a) //매개변수
-//{
-//	priceHealthPotion = a;
-//}
-//int Shop::setPriceAttackBoost(int b) // 매개변수
-//{
-//	priceAttackBoost = b;
-//}
 void itemSell(Character* character)   //여기 매개변수는 뭘넣어어야하나
 {
 	character->setGold(character->getGold() + 18);
@@ -54,21 +41,4 @@ int  Shop::itemSell(int index,Character*player)
 	player->setGold(player->getGold() + player->getInventory()[index]->getPrice() * (6 / 10));
 	player->deleteItem(index);
 	return;
-}
-
-
-
-
-
-
-
-
-
-int Shop::getPriceHealthPotion(int a)const
-{
-	return  a;
-}
-int  Shop::getPriceAttackBoost(int b)const
-{
-	return b;
 }
