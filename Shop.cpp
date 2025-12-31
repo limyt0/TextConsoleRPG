@@ -19,7 +19,14 @@ Shop:: ~Shop()
 	delete sellList[1];
 }
 
-void itemSell(Character* character)   //���� �Ű������� ���־����ϳ�
+vector<Item*> Shop:: getSellList()
+{
+	
+
+	return sellList;
+}
+
+void itemSell(Character* character)   
 {
 	character->setGold(character->getGold() + 18);
 }
