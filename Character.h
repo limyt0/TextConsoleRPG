@@ -4,7 +4,7 @@
 #include <vector>
 //#include "Item.h"
 using namespace std;
-
+class GameMnager;
 class Item;
 
 class Character
@@ -21,6 +21,7 @@ private:
 	
 
 public:
+
 	Character(string name);
 	string getName()const;
 	int getLevel()const;
@@ -41,6 +42,7 @@ public:
 	//void addExp();
 
 	// 수정 사항 생길수있음
+	void useItem(int index);
 	void levelup();
 	//int SetHealth()
 	//{
