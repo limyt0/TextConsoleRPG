@@ -12,8 +12,12 @@ private:
 	int priceAttackBoost;
 	vector<Item*>sellList;
 public:
-	int getPriceHealthPotion(int a)const;
-	int getPriceAttackBoost(int b)const;
+	Shop();
+
+	~Shop();
+
+	//int getPriceHealthPotion(int a)const;
+	//int getPriceAttackBoost(int b)const;*/
 
 
 	//int setPriceHealthPotion(int a); //매개변수

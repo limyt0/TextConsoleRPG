@@ -9,4 +9,6 @@ public:
 	//Item(string name, int value )
 	virtual std::string getName() = 0;
 	virtual void use(Character* character) = 0;
+	virtual int getPrice() = 0;
+
 };
