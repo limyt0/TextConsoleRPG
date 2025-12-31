@@ -13,10 +13,36 @@ int main() {
 	Character character(name);
 	cout << "캐릭터 " << character.getName() << "생성 완료! 레벨: " << character.getLevel() << ", 체력: " << character.getHealth() << ", 공격력: " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
-	while (!gameManager.getIsGameOver()) {
-		gameManager.generateMonster(character.getLevel());
-		gameManager.battle(&character);
-		cin.get();
+    gameManager.generateMonster(character.getLevel());
+    gameManager.battle(&character);
+	bool isContinue = true;
+	while (!gameManager.getIsGameOver() && isContinue) {
+		cout << "=======================================================" << endl;
+		cout << "1: 배틀 2: 스탯보기 3: 인벤토리 확인하기  0: 게임종료." << endl;
+		cout << "=======================================================" << endl;
+		int select;
+		cin >> select;
+		switch (select) {
+		case 1:
+			gameManager.generateMonster(character.getLevel());
+			gameManager.battle(&character);
+			break;
+		case 2:
+			//
+			character.showStatus();
+			break;
+		case 3: 
+			//인벤토리 확인
+			gameManager.displayInventory(&character);
+		case 0:
+			isContinue = false;
+			break;
+		default:
+			break;
+
+		}
+
+		//cin.get();
 	}
 	return 0; 
 }

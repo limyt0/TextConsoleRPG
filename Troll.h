@@ -4,6 +4,6 @@
 class Troll : public Monster
 {
 public:
-	Troll(int playerLevel) : Monster("íŠ¸ë¡¤", playerLevel) {}
+	Troll(int playerLevel) : Monster("Æ®·Ñ", playerLevel) {}
 };
 
