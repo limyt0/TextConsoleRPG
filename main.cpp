@@ -18,7 +18,8 @@ int main() {
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
 		cout << "=======================================================" << endl;
-		cout << "1: 배틀 2: 스탯보기 3: 인벤토리 확인하기 4. 몬스터 처치 로그 확인하기 0: 게임종료." << endl;
+		cout << "1: 배틀 2: 스탯보기 3: 인벤토리 확인하기" << endl;
+		cout << "4: 몬스터 처치 로그 확인하기 0: 게임종료." << endl;
 		cout << "=======================================================" << endl;
 		int select;
 		cin >> select;
