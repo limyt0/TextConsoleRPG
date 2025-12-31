@@ -24,15 +24,15 @@ Shop:: ~Shop()
 }
 
 
-//int Shop:: setPriceHealthPotion(int a) //¸Å°³º¯¼ö
+//int Shop:: setPriceHealthPotion(int a) //ë§¤ê°œë³€ìˆ˜
 //{
 //	priceHealthPotion = a;
 //}
-//int Shop::setPriceAttackBoost(int b) // ¸Å°³º¯¼ö
+//int Shop::setPriceAttackBoost(int b) // ë§¤ê°œë³€ìˆ˜
 //{
 //	priceAttackBoost = b;
 //}
-void itemSell(Character* character)   //¿©±â ¸Å°³º¯¼ö´Â ¹»³Ö¾î¾î¾ßÇÏ³ª
+void itemSell(Character* character)   //ì—¬ê¸° ë§¤ê°œë³€ìˆ˜ëŠ” ë­˜ë„£ì–´ì–´ì•¼í•˜ë‚˜
 {
 	character->setGold(character->getGold() + 18);
 }
