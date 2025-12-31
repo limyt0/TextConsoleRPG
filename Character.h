@@ -6,6 +6,7 @@
 using namespace std;
 class GameMnager;
 class Item;
+class Shop;
 
 class Character
 {
@@ -18,7 +19,8 @@ private:
 	int _Experence;
 	int _Gold;
 	vector<Item*> _inventory;
-	int  _isBoosted;
+	int _isBoosted;
+	
 	
 
 public:
@@ -34,11 +36,13 @@ public:
 	int getisBoosted()const;
 
 	vector<Item*> getInventory();
+	
 	void takeDamage(int damage);
 	//void addExp();
 
 	// 수정 사항 생길수있음
 	void useItem(int index);
+	void deleteItem(int index);
 	void levelup();
 	//int SetHealth()
 	//{
@@ -47,6 +51,7 @@ public:
 	//	// 레벨업시 maxhealth만큼 회복
 	//}
 	void addItem(Item* item);
+	void buyItem(Item* item);
 	void setHealth(int health);
 	void setAttack(int attack);
 	void setExperence(int exp);

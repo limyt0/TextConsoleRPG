@@ -66,6 +66,7 @@ void GameManager::battle(Character* player) {
             player->setExperence(player->getExperence() + monster->getExpReward());
             player->levelup();
             player->setGold(player->getGold() + monster->getGoldReward());
+            //아이템포인터 = 몬스터포인터
             Item* droppedItem = monster->dropItem();
             if (droppedItem != nullptr) {
                 player->addItem(droppedItem);
