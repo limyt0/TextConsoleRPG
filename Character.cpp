@@ -87,7 +87,10 @@ void Character::takeDamage(int damage)
 //	}
 //}
 
-
+void Character:: addItem(Item* item)
+{
+	_inventory.push_back(item);
+}
 
 void Character:: useItem (int index)
 {

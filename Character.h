@@ -21,21 +21,14 @@ private:
 	
 
 public:
-
+	
 	Character(string name);
 	string getName()const;
 	int getLevel()const;
-
 	int getHealth()const;
-
 	int getMaxHealth()const;
-
 	int getAttack()const;
-
-
 	int getExperence()const;
-
-
 	int getGold()const;
 	vector<Item*> getInventory();
 	void takeDamage(int damage);
@@ -50,6 +43,7 @@ public:
 	//	// 포션사용시 50 회복
 	//	// 레벨업시 maxhealth만큼 회복
 	//}
+	void addItem(Item* item);
 	void setHealth(int health);
 	void setAttack(int attack);
 	void setExperence(int exp);
