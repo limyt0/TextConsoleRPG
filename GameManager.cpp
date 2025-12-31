@@ -4,7 +4,12 @@
 
 using namespace std;
 
-GameManager::GameManager() :isGameOver(false), monster(nullptr) {};
+GameManager::GameManager() :isGameOver(false), monster(nullptr) {
+    killCount.insert({ "고블린", 0 });
+    killCount.insert({ "오크", 0 });
+    killCount.insert({ "트롤", 0 });
+    killCount.insert({ "슬라임", 0 });
+};
 
 Monster* GameManager::generateMonster(int level) {
     random_device rd;   // 난수 시드
@@ -45,19 +50,25 @@ void GameManager::battle(Character* player) {
         if (monster->getHealth() > 0) {
             cout << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 체력: " << monster->getHealth() << endl;
         }
+        // 몬스터 처치
         else {
             cout << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 처치!" << endl;
+            if (killCount.find(monster->getName()) != killCount.end()) {
+                killCount[monster->getName()]++;
+            }
+
+            player->setExperence(player->getExperence()+ monster->getExpReward());
+            player->levelup();
+            player->setGold(player->getGold() + monster->getGoldReward());
+            Item* droppedItem = monster->dropItem();
+            if (droppedItem != nullptr) {
+                player->addItem(droppedItem);
+                cout << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다." << endl;
+            }
+            cout << player->getName() << "이(가) " << monster->getExpReward() << "EXP와 " << monster->getGoldReward() << " 골드를 획득했습니다. 현재 EXP : " << player->getExperence() << " / 100, 골드 : " << player->getGold() << endl;
+            
             delete monster;
             monster = nullptr;
-            random_device rd;   // 난수 시드
-            mt19937 gen(rd());  // Mersenne Twister 엔진
-            uniform_int_distribution<> dis(10, 20);   // 1~4 균등 분포
-
-            int gold = dis(gen);   // 난수 생성
-            player->setExperence(player->getExperence()+50);
-            player->levelup();
-            player->setGold(player->getGold() + gold);
-            cout << player->getName() << "이(가) 50 EXP와 " << gold << " 골드를 획득했습니다. 현재 EXP: " << player->getExperence() << "/100, 골드: " << player->getGold() << endl;
             return;
         }
         player->takeDamage(monster->getAttack());
@@ -84,6 +95,16 @@ void GameManager::displayInventory(Character* player) {
         if (i != player->getInventory().size() - 1) {
             cout << ", ";
         }
+    }
+    cout << "============================" << endl;
+}
+
+void GameManager::displayKillCount(Character* player) {
+    if (player == nullptr) return;
+
+    cout << "======몬스터 처치 로그======" << endl;
+    for (pair<const string, int> count : killCount) {
+        cout << count.first << " 처치 횟수: " << count.second << endl;
     }
     cout << "============================" << endl;
 }
