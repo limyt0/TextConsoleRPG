@@ -4,13 +4,19 @@
 
 using namespace std;
 
-HealthPotion::HealthPotion() : name("HealthPotion"), healthRestore(50) {}
+HealthPotion::HealthPotion() : name("HealthPotion"), healthRestore(50), price(30) {}
 
 	
 string HealthPotion::getName()
 {
 	return name;
 }
+
+int HealthPotion::getPrice()
+{
+	return price;
+}
+
 
 void HealthPotion::use(Character* character)
 {

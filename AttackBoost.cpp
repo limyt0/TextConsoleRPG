@@ -4,12 +4,17 @@
 
 using namespace std;
 
-AttackBoost::AttackBoost() : name("AttackBoost"), attackincrease(10) {}
+AttackBoost::AttackBoost() : name("AttackBoost"), attackincrease(10), price(30) {}
 
 
 string AttackBoost::getName()
 {
 	return name;
+}
+
+int AttackBoost::getPrice()
+{
+	return price;
 }
 
 void AttackBoost::use(Character* character)
