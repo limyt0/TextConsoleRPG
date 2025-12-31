@@ -32,11 +32,19 @@ int main() {
 		cout << "\n================================= 행동선택 ===========================================" << endl;
 		cout << "  1. [배틀] \n  2. [스탯보기] \n  3. [인벤토리 확인하기] \n  4. [몬스터 처치 로그 확인하기] \n  0. [게임종료]" << endl;
 		cout << "======================================================================================" << endl;
-		int select;
+		string select;
 		cin >> select;
+		int a = -1;
+		try {
+			a = stoi(select);
+		}
+		catch (const std::invalid_argument& e) {
+			cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+			continue;
+		}
 		cout << endl;
-		switch (select) {
-		case 1:
+		switch (a) {
+		case  1:
 			gameManager.generateMonster(character.getLevel());
 			gameManager.battle(&character);
 			break;
@@ -55,7 +63,7 @@ int main() {
 			isContinue = false;
 			break;
 		default:
-			cout << "잘못된 입력입니다. 다시 입력해주세요." << endl;
+			cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
 			break;
 
 		}
