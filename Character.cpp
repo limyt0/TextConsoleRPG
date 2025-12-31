@@ -8,7 +8,7 @@ using namespace std;
 
 
 Character::Character(string name) :
-	_Name(name), _Level(1), _Health(100), _MaxHealth(100), _Attack(10), _Experence(0), _Gold(0)
+	_Name(name), _Level(1), _Health(100), _MaxHealth(100), _Attack(10), _Experence(0), _Gold(0),_isBoosted(false)
 {
 }
 
@@ -46,6 +46,11 @@ int Character::getExperence()const
 int Character::getGold()const
 {
 	return _Gold;
+}
+
+int Character :: getisBoosted()const
+{
+	return _isBoosted;
 }
 
 vector<Item*> Character::getInventory()
@@ -97,10 +102,11 @@ void Character:: useItem (int index)
 	_inventory[index]->use(this);
 	delete _inventory[index];
 	_inventory.erase(_inventory.begin() + index);
-	
-
 }      
-
+void Character ::setisBoosted(int boost)
+{
+	_isBoosted = boost;
+}
 
 
 
