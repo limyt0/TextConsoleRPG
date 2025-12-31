@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include "Item.h"
+
 using namespace std;
 class GameMnager;
 class Item;
@@ -34,24 +34,17 @@ public:
 	int getExperence()const;
 	int getGold()const;
 	int getisBoosted()const;
-
+	bool isAlive = true;
 	vector<Item*> getInventory();
 	
 	void takeDamage(int damage);
-	//void addExp();
+	int AttackMonster(Monster* monster);
 
-	// 수정 사항 생길수있음
 	void useItem(int index);
 	void deleteItem(int index);
 	void levelup();
-	//int SetHealth()
-	//{
-	//	return _Health;
-	//	// 포션사용시 50 회복
-	//	// 레벨업시 maxhealth만큼 회복
-	//}
+	
 	void addItem(Item* item);
-	void buyItem(Item* item);
 	void setHealth(int health);
 	void setAttack(int attack);
 	void setExperence(int exp);
