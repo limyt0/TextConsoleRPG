@@ -30,7 +30,7 @@ int main() {
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
 		cout << "\n================================= 행동선택 ===========================================" << endl;
-		cout << "  1. [배틀] \n  2. [스탯보기] \n  3. [인벤토리 확인하기] \n  4. [몬스터 처치 로그 확인하기] \n  0. [게임종료]" << endl;
+		cout << "  1. [배틀] \n  2. [스탯보기] \n  3. [인벤토리 확인하기] \n  4. [몬스터 처치 로그 확인하기] \n  5. [상점] \n  0. [게임종료]" << endl;
 		cout << "======================================================================================" << endl;
 		string select;
 		cin >> select;
@@ -58,6 +58,10 @@ int main() {
 			break;
 		case 4:
 			gameManager.displayKillCount(&character);
+			break;
+		case 5:
+			
+			gameManager.useShop( &character);
 			break;
 		case 0:
 			isContinue = false;

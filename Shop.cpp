@@ -38,6 +38,9 @@ void itembut(Character* character)
 
 Item* Shop::buyItem(int itemindex, Character* player)
 {
+	if (player->getGold() - sellList[itemindex]->getPrice() < 0) {
+		return nullptr;
+	}
 	player->setGold(player->getGold() - sellList[itemindex]->getPrice());
 	player->addItem(sellList[itemindex]);
 	return sellList[itemindex];
@@ -45,7 +48,10 @@ Item* Shop::buyItem(int itemindex, Character* player)
 
 int  Shop::itemSell(int index,Character*player)
 {
-	player->setGold(player->getGold() + player->getInventory()[index]->getPrice() * (6 / 10));
+	float price = player->getInventory()[index]->getPrice() * 6 / 10;
+	//cout << "price1: " << player->getInventory()[index]->getPrice() << endl;
+	//cout << "price2: " << price << endl;
+	player->setGold(player->getGold() + (int)price);
 	player->deleteItem(index);
-	return player->getInventory()[index]->getPrice() * (6 / 10);
+	return price;
 }

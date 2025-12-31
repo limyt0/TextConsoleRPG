@@ -190,26 +190,41 @@ void GameManager::bossBattle(Character* player) {
     }
 }
 
-void GameManager::useShop(int input, Character* player) {
+void GameManager::useShop(Character* player) {
     Shop* shop = new Shop();
     bool isContinue = true;
-    while(isContinue)
-    switch (input) {
-    // 물건 구매
-    case 1:
-        buyItem(shop, player);
-        break;
-    // 물건 판매
-    case 2:
-        sellItem(shop, player);
-        break;
-    // 상점 나가기
-    case 3:
-        cout << "상점을 나갑니다." << endl;
-        isContinue = false;
-        break;
-    default:
-        break;
+    while (isContinue) {
+        cout << "\n================================= 상점 ===========================================" << endl;
+        cout << "  1. [물건 구매] \n  2. [물건 판매] \n  3. [상점 나가기] " << endl;
+        cout << "======================================================================================" << endl;
+        string select;
+        cin >> select;
+        int shopnum = -1;
+        try {
+            shopnum = stoi(select);
+        }
+        catch (const std::invalid_argument& e) {
+            cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+            continue;
+        }
+
+        switch (shopnum) {
+        // 물건 구매
+        case 1:
+            buyItem(shop, player);
+            break;
+        // 물건 판매
+        case 2:
+            sellItem(shop, player);
+            break;
+        // 상점 나가기
+        case 3:
+            cout << "상점을 나갑니다." << endl;
+            isContinue = false;
+            break;
+        default:
+            break;
+        }
     }
     return;
 }
@@ -217,9 +232,13 @@ void GameManager::useShop(int input, Character* player) {
 void GameManager::buyItem(Shop* shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
+        cout << "\n================================= 아이템 리스트 ===========================================" << endl;
         for (int i = 0; i < shop->getSellList().size(); i++) {
             cout << i+1 << ": " << shop->getSellList()[i]->getName() << endl;
         }
+        cout << "0. [구매 취소하기]" << endl;
+        cout << "======================================================================================" << endl;
+
         string select;
         cin >> select;
         int a = -1;
@@ -231,19 +250,33 @@ void GameManager::buyItem(Shop* shop, Character* player) {
             continue;
         }
         cout << endl;
+        Item* it;
         switch (a) {
-        case  1:
-            cout << shop->buyItem(0, player) << " 구매" << endl;
-            break;
-        case 2:
-            cout << shop->buyItem(1, player) << " 구매" << endl;
-            break;
-        case 0:
-            isContinue = false;
-            break;
-        default:
-            cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
-            break;
+            case  1:
+                it = shop->buyItem(0, player);
+                if (it == nullptr) {
+                    cout << "돈이 부족합니다." << endl;
+                }
+                else {
+                    cout << it->getName() << " 구매" << endl;
+                }            
+                break;
+            case 2:
+                it = shop->buyItem(1, player);
+                if (it == nullptr) {
+                    cout << "돈이 부족합니다." << endl;
+                }
+                else {
+                    cout << it->getName() << " 구매" << endl;
+                }
+                break;
+            case 0:
+                //cout << "iscon: " << isContinue << endl;
+                isContinue = false;
+                break;
+            default:
+                cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
+                break;
         }
     }
     return;
@@ -252,9 +285,15 @@ void GameManager::buyItem(Shop* shop, Character* player) {
 void GameManager::sellItem(Shop * shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
+        cout << "\n================================= 인벤토리 ===========================================" << endl;
+
         for (int i = 0; i < player->getInventory().size(); i++) {
-            cout << i+1 << ": " << player->getInventory()[i]->getName() << endl;
+            cout << "  " << i + 1 << ". [" << player->getInventory()[i]->getName() << "]" << endl;
         }
+
+        cout << "  0. [판매 취소하기]" << endl;
+        cout << "======================================================================================" << endl;
+
         string select;
         cin >> select;
         int a = -1;
@@ -266,6 +305,8 @@ void GameManager::sellItem(Shop * shop, Character* player) {
             continue;
         }
         cout << endl;
+
+        //cout << "item index: " << a << endl;
         if (a > player->getInventory().size()) {
             cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
         }
