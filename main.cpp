@@ -8,20 +8,23 @@ using namespace std;
 
 int main() {
 	string name;
-	cout << "캐릭터 이름을 설정하세요: " << endl;
-	cin >> name;
+	cout << "| 캐릭터 이름을 설정하세요 |" << endl;
+	cin >>   name;
+	cout << endl;
 	Character character(name);
-	cout << "캐릭터 " << character.getName() << "생성 완료! 레벨: " << character.getLevel() << ", 체력: " << character.getHealth() << ", 공격력: " << character.getAttack() << endl;
+	cout << "============================= 캐릭터 생성 완료 =======================================" << endl;
+	cout << "  이름: " << character.getName() << ", 레벨:" << character.getLevel() << ", 체력 : " << character.getHealth() << ", 공격력 : " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
     gameManager.generateMonster(character.getLevel());
     gameManager.battle(&character);
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
-		cout << "=======================================================" << endl;
-		cout << "1: 배틀 2: 스탯보기 3: 인벤토리 확인하기 4. 몬스터 처치 로그 확인하기 0: 게임종료." << endl;
-		cout << "=======================================================" << endl;
+		cout << "\n================================= 행동선택 ===========================================" << endl;
+		cout << "  1. [배틀] \n  2. [스탯보기] \n  3. [인벤토리 확인하기] \n  4. [몬스터 처치 로그 확인하기] \n  0. [게임종료]" << endl;
+		cout << "======================================================================================" << endl;
 		int select;
 		cin >> select;
+		cout << endl;
 		switch (select) {
 		case 1:
 			gameManager.generateMonster(character.getLevel());
