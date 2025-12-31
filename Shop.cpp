@@ -40,5 +40,5 @@ int  Shop::itemSell(int index,Character*player)
 {
 	player->setGold(player->getGold() + player->getInventory()[index]->getPrice() * (6 / 10));
 	player->deleteItem(index);
-	return;
+	return player->getInventory()[index]->getPrice() * (6 / 10);
 }
