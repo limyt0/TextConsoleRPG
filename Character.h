@@ -18,6 +18,7 @@ private:
 	int _Experence;
 	int _Gold;
 	vector<Item*> _inventory;
+	int  _isBoosted;
 	
 
 public:
@@ -30,6 +31,8 @@ public:
 	int getAttack()const;
 	int getExperence()const;
 	int getGold()const;
+	int getisBoosted()const;
+
 	vector<Item*> getInventory();
 	void takeDamage(int damage);
 	//void addExp();
@@ -49,5 +52,5 @@ public:
 	void setExperence(int exp);
 	void setGold(int gold);
 	void showStatus()const;
-
+	void setisBoosted(int boost);
 };
