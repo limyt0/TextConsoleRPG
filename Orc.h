@@ -4,6 +4,5 @@
 class Orc : public Monster
 {
 public:
-	Orc(int playerLevel) : Monster("ì˜¤í¬", playerLevel) {}
+	Orc(int playerLevel) : Monster("¿ÀÅ©", playerLevel) {}
 };
-

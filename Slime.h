@@ -4,5 +4,5 @@
 class Slime : public Monster
 {
 public:
-	Slime(int playerLevel) : Monster("Slime", playerLevel) {}
+	Slime(int playerLevel) : Monster("ΩΩ∂Û¿”", playerLevel) {}
 };
