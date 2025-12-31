@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "Character.h"
+#include "Item.h"
 using namespace std;
 
 
@@ -87,7 +88,17 @@ void Character::takeDamage(int damage)
 //}
 
 
-// 수정 사항 생길수있음
+
+void Character:: useItem (int index)
+{
+	_inventory[index]->use(this);
+	_inventory.erase(_inventory.begin() + index);
+}
+
+
+
+
+
 void Character::levelup()
 {
 	if (100 <= _Experence)
