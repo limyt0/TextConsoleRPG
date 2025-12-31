@@ -40,10 +40,10 @@ Monster* GameManager::generateMonster(int level) {
     return monster;
 }
 
-//Monster* GameManager::generateBossMonster(int level) {
-//    monster = new Boss(level);
-//    return monster;
-//}
+Monster* GameManager::generateBossMonster(int level) {
+    monster = new Boss(level);
+    return monster;
+}
 
 void GameManager::battle(Character* player) {
     if (monster == nullptr) {
@@ -98,14 +98,8 @@ void GameManager::battle(Character* player) {
                 player->useItem(itemindex);
             }
         }
-        player->takeDamage(monster->getAttack());
-        if (player->getHealth() > 0) {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력 [" << player->getHealth() << "]" << endl;
-        }
-        else {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: 0" << endl;
+        if (monster->attackPlayer(player) == 0) {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
-
             isGameOver = true;
             break;
         }
@@ -136,21 +130,7 @@ void GameManager::bossBattle(Character* player) {
         }
         // 몬스터 처치
         else {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 처치!\n" << endl;
-            if (killCount.find(monster->getName()) != killCount.end()) {
-                killCount[monster->getName()]++;
-            }
-
-            player->setExperence(player->getExperence() + monster->getExpReward());
-            player->levelup();
-            player->setGold(player->getGold() + monster->getGoldReward());
-            Item* droppedItem = monster->dropItem();
-            if (droppedItem != nullptr) {
-                player->addItem(droppedItem);
-                cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
-            }
-            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "EXP] 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
-
+            isGameOver = true;
             break;
         }
         int itemsize = player->getInventory().size();
@@ -170,14 +150,8 @@ void GameManager::bossBattle(Character* player) {
                 player->useItem(itemindex);
             }
         }
-        player->takeDamage(monster->getAttack());
-        if (player->getHealth() > 0) {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력 [" << player->getHealth() << "]" << endl;
-        }
-        else {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: 0" << endl;
+        if (monster->attackPlayer(player) == 0) {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
-
             isGameOver = true;
             break;
         }
