@@ -1,30 +1,24 @@
 //#include <iostream>
 //#include "Character.h"
 //#include "Item.h"
+//#include "HealthPotion.h"
+//#include "AttackBoost.h"
+//
 //using namespace std;
 //
-//class Shop 
-//{
-//private:
+//class Shop
+// {
+// private:
 //	Character* yahoo;
-//	int longsword;
 //	int HealthPotion;
 //	int AttackBoostPotion;
 //
 //public:
-//	Shop(int sword, int hppotion, int atkboostpotion)
-//		:longsword(sword), HealthPotion(hppotion), AttackBoostPotion(atkboostpotion)
-//	{
-//	}
-//
-//	void use(Character* charactor)
-//	{
-//		yahoo = charactor;
-//	}
+//	Shop(int hppotion, int atkboostpotion)
+//		:HealthPotion(hppotion), AttackBoostPotion(atkboostpotion) {}
 //
 //	void buy()
 //	{
-//		
 //
 //	}
 //

@@ -11,9 +11,11 @@ public:
 
 	std::string getName() override;
 	void use(Character* character) override;
+	int getPrice();
 
 
 private:
 	std::string name;
 	int attackincrease;
+	int price;
 };
