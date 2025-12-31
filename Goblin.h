@@ -4,6 +4,7 @@
 class Goblin : public Monster
 {
 public:
-	Goblin(int playerLevel) : Monster("°íºí¸°", playerLevel) {}
+	Goblin(int playerLevel);
+
 };
 
