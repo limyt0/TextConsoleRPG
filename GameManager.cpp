@@ -40,10 +40,10 @@ Monster* GameManager::generateMonster(int level) {
     return monster;
 }
 
-Monster* GameManager::generateBossMonster(int level) {
-    monster = new Boss(level);
-    return monster;
-}
+//Monster* GameManager::generateBossMonster(int level) {
+//    monster = new Boss(level);
+//    return monster;
+//}
 
 void GameManager::battle(Character* player) {
     if (monster == nullptr) {
@@ -217,8 +217,8 @@ void GameManager::useShop(int input, Character* player) {
 void GameManager::buyItem(Shop* shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
-        for (int i = 0; i < /*상점 아이템 리스트 크기*/; i++) {
-            cout << i+1 << ": " << /*상점 아이템 리스트*/[i]->getName() << endl;
+        for (int i = 0; i < shop->getSellList().size(); i++) {
+            cout << i+1 << ": " << shop->getSellList()[i]->getName() << endl;
         }
         string select;
         cin >> select;
