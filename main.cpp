@@ -8,19 +8,19 @@ using namespace std;
 
 int main() {
 	string name;
-	cout << "| ìºë¦­í„° ì´ë¦„ì„ ì„¤ì •í•˜ì„¸ìš” |" << endl;
-	cin >>   name;
+	cout << "| Ä³¸¯ÅÍ ÀÌ¸§À» ¼³Á¤ÇÏ¼¼¿ä |" << endl;
+	cin >> name;
 	cout << endl;
 	Character character(name);
-	cout << "============================= ìºë¦­í„° ìƒì„± ì™„ë£Œ =======================================" << endl;
-	cout << "  ì´ë¦„: " << character.getName() << ", ë ˆë²¨:" << character.getLevel() << ", ì²´ë ¥ : " << character.getHealth() << ", ê³µê²©ë ¥ : " << character.getAttack() << endl;
+	cout << "============================= Ä³¸¯ÅÍ »ı¼º ¿Ï·á =======================================" << endl;
+	cout << "  ÀÌ¸§: " << character.getName() << ", ·¹º§:" << character.getLevel() << ", Ã¼·Â : " << character.getHealth() << ", °ø°İ·Â : " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
-    gameManager.generateMonster(character.getLevel());
-    gameManager.battle(&character);
+	gameManager.generateMonster(character.getLevel());
+	gameManager.battle(&character);
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
-		cout << "\n================================= í–‰ë™ì„ íƒ ===========================================" << endl;
-		cout << "  1. [ë°°í‹€] \n  2. [ìŠ¤íƒ¯ë³´ê¸°] \n  3. [ì¸ë²¤í† ë¦¬ í™•ì¸í•˜ê¸°] \n  4. [ëª¬ìŠ¤í„° ì²˜ì¹˜ ë¡œê·¸ í™•ì¸í•˜ê¸°] \n  0. [ê²Œì„ì¢…ë£Œ]" << endl;
+		cout << "\n================================= Çàµ¿¼±ÅÃ ===========================================" << endl;
+		cout << "  1. [¹èÆ²] \n  2. [½ºÅÈº¸±â] \n  3. [ÀÎº¥Åä¸® È®ÀÎÇÏ±â] \n  4. [¸ó½ºÅÍ Ã³Ä¡ ·Î±× È®ÀÎÇÏ±â] \n  0. [°ÔÀÓÁ¾·á]" << endl;
 		cout << "======================================================================================" << endl;
 		int select;
 		cin >> select;
@@ -34,8 +34,8 @@ int main() {
 			//
 			character.showStatus();
 			break;
-		case 3: 
-			//ì¸ë²¤í† ë¦¬ í™•ì¸
+		case 3:
+			//ÀÎº¥Åä¸® È®ÀÎ
 			gameManager.displayInventory(&character);
 			break;
 		case 4:
@@ -45,12 +45,12 @@ int main() {
 			isContinue = false;
 			break;
 		default:
-			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
+			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
 			break;
 
 		}
 
 		//cin.get();
 	}
-	return 0; 
+	return 0;
 }
