@@ -3,7 +3,7 @@
 #include <string>
 #include "Character.h"
 #include "Item.h"
-
+#include "Monster.h"
 using namespace std;
 
 
@@ -63,36 +63,22 @@ vector<Item*> Character::getInventory()
 
 void Character::takeDamage(int damage)
 {
+	if (isAlive == false) { return ; }
 	_Health -= damage;
-	if (_Health < 0)
-	{
+
+	cout << "  " << "\033[1;32m" << _Name << "에게 " << damage << "의 데미지를 주었습니다!" << "\033[0m" << std::endl;
+	if (_Health <= 0)
+	{	
+		isAlive = false;
 		_Health = 0;
+	}
+	else 
+	{
+		cout << "  " << _Name << "의 남은 체력 : " << getHealth() << endl;
 	}
 }
 
-//void Character::addExp()
-//{
-//	if (_Level < 10)
-//	{
-//		_Experence += 50;
-//		levelup();
-//	}
-//	else
-//	{
-//		_Experence = 0;
-//	}
-//}
 
-
-
-//int Character:: characterdie()
-//{
-//	if (_Health <= 0)
-//	{
-//		cout << "캐릭터가 사망하여 게임이 종료됩니다" << endl;
-//		return 0;
-//	}
-//}
 
 void Character:: addItem(Item* item)
 {
@@ -120,7 +106,23 @@ void Character ::setisBoosted(int boost)
 	_isBoosted = boost;
 }
 
-
+int Character:: AttackMonster(Monster*monster)
+{
+	if (monster == nullptr) 
+	{
+		return 2; 
+	}
+	cout << "\n  " << "\033[1;31m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
+	monster->takeDamage(getAttack());
+	if(monster->getHealth()<=0)
+	{
+		return 0;
+	}
+	else 
+	{
+		return 1;
+	}
+}
 
 
 void Character::levelup()
@@ -174,8 +176,3 @@ void Character::showStatus()const
 	cout << "  현재 경험치 [ " << _Experence << " ] " << endl;
 }
 
-
-//int main()
-//{
-//	Character a("Yahoo");
-//}
