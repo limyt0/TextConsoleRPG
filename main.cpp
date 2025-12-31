@@ -9,7 +9,17 @@ using namespace std;
 int main() {
 	string name;
 	cout << "| 캐릭터 이름을 설정하세요 |" << endl;
-	cin >> name;
+	//cin.ignore();
+	bool isNameEmpty = false;
+	while (!isNameEmpty) {
+		getline(cin, name);
+		if (name.empty()) {
+			cout << "\033[1;31m" << "[Error] 캐릭터 이름을 다시 입력해주세요." << "\033[0m" << endl;
+		}
+		else {
+			isNameEmpty = true;
+		}
+	}
 	cout << endl;
 	Character character(name);
 	cout << "============================= 캐릭터 생성 완료 =======================================" << endl;
