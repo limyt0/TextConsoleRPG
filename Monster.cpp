@@ -45,7 +45,7 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 	}
 
 	int Monster::attackPlayer(Character* player) {
-		if (player == nullptr) return 0; // 플레이어가 null인지 확인
+		if (player == nullptr) return 2; // 플레이어가 null인지 확인
 
 		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack()); // 플레이어 공격
