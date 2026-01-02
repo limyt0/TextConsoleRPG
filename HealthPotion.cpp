@@ -6,6 +6,7 @@ using namespace std;
 
 HealthPotion::HealthPotion() : name("HealthPotion"), healthRestore(50), price(30) {}
 
+HealthPotion::HealthPotion(const HealthPotion& other) : name(other.name), healthRestore(other.healthRestore), price(other.price) {}
 	
 string HealthPotion::getName()
 {

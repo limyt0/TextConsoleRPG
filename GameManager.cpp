@@ -1,10 +1,7 @@
 #include "GameManager.h"
 #include <iostream>
 
-
 using namespace std;
-
-
 
 GameManager::GameManager() :isGameOver(false), monster(nullptr) {
     killCount.insert({ "고블린", 0 });
@@ -57,30 +54,21 @@ void GameManager::battle(Character* player) {
         if (monster == nullptr) {
             break;
         }
-        monster->takeDamage(player->getAttack());
-        if (monster->getHealth() > 0) {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 체력 [" << monster->getHealth() << "]" << endl;
-        }
-        // 몬스터 처치
-        else {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 처치!\n" << endl;
+        if (player->AttackMonster(monster) == 0) {
             if (killCount.find(monster->getName()) != killCount.end()) {
                 killCount[monster->getName()]++;
             }
-
             player->setExperence(player->getExperence() + monster->getExpReward());
             player->levelup();
-            player->setGold(player->getGold() + monster->getGoldReward());
-            //아이템포인터 = 몬스터포인터
+            player->setGold(player->getGold() + monster->getGoldReward());            
             Item* droppedItem = monster->dropItem();
             if (droppedItem != nullptr) {
                 player->addItem(droppedItem);
                 cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
             }
-            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "EXP] 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
-
+            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
             break;
-        }
+        }   
         size_t itemsize = player->getInventory().size();
         if (itemsize >= 1) {
 
@@ -98,14 +86,8 @@ void GameManager::battle(Character* player) {
                 player->useItem(itemindex);
             }
         }
-        player->takeDamage(monster->getAttack());
-        if (player->getHealth() > 0) {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력 [" << player->getHealth() << "]" << endl;
-        }
-        else {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: 0" << endl;
+        if (monster->attackPlayer(player) == 0) {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
-
             isGameOver = true;
             break;
         }
@@ -136,21 +118,7 @@ void GameManager::bossBattle(Character* player) {
         }
         // 몬스터 처치
         else {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 처치!\n" << endl;
-            if (killCount.find(monster->getName()) != killCount.end()) {
-                killCount[monster->getName()]++;
-            }
-
-            player->setExperence(player->getExperence() + monster->getExpReward());
-            player->levelup();
-            player->setGold(player->getGold() + monster->getGoldReward());
-            Item* droppedItem = monster->dropItem();
-            if (droppedItem != nullptr) {
-                player->addItem(droppedItem);
-                cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
-            }
-            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "EXP] 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
-
+            isGameOver = true;
             break;
         }
         int itemsize = player->getInventory().size();
@@ -170,14 +138,8 @@ void GameManager::bossBattle(Character* player) {
                 player->useItem(itemindex);
             }
         }
-        player->takeDamage(monster->getAttack());
-        if (player->getHealth() > 0) {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력 [" << player->getHealth() << "]" << endl;
-        }
-        else {
-            cout << "  " << monster->getName() << "이(가) " << player->getName() << "을(를) 공격합니다! " << player->getName() << " 체력: 0" << endl;
+        if (monster->attackPlayer(player) == 0) {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
-
             isGameOver = true;
             break;
         }
@@ -190,26 +152,41 @@ void GameManager::bossBattle(Character* player) {
     }
 }
 
-void GameManager::useShop(int input, Character* player) {
+void GameManager::useShop(Character* player) {
     Shop* shop = new Shop();
     bool isContinue = true;
-    while(isContinue)
-    switch (input) {
-    // 물건 구매
-    case 1:
-        buyItem(shop, player);
-        break;
-    // 물건 판매
-    case 2:
-        sellItem(shop, player);
-        break;
-    // 상점 나가기
-    case 3:
-        cout << "상점을 나갑니다." << endl;
-        isContinue = false;
-        break;
-    default:
-        break;
+    while (isContinue) {
+        cout << "\n================================= 상점 ===========================================" << endl;
+        cout << "  1. [물건 구매] \n  2. [물건 판매] \n  3. [상점 나가기] " << endl;
+        cout << "======================================================================================" << endl;
+        string select;
+        cin >> select;
+        int shopnum = -1;
+        try {
+            shopnum = stoi(select);
+        }
+        catch (const std::invalid_argument& e) {
+            cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+            continue;
+        }
+
+        switch (shopnum) {
+        // 물건 구매
+        case 1:
+            buyItem(shop, player);
+            break;
+        // 물건 판매
+        case 2:
+            sellItem(shop, player);
+            break;
+        // 상점 나가기
+        case 3:
+            cout << "상점을 나갑니다." << endl;
+            isContinue = false;
+            break;
+        default:
+            break;
+        }
     }
     return;
 }
@@ -217,9 +194,13 @@ void GameManager::useShop(int input, Character* player) {
 void GameManager::buyItem(Shop* shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
-        for (int i = 0; i < /*상점 아이템 리스트 크기*/; i++) {
-            cout << i+1 << ": " << /*상점 아이템 리스트*/[i]->getName() << endl;
+        cout << "\n================================= 아이템 리스트 ===========================================" << endl;
+        for (int i = 0; i < shop->getSellList().size(); i++) {
+            cout << i+1 << ": " << shop->getSellList()[i]->getName() << endl;
         }
+        cout << "0. [구매 취소하기]" << endl;
+        cout << "======================================================================================" << endl;
+
         string select;
         cin >> select;
         int a = -1;
@@ -231,19 +212,33 @@ void GameManager::buyItem(Shop* shop, Character* player) {
             continue;
         }
         cout << endl;
+        Item* it;
         switch (a) {
-        case  1:
-            cout << shop->buyItem(0, player) << " 구매" << endl;
-            break;
-        case 2:
-            cout << shop->buyItem(1, player) << " 구매" << endl;
-            break;
-        case 0:
-            isContinue = false;
-            break;
-        default:
-            cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
-            break;
+            case  1:
+                it = shop->buyItem(0, player);
+                if (it == nullptr) {
+                    cout << "돈이 부족합니다." << endl;
+                }
+                else {
+                    cout << it->getName() << " 구매" << endl;
+                }            
+                break;
+            case 2:
+                it = shop->buyItem(1, player);
+                if (it == nullptr) {
+                    cout << "돈이 부족합니다." << endl;
+                }
+                else {
+                    cout << it->getName() << " 구매" << endl;
+                }
+                break;
+            case 0:
+                //cout << "iscon: " << isContinue << endl;
+                isContinue = false;
+                break;
+            default:
+                cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
+                break;
         }
     }
     return;
@@ -252,9 +247,15 @@ void GameManager::buyItem(Shop* shop, Character* player) {
 void GameManager::sellItem(Shop * shop, Character* player) {
     bool isContinue = true;
     while (isContinue) {
+        cout << "\n================================= 인벤토리 ===========================================" << endl;
+
         for (int i = 0; i < player->getInventory().size(); i++) {
-            cout << i+1 << ": " << player->getInventory()[i]->getName() << endl;
+            cout << "  " << i + 1 << ". [" << player->getInventory()[i]->getName() << "]" << endl;
         }
+
+        cout << "  0. [판매 취소하기]" << endl;
+        cout << "======================================================================================" << endl;
+
         string select;
         cin >> select;
         int a = -1;
@@ -266,6 +267,8 @@ void GameManager::sellItem(Shop * shop, Character* player) {
             continue;
         }
         cout << endl;
+
+        //cout << "item index: " << a << endl;
         if (a > player->getInventory().size()) {
             cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
         }

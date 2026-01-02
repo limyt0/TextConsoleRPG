@@ -31,7 +31,7 @@ public:
     // 보스 배틀
     void bossBattle(Character* player);
     // 상점 이용
-    void useShop(int input, Character* player);
+    void useShop(Character* player);
     // 아이템 구매
     void buyItem(Shop* shop, Character* player);
     // 아이템 판매

@@ -8,10 +8,14 @@ class HealthPotion : public Item
 {
 public:
 	HealthPotion();
+	HealthPotion(const HealthPotion& other);
 
 	std::string getName() override;
 	void use(Character* character) override;
 	int getPrice();
+	Item* clone() const override{
+		return new HealthPotion(*this);
+	}
 
 
 private:
