@@ -95,18 +95,18 @@ void GameManager::battle(Character* player)
                 player->useItem(itemindex);
             }
         }
-        monster->attackPlayer();
-        if (monster->attackPlayer() == 0) // 플레이어 사망
+        int monsterAttack = monster->attackPlayer();
+        if (monsterAttack == 0) // 플레이어 사망
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
             break;
         }
-        else if (monster->attackPlayer() == 3) // 몬스터 도망
+        else if (monsterAttack == 3) // 몬스터 도망
         {
             break;
         }
-        else if (monster->attackPlayer() == 2) // 플레이어가 nullptr
+        else if (monsterAttack == 2) // 플레이어가 nullptr
         {
             cout << "  error. 플레이어가 존재하지 않습니다." << endl;
             break;
