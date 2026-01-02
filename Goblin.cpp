@@ -1,5 +1,4 @@
 #include "Goblin.h"
-#include "windows.h"
 
 Goblin::Goblin(Character* player) : Monster("고블린", player) {
     Attack += player->getLevel(); // 고블린 추가 공격력 보너스
@@ -17,7 +16,6 @@ int Goblin::attackPlayer() {
             int stolenTarget = (dist(gen) % 50) + 10; // 목표 금액 10~60
 
             if (player->getGold() >= stolenTarget) {
-                Sleep(500);
                 stolenGoldAmount = stolenTarget;
                 // 충분히 훔쳤을 때
                 player->setGold(player->getGold() - stolenTarget);
@@ -41,9 +39,8 @@ int Goblin::attackPlayer() {
         player->takeDamage(getAttack()); // 일반 공격 (분노 시 즉시 적용됨)
     }
     else {
-        Sleep(500);
         if (isEnraged) {
-            std::cout << "  " << Name << "이(가) 눈이 벌게진 채 날뜁니다!" << std::endl;
+            std::cout << "\n  " << Name << "이(가) 눈이 벌게진 채 날뜁니다!" << std::endl;
             player->takeDamage(getAttack());
         }
         else {
@@ -64,7 +61,6 @@ int Goblin::attackPlayer() {
 
 void Goblin::onDeath() {
     if (player == nullptr) return;
-    Sleep(500);
     std::cout << "\n\n\033[1;33m  " << Name << "을(를) 처치했다!\033[0m" << std::endl;
     if (hasStolen) {
         if (isEnraged) {
