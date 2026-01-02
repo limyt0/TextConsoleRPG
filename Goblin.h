@@ -9,10 +9,10 @@ private:
 	bool isEnraged = false; // 분노 상태 여부
 	int stolenGoldAmount = 0; // 훔친 골드 양
 public:
-	Goblin(int playerLevel);
+	Goblin(Character* player);
 
-	virtual int attackPlayer(Character* player) override;
-	
-	virtual void onDeath(Character* player) override;
+	virtual int attackPlayer() override;
+
+	virtual void onDeath() override;
 };
 

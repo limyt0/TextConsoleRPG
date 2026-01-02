@@ -5,15 +5,16 @@
 
 
 // 몬스터 생성자 스탯 랜덤 생성
-Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
+Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true) {
+	this->player = player;
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
 	
 	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
-	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
+	std::uniform_int_distribution<int> healthDist(player -> getLevel() * 20, player->getLevel() * 30);
 	Health = healthDist(gen);
 
-	std::uniform_int_distribution<int> attackDist(playerLevel * 5, playerLevel * 10);
+	std::uniform_int_distribution<int> attackDist(player->getLevel() * 5, player->getLevel() * 10);
 	Attack = attackDist(gen);
 }
 
@@ -44,7 +45,11 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		}
 	}
 
-	int Monster::attackPlayer(Character* player) {
+
+
+
+
+	int Monster::attackPlayer() {
 		if (player == nullptr) return 2; // 플레이어가 null인지 확인
 
 		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;

@@ -1,30 +1,34 @@
 #include "Slime.h"
 #include "Character.h"
 
-int Slime::attackPlayer(Character* player) {
+
+
+Slime::Slime(Character* player) : Monster("ìŠ¬ë¼ì„", player) {}
+
+int Slime::attackPlayer() {
 	if (player == nullptr || player->getHealth() <= 0) return 2;
 
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(1, 100);
 
-	cout << "\n  " << "\033[1;31m" << Name << "ÀÌ(°¡) " << player->getName() << "¿¡°Ô ³¯¶óµì´Ï´Ù!" << "\033[0m" << std::endl;
-
 	if (!isGlued) {
-		if(dist(gen) <= 30) { // 30% È®·ü·Î ´Ş¶óºÙ±â ½Ãµµ
-			isGlued = true;
-			std::cout << "\n  " << "\033[1;33m" << Name << "ÀÌ " << player->getName() << "¿¡°Ô ´Ş¶óºÙ¾ú½À´Ï´Ù!" << "\033[0m" << std::endl;
-		}
+		cout << "\n  " << "\033[1;31m" << Name << "ì´(ê°€) " << player->getName() << "ì—ê²Œ ë‚ ë¼ë“­ë‹ˆë‹¤!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack());
+		if(dist(gen) <= 30) { // 30% í™•ë¥ ë¡œ ë‹¬ë¼ë¶™ê¸° ì‹œë„
+			isGlued = true;
+			std::cout << "\n  " << "\033[1;33m" << Name << "ì´ " << player->getName() << "ì—ê²Œ ë‹¬ë¼ë¶™ì—ˆìŠµë‹ˆë‹¤!" << "\033[0m" << std::endl;
+		}
+		
 	}
 	else
 	{
-		std::cout << "  " << Name << "ÀÌ(°¡) ´Ş¶óºÙ¾î ÀÖ½À´Ï´Ù!" << std::endl;
+		std::cout << "  " << Name << "ì´(ê°€) ë‹¬ë¼ë¶™ì–´ ìˆìŠµë‹ˆë‹¤!" << std::endl;
 		player->takeDamage(getAttack());
-		// ´Ş¶ó ºÙÀº ÈÄ ¶¼¾î³»±â ½Ãµµ 50%
+		// ë‹¬ë¼ ë¶™ì€ í›„ ë–¼ì–´ë‚´ê¸° ì‹œë„ 50%
 		if (dist(gen) <= 50 && player->getHealth() > 0) {
 			isGlued = false;
-			std::cout << player->getName() << "ÀÌ ¸öÀ» Èçµé¾î " << Name << "À»(¸¦) ¶¼¾î³Â½À´Ï´Ù!" << std::endl;
+			std::cout << "\n" << "\033[1;32" << player->getName() << "ì´ ëª¸ì„ í”ë“¤ì–´ " << Name << "ì„(ë¥¼) ë–¼ì–´ëƒˆìŠµë‹ˆë‹¤!" << "\033[0m" << std::endl;
 		}
 	}
 	player->setCanAttack(!isGlued);
@@ -33,5 +37,5 @@ int Slime::attackPlayer(Character* player) {
 
 void Slime::onDeath() {
 	isGlued = false;
-	std::cout << "\n\n\033[1;33m  " << Name << "À»(¸¦) ¹°¸®ÃÆ´Ù!\033[0m" << std::endl;
+	std::cout << "\n\n\033[1;33m  " << Name << "ì„(ë¥¼) ë¬¼ë¦¬ì³¤ë‹¤!\033[0m" << std::endl;
 }
