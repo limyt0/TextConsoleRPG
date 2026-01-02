@@ -60,4 +60,5 @@ public:
 	void setGold(int gold);
 	void showStatus()const;
 	void setisBoosted(int boost);
+	void setBossSkill();
 };
