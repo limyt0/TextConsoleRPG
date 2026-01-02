@@ -2,6 +2,7 @@
 #include "HealthPotion.h"
 #include "AttackBoost.h"
 #include "Character.h"
+#include "Windows.h"
 
 
 // 몬스터 생성자 스탯 랜덤 생성
@@ -32,7 +33,7 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 	void Monster::takeDamage(int damage) {
 		if (isAlive == false) {return;} // 이미 사망한 몬스터인지 확인
-
+		Sleep(500);
 		Health -= damage;
 		cout << "  " << "\033[1;32m" << Name << "에게 " << damage << "의 데미지를 주었습니다!" << "\033[0m" << std::endl;
 		if (Health <= 0) {
@@ -51,7 +52,7 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 	int Monster::attackPlayer() {
 		if (player == nullptr) return 2; // 플레이어가 null인지 확인
-
+		Sleep(500);
 		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack()); // 플레이어 공격
 
@@ -67,6 +68,7 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 
 	void Monster::onDeath() {
+		Sleep(500);
 		std::cout << "\n  " << Name << "이(를) 처치했다!" << std::endl;
 	}
 
