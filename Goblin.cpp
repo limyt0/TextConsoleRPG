@@ -40,7 +40,7 @@ int Goblin::attackPlayer() {
     }
     else {
         if (isEnraged) {
-            std::cout << "  " << Name << "ÀÌ(°¡) ´«ÀÌ ¹ú°ÔÁø Ã¤ ³¯¶Ý´Ï´Ù!" << std::endl;
+            std::cout << "\n  " << Name << "ÀÌ(°¡) ´«ÀÌ ¹ú°ÔÁø Ã¤ ³¯¶Ý´Ï´Ù!" << std::endl;
             player->takeDamage(getAttack());
         }
         else {
@@ -61,7 +61,7 @@ int Goblin::attackPlayer() {
 
 void Goblin::onDeath() {
     if (player == nullptr) return;
-
+    std::cout << "\n\n\033[1;33m  " << Name << "À»(¸¦) Ã³Ä¡Çß´Ù!\033[0m" << std::endl;
     if (hasStolen) {
         if (isEnraged) {
             player->setGold(player->getGold() + stolenGoldAmount);

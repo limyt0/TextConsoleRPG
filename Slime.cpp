@@ -37,5 +37,5 @@ int Slime::attackPlayer() {
 
 void Slime::onDeath() {
 	isGlued = false;
-	std::cout << "\n\n\033[1;33m  " << Name << "을(를) 물리쳤다!\033[0m" << std::endl;
+	std::cout << "\n\n\033[1;33m  " << Name << "을(를) 처치했다!\033[0m" << std::endl;
 }

@@ -5,5 +5,8 @@ class Troll : public Monster
 {
 public:
 	Troll(Character* player);
+
+	void takeDamage(int damage) override;
+
 };
 
