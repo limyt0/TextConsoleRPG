@@ -108,7 +108,6 @@ void Character::setCanAttack(bool setattack)
 	_canAttack = setattack;
 }
 
-
 void Character::takeDamage(int damage)
 {
 	if (isAlive == false) { return; }
@@ -186,6 +185,7 @@ void Character::setHealth(int health)
 {
 	_Health = health;
 }
+
 void Character::setSkill()
 {
 	int num = disd(gend);
@@ -212,6 +212,7 @@ void Character::setSkill()
 		cout << "\033[1;34m" << "  강타!" << "\033[0m" << endl;
 	}
 }
+
 void Character::setAttack(int attack)
 {
 
@@ -239,6 +240,38 @@ void Character::showStatus()const
 	cout << "  현재  체력  [ " << _Health << " ] " << endl;
 	cout << "  현재  골드  [ " << _Gold << " ] " << endl;
 	cout << "  현재 경험치 [ " << _Experence << " ] " << endl;
+}
+
+//어택보스함수따로만들기
+int Character::AttackBossMonster(Monster* monster)
+{
+
+	if (getCanAttack() == false)
+	{
+		cout << _Name << "이(가)" << "공격할수없습니다" << endl;
+		return 4;
+	}
+
+	if (monster == nullptr)
+	{
+		return 2;
+	}
+	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
+	int temp = getAttack();
+	setBossSkill();
+	monster->takeDamage(getAttack());
+	_UsingSkill = false;
+	setAttack(temp);
+	if (monster->getHealth() <= 0)
+	{
+		return 0;
+	}
+
+	else
+	{
+		return 1;
+	}
+
 }
 
 void Character::setBossSkill()
