@@ -95,10 +95,15 @@ void GameManager::battle(Character* player)
                 player->useItem(itemindex);
             }
         }
-        if (monster->attackPlayer(player) == 0)
+        int monsterAttack = monster->attackPlayer(player);
+        if (monsterAttack == 0) // 플레이어 사망
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
+            break;
+        }
+        else if (monsterAttack == 3) // 몬스터 도망
+        {
             break;
         }
     }
@@ -319,7 +324,7 @@ void GameManager::sellItem(Shop * shop, Character* player)
     return;
 }
 
-void GameManager::displayInventory(Character* player)
+void GameManager::displayInventory(Character* player) const
 {
     if (player == nullptr) return;
 
@@ -336,7 +341,7 @@ void GameManager::displayInventory(Character* player)
     cout << endl;
 }
 
-void GameManager::displayKillCount(Character* player)
+void GameManager::displayKillCount(Character* player) const
 {
     if (player == nullptr) return;
 
