@@ -31,11 +31,12 @@ int Goblin::attackPlayer() {
                 hasStolen = true;
                 isEnraged = true; // 분노 true 설정
 
-                std::cout << "\n  \033[1;33m " << Name << "이(가) " << actualStolen << " 골드만 훔친 것에 분노했습니다!\033[0m" << std::endl;
+                std::cout << "\n  \033[1;33m" << Name << "이(가) " << actualStolen << " 골드만 훔친 것에 분노했습니다!\033[0m" << std::endl;
                 Attack += stolenGoldAmount; // 못 훔친 만큼 공격력 상승
-                std::cout << "  \033[1;31m " << Name << "의 공격력이 " << stolenGoldAmount << "만큼 증가! (현재: " << Attack << ")\033[0m" << std::endl;
+                std::cout << "  \033[1;31m" << Name << "의 공격력이 " << stolenGoldAmount << "만큼 증가! (현재: " << Attack << ")\033[0m" << std::endl;
             }
         }
+        cout << "\n  " << "\033[1;31m" << Name << "이 당신을 공격합니다!" << "\033[0m" << std::endl;
         player->takeDamage(getAttack()); // 일반 공격 (분노 시 즉시 적용됨)
     }
     else {
@@ -49,7 +50,7 @@ int Goblin::attackPlayer() {
             player->takeDamage(getAttack() / 2); // 도망 준비로 약해진 공격
 
             if (dist(gen) <= 30) {
-                std::cout << "  \033[1;35m[도주] " << Name << "이(가) 숲속으로 도망쳤습니다!\033[0m" << std::endl;
+                std::cout << "  \033[1;35m[도주] " << Name << "이(가) 당신을 조롱하며 도망쳤습니다!\033[0m" << std::endl;
                 Health = 0;
                 return 3; // 도망 성공 리턴
             }

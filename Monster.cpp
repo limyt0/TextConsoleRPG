@@ -50,7 +50,7 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 	int Monster::attackPlayer() {
 		if (player == nullptr) return 2; // 플레이어가 null인지 확인
-		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
+		cout << "\n  " << "\033[1;31m" << Name << "이 당신을 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack()); // 플레이어 공격
 
 		if (player->getHealth() <= 0) //플레이어의 체력이 0 이하인지 확인
@@ -83,10 +83,10 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 	   switch (choice) {
 
-	   case 1: std::cout << "  " << Name << "이(가) 체력포션을 드랍했다!" << std::endl;
+	   case 1: std::cout << "  \033[1;34m" << Name << "이(가) 체력포션을 떨어뜨렸다!\033[0m" << std::endl;
 		   return new HealthPotion();
 
-	   case 2: std::cout << "  " << Name << "이(가) 공격력 포션을 드랍했다!" << std::endl;
+	   case 2: std::cout << "  \033[1;34m" << Name << "이(가) 공격력 포션을 떨어뜨렸다!\033[0m" << std::endl;
 		   return new AttackBoost();	
 
 	   default: return nullptr;

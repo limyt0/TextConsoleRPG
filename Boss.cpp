@@ -3,9 +3,9 @@
 #include <chrono>
 #include "Character.h"
 
-Boss::Boss(Character* player) : Monster("보스 몬스터", player)
+Boss::Boss(Character* player) : Monster("마왕 루시퍼", player)
 {
-	Health += player->getLevel() * 70; // 보스 추가 체력 보너스
+	Health += player->getLevel() * 100; // 보스 추가 체력 보너스
 	Attack += player->getLevel() * 20;  // 보스 추가 공격력 보너스
 }
 
@@ -15,10 +15,10 @@ Boss::Boss(Character* player) : Monster("보스 몬스터", player)
 
 void Boss::onDeath() {
 
-	std::cout << "\n\n\033[1;33m BOSS : " << Name << "를 물리쳤다! \033[0m" << std::endl;
+	std::cout << "\n\n\033[1;33m 당신은 " << Name << " 를 물리쳤다! \033[0m" << std::endl;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
-	std::cout << "\n  세상에 평화가 찾아왔습니다..." << std::endl;
+	std::cout << "\n  당신은 세상의 평화를 되찾았다..." << std::endl;
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	// 엔딩 크레딧 연출
