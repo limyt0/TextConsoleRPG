@@ -8,7 +8,7 @@ Troll::Troll(Character* player) : Monster("트롤", player) {
 }
 
 
-void Monster::takeDamage(int damage) {
+void Troll::takeDamage(int damage) {
 	if (isAlive == false) { return; } // 이미 사망한 몬스터인지 확인
 	Health -= damage;
 	cout << "  " << "\033[1;32m" << Name << "에게 " << damage << "의 데미지를 주었습니다!" << "\033[0m" << std::endl;
