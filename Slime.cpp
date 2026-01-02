@@ -1,21 +1,29 @@
 #include "Slime.h"
 #include "Character.h"
 
-int Slime::attackPlayer(Character* player) {
+
+
+Slime::Slime(Character* player) : Monster("슬라임", player) {}
+
+int Slime::attackPlayer() {
 	if (player == nullptr || player->getHealth() <= 0) return 2;
 
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(1, 100);
 
-	cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "에게 날라듭니다!" << "\033[0m" << std::endl;
-
 	if (!isGlued) {
+		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "에게 날라듭니다!" << "\033[0m" << std::endl;
+
 		if(dist(gen) <= 30) { // 30% 확률로 달라붙기 시도
 			isGlued = true;
 			std::cout << "\n  " << "\033[1;33m" << Name << "이 " << player->getName() << "에게 달라붙었습니다!" << "\033[0m" << std::endl;
+			player->takeDamage(getAttack());
 		}
-		player->takeDamage(getAttack());
+		else {
+			player->takeDamage(getAttack());
+		}
+		
 	}
 	else
 	{

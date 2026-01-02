@@ -7,9 +7,9 @@ private:
 	bool isGlued = false; // 플레이어가 붙잡혔는지 여부
 
 public:
-	Slime(int playerLevel) : Monster("슬라임", playerLevel) {}
+	Slime(Character* player);
 
-	virtual int attackPlayer(Character* player) override;
+    virtual int attackPlayer() override;
 
 	virtual void onDeath() override;
 };

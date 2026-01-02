@@ -4,5 +4,5 @@
 class Orc : public Monster
 {
 public:
-	Orc(int playerLevel);
+	Orc(Character* player);
 };

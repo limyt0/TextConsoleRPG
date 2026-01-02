@@ -11,7 +11,7 @@ GameManager::GameManager() :isGameOver(false), monster(nullptr)
     killCount.insert({ "슬라임", 0 });
 };
 
-Monster* GameManager::generateMonster(int level) 
+Monster* GameManager::generateMonster(Character* player) 
 {
     random_device rd1;   // 난수 시드
     mt19937 gen(rd1());  // Mersenne Twister 엔진
@@ -23,24 +23,24 @@ Monster* GameManager::generateMonster(int level)
     switch (monsterNumber)
     {
     case(1):
-        monster = new Goblin(level);
+        monster = new Goblin(player);
         break;
     case(2):
-        monster = new Orc(level);
+        monster = new Orc(player);
         break;
     case(3):
-        monster = new Troll(level);
+        monster = new Troll(player);
         break;
     case(4):
-        monster = new Slime(level);
+        monster = new Slime(player);
         break;
     }
     return monster;
 }
 
-Monster* GameManager::generateBossMonster(int level)
+Monster* GameManager::generateBossMonster(Character* player)
 {
-    monster = new Boss(level);
+    monster = new Boss(player);
     return monster;
 }
 
@@ -95,17 +95,22 @@ void GameManager::battle(Character* player)
                 player->useItem(itemindex);
             }
         }
-        int monsterAttack = monster->attackPlayer(player);
-        if (monsterAttack == 0) // 플레이어 사망
+        monster->attackPlayer();
+        if (monster->attackPlayer() == 0) // 플레이어 사망
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
             break;
         }
-        else if (monsterAttack == 3) // 몬스터 도망
+        else if (monster->attackPlayer() == 3) // 몬스터 도망
         {
             break;
         }
+        else if (monster->attackPlayer() == 2) // 플레이어가 nullptr
+        {
+            cout << "  error. 플레이어가 존재하지 않습니다." << endl;
+            break;
+		}
     }
     delete monster;
     monster = nullptr;
@@ -159,7 +164,7 @@ void GameManager::bossBattle(Character* player)
                 player->useItem(itemindex);
             }
         }
-        if (monster->attackPlayer(player) == 0)
+        if (monster->attackPlayer() == 0)
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
