@@ -241,3 +241,29 @@ void Character::showStatus()const
 	cout << "  현재 경험치 [ " << _Experence << " ] " << endl;
 }
 
+void Character::setBossSkill()
+{
+	int num = disd(gend);
+	if (num <= 10)
+	{
+		_UsingSkill = true;
+		_Skill->setFinisher(getAttack());
+		_Attack = _Skill->getFinisher();
+		cout << "\033[1;34m" << "  강력한 내려찍기" << "\033[0m" << endl;
+	}
+	else if (10< num && num <= 35)
+	{
+		_UsingSkill = true;
+		_Skill->setCleave(getAttack());
+		_Attack = _Skill->getCleave();
+		cout << "\033[1;34m" << "  회전베기" << "\033[0m" << endl;
+
+	}
+	else if (35 < num && num <= 60)
+	{
+		_UsingSkill = true;
+		_Skill->setStrike(getAttack());
+		_Attack = _Skill->getStrike();
+		cout << "\033[1;34m" << "  강타!" << "\033[0m" << endl;
+	}
+}
