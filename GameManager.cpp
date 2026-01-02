@@ -58,6 +58,7 @@ void GameManager::battle(Character* player)
     while (true)
     {
         if (monster == nullptr) break;
+        Sleep(1000);
         int playerAttack = player->AttackMonster(monster);
         Sleep(1000);
         if (playerAttack == 0) // 몬스터 사망
@@ -124,19 +125,38 @@ void GameManager::bossBattle(Character* player)
     while (true)
     {
         if (monster == nullptr) break;
-        monster->takeDamage(player->getAttack());
-        if (monster->getHealth() > 0)
+        Sleep(1000);
+        int playerAttack = player->AttackBossMonster(monster);
+        if (playerAttack == 0) // 몬스터 사망
         {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 체력 [" << monster->getHealth() << "]" << endl;
+            if (killCount.find(monster->getName()) != killCount.end())
+            {
+                killCount[monster->getName()]++;
+            }
+            Item* droppedItem = monster->dropItem();
+            if (droppedItem != nullptr)
+            {
+                player->addItem(droppedItem);
+                cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
+                Sleep(1000);
+            }
+            player->setExperence(player->getExperence() + monster->getExpReward());
+            int gold = monster->getGoldReward();
+            player->setGold(player->getGold() + gold);
+            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << gold << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl << endl;
+            Sleep(1000);
+            player->levelup();
+            break;
         }
-        // 몬스터 처치
-        else
+        else if (playerAttack == 2) // 몬스터가 nullptr
         {
-            isGameOver = true;
+            cout << "  error. 몬스터가 존재하지 않습니다." << endl;
             break;
         }
         useRandomItem(player);
+        Sleep(1000);
         int monsterAttack = monster->attackPlayer();
+        Sleep(1000);
         if (monsterAttack == 0)
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
