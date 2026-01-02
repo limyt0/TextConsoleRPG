@@ -83,7 +83,7 @@ void Character::takeDamage(int damage)
 	if (isAlive == false) { return; }
 	_Health -= damage;
 	Sleep(500);
-	cout << "  " << "\033[1;31m" << _Name << "에게 " << damage << "의 데미지를 받았습니다!" << "\033[0m" << std::endl;
+	cout << "  " << "\033[1;31m" << damage << "의 데미지를 받았습니다!" << "\033[0m" << std::endl;
 	if (_Health <= 0)
 	{
 		isAlive = false;
