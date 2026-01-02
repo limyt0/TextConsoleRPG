@@ -5,7 +5,7 @@
 #include "Item.h"
 #include "Monster.h"
 #include "Skill.h"
-#include "Windows.h"
+
 using namespace std;
 
 random_device rdd;
@@ -82,7 +82,6 @@ void Character::takeDamage(int damage)
 {
 	if (isAlive == false) { return; }
 	_Health -= damage;
-	Sleep(500);
 	cout << "  " << "\033[1;31m" << damage << "의 데미지를 받았습니다!" << "\033[0m" << std::endl;
 	if (_Health <= 0)
 	{
@@ -133,8 +132,6 @@ int Character::AttackMonster(Monster* monster)
 	{
 		return 2;
 	}
-	Sleep(500);
-
 	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
 	int temp = getAttack();
 	setSkill();
@@ -218,7 +215,7 @@ void Character::setGold(int gold)
 
 void Character::showStatus()const
 {
-	cout << "================================ 캐릭터 정보 =========================================" << endl;
+	cout << "\n================================ 캐릭터 정보 =========================================" << endl;
 	cout << "  캐릭터 이름 [ " << _Name << " ] " << endl;
 	cout << "  현재  레벨  [ " << _Level << " ] " << endl;
 	cout << "  현재 공격력 [ " << _Attack << " ] " << endl;

@@ -24,7 +24,7 @@ private:
 	int _isBoosted;
 	bool _canAttack =true;
 	Skill* _Skill;
-	//여기에 넣을려면
+	
 
 public:
 	
