@@ -22,6 +22,7 @@ private:
 	vector<Item*> _inventory;
 	int _isBoosted;
 	
+	bool _canAttack =true;
 	
 
 public:
@@ -38,6 +39,12 @@ public:
 	bool isAlive = true;
 	vector<Item*> getInventory();
 	
+	bool getCanAttack()const;
+	void setCanAttack(bool setattack);
+
+
+
+
 	void takeDamage(int damage);
 	int AttackMonster(Monster* monster);
 
