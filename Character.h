@@ -24,7 +24,7 @@ private:
 	int _isBoosted;
 	bool _canAttack =true;
 	Skill* _Skill;
-	
+	bool _UsingSkill = false;
 
 public:
 	
@@ -42,8 +42,8 @@ public:
 	~Character();
 	bool getCanAttack()const;
 	void setCanAttack(bool setattack);
-
-
+	bool getUnsingSkill()const;
+	void seeUsingSkill();
 
 
 	void takeDamage(int damage);
