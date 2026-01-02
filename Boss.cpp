@@ -1,11 +1,12 @@
 #include "Boss.h"
 #include <thread>
 #include <chrono>
+#include "Character.h"
 
-Boss::Boss(int playerLevel) : Monster("보스 몬스터", playerLevel)
+Boss::Boss(Character* player) : Monster("보스 몬스터", player)
 {
-	Health += playerLevel * 70; // 보스 추가 체력 보너스
-	Attack += playerLevel * 20;  // 보스 추가 공격력 보너스
+	Health += player->getLevel() * 70; // 보스 추가 체력 보너스
+	Attack += player->getLevel() * 20;  // 보스 추가 공격력 보너스
 }
 
 //int Boss::attackPlayer(class Character* player) {
@@ -14,7 +15,7 @@ Boss::Boss(int playerLevel) : Monster("보스 몬스터", playerLevel)
 
 void Boss::onDeath() {
 
-	std::cout << "\n\n\033[1;33m BOSS : " << Name << "를 물리쳤다! ]\033[0m" << std::endl;
+	std::cout << "\n\n\033[1;33m BOSS : " << Name << "를 물리쳤다! \033[0m" << std::endl;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	std::cout << "\n  세상에 평화가 찾아왔습니다..." << std::endl;
@@ -22,6 +23,11 @@ void Boss::onDeath() {
 
 	// 엔딩 크레딧 연출
 	std::string credits[] = {
+		"  ",
+		"  ",
+		"  ",
+		"  ",
+		"  ",
 		"          --- ENDING CREDITS ---",
 		"          TextConsole RPG by 5조",
 		"  ",
@@ -47,6 +53,6 @@ void Boss::onDeath() {
 
 	for (const std::string& line : credits) {
 		std::cout << "      " << line << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(800)); // 0.8초 간격 출력
+		std::this_thread::sleep_for(std::chrono::milliseconds(600)); // 0.6초 간격 출력
 	}
 }

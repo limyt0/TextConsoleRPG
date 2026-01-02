@@ -3,7 +3,7 @@
 
 class Boss : public Monster {
 public:
-    Boss(int playerLevel);
+    Boss(Character* player);
 
     //virtual int attackPlayer(class Character* player) override;
 

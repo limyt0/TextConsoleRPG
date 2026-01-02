@@ -26,9 +26,9 @@ public:
     // 게임매니저 생성자
     GameManager();
     // 몬스터 생성
-    Monster* generateMonster(int level);
+    Monster* generateMonster(Character* player);
     // 보스 몬스터 생성
-    Monster* generateBossMonster(int level);
+    Monster* generateBossMonster(Character* player);
     // 배틀
     void battle(Character* player);
     // 보스 배틀

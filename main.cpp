@@ -25,7 +25,7 @@ int main() {
 	cout << "============================= 캐릭터 생성 완료 =======================================" << endl;
 	cout << "  이름: " << character.getName() << ", 레벨:" << character.getLevel() << ", 체력 : " << character.getHealth() << ", 공격력 : " << character.getAttack() << endl;
 	GameManager gameManager = GameManager();
-	gameManager.generateMonster(character.getLevel());
+	gameManager.generateMonster(&character);
 	gameManager.battle(&character);
 	bool isContinue = true;
 	while (!gameManager.getIsGameOver() && isContinue) {
@@ -46,11 +46,11 @@ int main() {
 		switch (a) {
 		case  1:
 			if (character.getLevel() >= 10) {
-				gameManager.generateBossMonster(character.getLevel());
+				gameManager.generateBossMonster(&character);
 				gameManager.bossBattle(&character);
 			}
 			else {
-				gameManager.generateMonster(character.getLevel());
+				gameManager.generateMonster(&character);
 				gameManager.battle(&character);
 			}
 			break;
