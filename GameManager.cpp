@@ -127,25 +127,10 @@ void GameManager::bossBattle(Character* player)
         if (monster == nullptr) break;
         Sleep(1000);
         int playerAttack = player->AttackBossMonster(monster);
+        Sleep(1000);
         if (playerAttack == 0) // ∏ÛΩ∫≈Õ ªÁ∏¡
         {
-            if (killCount.find(monster->getName()) != killCount.end())
-            {
-                killCount[monster->getName()]++;
-            }
-            Item* droppedItem = monster->dropItem();
-            if (droppedItem != nullptr)
-            {
-                player->addItem(droppedItem);
-                cout << "  " << player->getName() << "¿Ã(∞°) " << droppedItem->getName() << " «— ∞≥∏¶ »πµÊ«ﬂΩ¿¥œ¥Ÿ.\n" << endl;
-                Sleep(1000);
-            }
-            player->setExperence(player->getExperence() + monster->getExpReward());
-            int gold = monster->getGoldReward();
-            player->setGold(player->getGold() + gold);
-            cout << "  " << player->getName() << "¿Ã(∞°) [" << monster->getExpReward() << "] EXP øÕ [" << gold << "] ∞ÒµÂ∏¶ »πµÊ«ﬂΩ¿¥œ¥Ÿ. «ˆ¿Á EXP [" << player->getExperence() << " / 100], ∞ÒµÂ [" << player->getGold() << "]" << endl << endl;
-            Sleep(1000);
-            player->levelup();
+            isGameOver = true;
             break;
         }
         else if (playerAttack == 2) // ∏ÛΩ∫≈Õ∞° nullptr
