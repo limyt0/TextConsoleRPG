@@ -74,8 +74,10 @@ bool Character::getCanAttack()const
 
 int Character::AttackMonster(Monster* monster)
 {
+	
 	if (getCanAttack() == false)
 	{
+		cout <<_Name<<"이(가)"<< "공격할수없습니다" << endl;
 		return 4;
 	}
 
