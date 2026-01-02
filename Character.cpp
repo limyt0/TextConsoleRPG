@@ -117,6 +117,10 @@ void Character ::setisBoosted(int boost)
 
 int Character:: AttackMonster(Monster*monster)
 {
+	if(getCanAttack() == false)
+	{
+		return 4;
+	}
 	if (monster == nullptr) 
 	{
 		return 2; 
