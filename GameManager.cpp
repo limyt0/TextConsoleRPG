@@ -1,10 +1,7 @@
 #include "GameManager.h"
 #include <iostream>
 
-
 using namespace std;
-
-
 
 GameManager::GameManager() :isGameOver(false), monster(nullptr) {
     killCount.insert({ "고블린", 0 });
@@ -57,30 +54,21 @@ void GameManager::battle(Character* player) {
         if (monster == nullptr) {
             break;
         }
-        monster->takeDamage(player->getAttack());
-        if (monster->getHealth() > 0) {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 체력 [" << monster->getHealth() << "]" << endl;
-        }
-        // 몬스터 처치
-        else {
-            cout << "  " << player->getName() << "이(가) " << monster->getName() << "을(를) 공격합니다! " << monster->getName() << " 처치!\n" << endl;
+        if (player->AttackMonster(monster) == 0) {
             if (killCount.find(monster->getName()) != killCount.end()) {
                 killCount[monster->getName()]++;
             }
-
             player->setExperence(player->getExperence() + monster->getExpReward());
             player->levelup();
-            player->setGold(player->getGold() + monster->getGoldReward());
-            //아이템포인터 = 몬스터포인터
+            player->setGold(player->getGold() + monster->getGoldReward());            
             Item* droppedItem = monster->dropItem();
             if (droppedItem != nullptr) {
                 player->addItem(droppedItem);
                 cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
             }
-            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "EXP] 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
-
+            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << monster->getGoldReward() << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl;
             break;
-        }
+        }   
         size_t itemsize = player->getInventory().size();
         if (itemsize >= 1) {
 
