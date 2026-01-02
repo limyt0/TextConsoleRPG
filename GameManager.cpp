@@ -201,7 +201,7 @@ void GameManager::useShop(Character* player)
         }
         catch (const invalid_argument&)
         {
-            cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+            cout << "\033[1;31m" << "[Error] 잘못된 입력입니다." << "\033[0m" << endl;
             continue;
         }
         system("cls");
@@ -249,7 +249,7 @@ void GameManager::buyItem(Shop* shop, Character* player)
         }
         catch (const invalid_argument&)
         {
-            cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+            cout << "\033[1;31m" << "[Error] 잘못된 입력입니다." << "\033[0m" << endl;
             continue;
         }
         cout << endl;
@@ -294,7 +294,7 @@ void GameManager::buyItem(Shop* shop, Character* player)
                 isContinue = false;
                 break;
             default:
-                cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
+                cout << "\033[1;31m" << "[Error] 입력 범위를 초과하였습니다. 다시 입력해주세요." << "\033[0m" << endl;
                 break;
         }
     }
@@ -322,14 +322,14 @@ void GameManager::sellItem(Shop * shop, Character* player)
         }
         catch (const invalid_argument&)
         {
-            cout << "\033[1;31m" << "[Error]잘못된 입력입니다." << "\033[0m" << endl;
+            cout << "\033[1;31m" << "[Error] 잘못된 입력입니다." << "\033[0m" << endl;
             continue;
         }
         cout << endl;
         system("cls");
         if (a > player->getInventory().size())
         {
-            cout << "\033[1;31m" << "[Error]숫자 범위가 안 맞습니다. 다시 입력해주세요." << "\033[0m" << endl;
+            cout << "\033[1;31m" << "[Error] 입력 범위를 초과하였습니다. 다시 입력해주세요." << "\033[0m" << endl;
         }
         else if (a == 0)
         {
