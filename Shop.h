@@ -3,13 +3,16 @@
 #include "Item.h"
 #include "HealthPotion.h"
 #include "AttackBoost.h"
+#include "Sword.h"
 #include "Character.h"
+
 
 class Shop
 {
 private:
 	int priceHealthPotion;
 	int priceAttackBoost;
+	int sword;
 	vector<Item*>sellList;
 public:
 	Shop();
