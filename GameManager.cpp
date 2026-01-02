@@ -275,6 +275,17 @@ void GameManager::buyItem(Shop* shop, Character* player)
                     cout << it->getName() << " 구매" << endl;
                 }
                 break;
+            case 3:
+                it = shop->buyItem(2, player);
+                if (it == nullptr)
+                {
+                    cout << "돈이 부족합니다." << endl;
+                }
+                else
+                {
+                    cout << it->getName() << " 구매" << endl;
+                }
+                break;
             case 0:
                 isContinue = false;
                 break;
