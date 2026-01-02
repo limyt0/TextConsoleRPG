@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "HealthPotion.h"
 #include "AttackBoost.h"
+#include <Windows.h>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ int main() {
 			isNameEmpty = true;
 		}
 	}
+	system("cls");
 	cout << endl;
 	Character character(name);
 	cout << "============================= 캐릭터 생성 완료 =======================================" << endl;
@@ -43,6 +45,7 @@ int main() {
 			continue;
 		}
 		cout << endl;
+		system("cls");
 		switch (a) {
 		case  1:
 			if (character.getLevel() >= 10) {

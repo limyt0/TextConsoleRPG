@@ -33,6 +33,10 @@ public:
     void battle(Character* player);
     // 보스 배틀
     void bossBattle(Character* player);
+    // 랜덤 아이템 사용
+    void useRandomItem(Character* player);
+    // 부스트 초기화
+    void resetBoost(Character* player);
     // 상점 이용
     void useShop(Character* player);
     // 아이템 구매
