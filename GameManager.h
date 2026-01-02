@@ -16,12 +16,15 @@
 class GameManager
 {
 private:
+    // 몬스터 클래스 포인터 변수
     Monster* monster;
+    // 게임 오버 여부 체크 변수
     bool isGameOver;
+    // 몬스터 처치 로그
     map<string, int> killCount;
 public:
+    // 게임매니저 생성자
     GameManager();
-
     // 몬스터 생성
     Monster* generateMonster(int level);
     // 보스 몬스터 생성
