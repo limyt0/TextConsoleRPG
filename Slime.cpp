@@ -1,7 +1,6 @@
 #include "Slime.h"
 #include "Character.h"
 
-
 int Slime::attackPlayer(Character* player) {
 	if (player == nullptr || player->getHealth() <= 0) return 2;
 
@@ -28,6 +27,7 @@ int Slime::attackPlayer(Character* player) {
 			std::cout << player->getName() << "ÀÌ ¸öÀ» Èçµé¾î " << Name << "À»(¸¦) ¶¼¾î³Â½À´Ï´Ù!" << std::endl;
 		}
 	}
+	player->setCanAttack(!isGlued);
 	return (player->getHealth() <= 0) ? 0 : 1;
 }
 
