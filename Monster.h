@@ -34,7 +34,7 @@ public:
   virtual int attackPlayer(Character* player);
 
   //몬스터가 죽었을때 호출되는 가상 함수입니다.
-  virtual void onDeath(Character* player);
+  virtual void onDeath(Character* player) {}
   virtual void onDeath();
 
   //아이템 랜덤 드랍 함수
