@@ -69,7 +69,7 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 	void Monster::onDeath() {
 		Sleep(500);
-		std::cout << "\n  " << Name << "이(를) 처치했다!" << std::endl;
+		std::cout << "\n\n\033[1;33m  " << Name << "을(를) 처치했다!\033[0m" << std::endl;
 	}
 
 

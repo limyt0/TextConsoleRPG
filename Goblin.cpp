@@ -65,6 +65,7 @@ int Goblin::attackPlayer() {
 void Goblin::onDeath() {
     if (player == nullptr) return;
     Sleep(500);
+    std::cout << "\n\n\033[1;33m  " << Name << "을(를) 처치했다!\033[0m" << std::endl;
     if (hasStolen) {
         if (isEnraged) {
             player->setGold(player->getGold() + stolenGoldAmount);
