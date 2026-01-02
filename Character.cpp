@@ -72,6 +72,35 @@ bool Character::getCanAttack()const
 	return _canAttack;
 }
 
+int Character::AttackMonster(Monster* monster)
+{
+	if (getCanAttack() == false)
+	{
+		return 4;
+	}
+
+	if (monster == nullptr)
+	{
+		return 2;
+	}
+	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
+	int temp = getAttack();
+	setSkill();
+	monster->takeDamage(getAttack());
+	_UsingSkill = false;
+	setAttack(temp);
+	if (monster->getHealth() <= 0)
+	{
+		return 0;
+	}
+
+	else
+	{
+		return 1;
+	}
+	
+}
+
 void Character::setCanAttack(bool setattack)
 {
 	_canAttack = setattack;
@@ -94,6 +123,15 @@ void Character::takeDamage(int damage)
 	}
 }
 
+bool Character::getUnsingSkill()const
+{
+	return _UsingSkill;
+}
+
+void Character::seeUsingSkill()
+{
+	
+}
 
 
 void Character::addItem(Item* item)
@@ -121,33 +159,6 @@ void Character::setisBoosted(int boost)
 	_isBoosted = boost;
 }
 
-int Character::AttackMonster(Monster* monster)
-{
-	if (getCanAttack() == false)
-	{
-		return 4;
-	}
-
-	if (monster == nullptr)
-	{
-		return 2;
-	}
-	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
-	int temp = getAttack();
-	setSkill();
-	monster->takeDamage(getAttack());
-	setAttack(temp);
-	if (monster->getHealth() <= 0)
-	{
-		return 0;
-	}
-
-	else
-	{
-		return 1;
-	}
-	
-}
 
 
 void Character::levelup()
@@ -178,18 +189,22 @@ void Character::setSkill()
 	int num = disd(gend);
 	if (num == 1)
 	{
+		_UsingSkill = true;
 		_Skill->setFinisher(getAttack());
 		_Attack = _Skill->getFinisher();
 		cout << "\033[1;34m" << "  강력한 내려찍기" << "\033[0m" << endl;
 	}
 	else if (1 < num && num <= 21)
 	{
+		_UsingSkill = true;
 		_Skill->setCleave(getAttack());
 		_Attack = _Skill->getCleave();
 		cout << "\033[1;34m" << "  회전베기" << "\033[0m" << endl;
+
 	}
 	else if (21 < num && num <= 41)
 	{
+		_UsingSkill = true;
 		_Skill->setStrike(getAttack());
 		_Attack = _Skill->getStrike();
 		cout << "\033[1;34m" << "  강타!" << "\033[0m" << endl;
