@@ -8,6 +8,7 @@ class GameMnager;
 class Monster;
 class Item;
 class Shop;
+class Skill;
 
 class Character
 {
@@ -21,9 +22,9 @@ private:
 	int _Gold;
 	vector<Item*> _inventory;
 	int _isBoosted;
-	
 	bool _canAttack =true;
-	
+	Skill* _Skill;
+	//여기에 넣을려면
 
 public:
 	
@@ -38,7 +39,7 @@ public:
 	int getisBoosted()const;
 	bool isAlive = true;
 	vector<Item*> getInventory();
-	
+	~Character();
 	bool getCanAttack()const;
 	void setCanAttack(bool setattack);
 
@@ -51,7 +52,7 @@ public:
 	void useItem(int index);
 	void deleteItem(int index);
 	void levelup();
-	
+	void setSkill();
 	void addItem(Item* item);
 	void setHealth(int health);
 	void setAttack(int attack);
