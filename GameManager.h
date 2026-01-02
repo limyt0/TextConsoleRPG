@@ -40,9 +40,9 @@ public:
     // 아이템 판매
     void sellItem(Shop* shop, Character* player);
     // 인벤토리 출력
-    void displayInventory(Character* player);
+    void displayInventory(Character* player) const;
     // 처치 로그 출력
-    void displayKillCount(Character* player);
+    void displayKillCount(Character* player) const;
     // 게임오버 여부 반환
     bool getIsGameOver();
 };

@@ -59,6 +59,15 @@ vector<Item*> Character::getInventory()
 	return _inventory;
 }
 
+bool Character:: getCanAttack()const
+{
+	return _canAttack;
+}
+
+void Character :: setCanAttack(bool setattack)
+{
+	_canAttack = setattack;
+}
 
 
 void Character::takeDamage(int damage)
