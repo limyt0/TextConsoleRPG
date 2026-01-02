@@ -5,18 +5,21 @@
 #include "Shop.h"
 #include "HealthPotion.h"
 #include "AttackBoost.h"
+#include "Sword.h"
 using namespace std;
 
-Shop::Shop() : priceHealthPotion(30), priceAttackBoost(30) 
+Shop::Shop() : priceHealthPotion(30), priceAttackBoost(30), sword(50)
 {
 	sellList.push_back(new HealthPotion);
 	sellList.push_back(new AttackBoost);
+	sellList.push_back(new Sword);
 }
 
 Shop:: ~Shop() 
 {
 	delete sellList[0];
 	delete sellList[1];
+	delete sellList[2];
 }
 
 vector<Item*> Shop:: getSellList()
