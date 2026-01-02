@@ -1,57 +1,57 @@
 #include "Goblin.h"
 
-Goblin::Goblin(Character* player) : Monster("ê³ ë¸”ë¦°", player) {
-    Attack += player->getLevel(); // ê³ ë¸”ë¦° ì¶”ê°€ ê³µê²©ë ¥ ë³´ë„ˆìŠ¤
+Goblin::Goblin(Character* player) : Monster("°íºí¸°", player) {
+    Attack += player->getLevel(); // °íºí¸° Ãß°¡ °ø°İ·Â º¸³Ê½º
 }
 
 int Goblin::attackPlayer() {
-    if (player == nullptr) return 2; // í”Œë ˆì´ì–´ê°€ nullì¸ì§€ í™•ì¸
+    if (player == nullptr) return 2; // ÇÃ·¹ÀÌ¾î°¡ nullÀÎÁö È®ÀÎ
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist(1, 100);
 
     if (!hasStolen) {
-        if (dist(gen) <= 50) { // 50% í™•ë¥ ë¡œ ë„ë‘‘ì§ˆ ì‹œë„
-            int stolenTarget = (dist(gen) % 50) + 10; // ëª©í‘œ ê¸ˆì•¡ 10~60
+        if (dist(gen) <= 50) { // 50% È®·ü·Î µµµÏÁú ½Ãµµ
+            int stolenTarget = (dist(gen) % 50) + 10; // ¸ñÇ¥ ±İ¾× 10~60
 
             if (player->getGold() >= stolenTarget) {
                 stolenGoldAmount = stolenTarget;
-                // ì¶©ë¶„íˆ í›”ì³¤ì„ ë•Œ
+                // ÃæºĞÈ÷ ÈÉÃÆÀ» ¶§
                 player->setGold(player->getGold() - stolenTarget);
                 hasStolen = true;
-                std::cout << "\n  \033[1;33m " << Name << "ì´(ê°€) ë‹¹ì‹ ì˜ ì£¼ë¨¸ë‹ˆì—ì„œ " << stolenTarget << " ê³¨ë“œë¥¼ í›”ì³ ë‹¬ì•„ë‚˜ë ¤ í•©ë‹ˆë‹¤!\033[0m" << std::endl;
+                std::cout << "\n  \033[1;33m " << Name << "ÀÌ(°¡) ´ç½ÅÀÇ ÁÖ¸Ó´Ï¿¡¼­ " << stolenTarget << " °ñµå¸¦ ÈÉÃÄ ´Ş¾Æ³ª·Á ÇÕ´Ï´Ù!\033[0m" << std::endl;
             }
             else {
-                // ëˆì´ ë¶€ì¡±í•  ë•Œ (ë¶„ë…¸ ë°œìƒ)
+                // µ·ÀÌ ºÎÁ·ÇÒ ¶§ (ºĞ³ë ¹ß»ı)
                 stolenGoldAmount = stolenTarget - player->getGold();
                 int actualStolen = player->getGold();
                 player->setGold(0);
 
                 hasStolen = true;
-                isEnraged = true; // ë¶„ë…¸ true ì„¤ì •
+                isEnraged = true; // ºĞ³ë true ¼³Á¤
 
-                std::cout << "\n  \033[1;33m " << Name << "ì´(ê°€) " << actualStolen << " ê³¨ë“œë§Œ í›”ì¹œ ê²ƒì— ë¶„ë…¸í–ˆìŠµë‹ˆë‹¤!\033[0m" << std::endl;
-                Attack += stolenGoldAmount; // ëª» í›”ì¹œ ë§Œí¼ ê³µê²©ë ¥ ìƒìŠ¹
-                std::cout << "  \033[1;31m " << Name << "ì˜ ê³µê²©ë ¥ì´ " << stolenGoldAmount << "ë§Œí¼ ì¦ê°€! (í˜„ì¬: " << Attack << ")\033[0m" << std::endl;
+                std::cout << "\n  \033[1;33m " << Name << "ÀÌ(°¡) " << actualStolen << " °ñµå¸¸ ÈÉÄ£ °Í¿¡ ºĞ³ëÇß½À´Ï´Ù!\033[0m" << std::endl;
+                Attack += stolenGoldAmount; // ¸ø ÈÉÄ£ ¸¸Å­ °ø°İ·Â »ó½Â
+                std::cout << "  \033[1;31m " << Name << "ÀÇ °ø°İ·ÂÀÌ " << stolenGoldAmount << "¸¸Å­ Áõ°¡! (ÇöÀç: " << Attack << ")\033[0m" << std::endl;
             }
         }
-        player->takeDamage(getAttack()); // ì¼ë°˜ ê³µê²© (ë¶„ë…¸ ì‹œ ì¦‰ì‹œ ì ìš©ë¨)
+        player->takeDamage(getAttack()); // ÀÏ¹İ °ø°İ (ºĞ³ë ½Ã Áï½Ã Àû¿ëµÊ)
     }
     else {
         if (isEnraged) {
-            std::cout << "  " << Name << "ì´(ê°€) ëˆˆì´ ë²Œê²Œì§„ ì±„ ë‚ ëœë‹ˆë‹¤!" << std::endl;
+            std::cout << "  " << Name << "ÀÌ(°¡) ´«ÀÌ ¹ú°ÔÁø Ã¤ ³¯¶İ´Ï´Ù!" << std::endl;
             player->takeDamage(getAttack());
         }
         else {
-            // ë§Œì¡±ìŠ¤ëŸ½ê²Œ í›”ì¹œ ê³ ë¸”ë¦°ì€ ë„ë§ ì‹œë„
-            std::cout << "  " << Name << "ì´(ê°€) í›”ì¹œ ê³¨ë“œë¥¼ ì±™ê¸°ë©° ë¹„ì—´í•˜ê²Œ ì›ƒê³  ìˆìŠµë‹ˆë‹¤!" << std::endl;
-            player->takeDamage(getAttack() / 2); // ë„ë§ ì¤€ë¹„ë¡œ ì•½í•´ì§„ ê³µê²©
+            // ¸¸Á·½º·´°Ô ÈÉÄ£ °íºí¸°Àº µµ¸Á ½Ãµµ
+            std::cout << "  " << Name << "ÀÌ(°¡) ÈÉÄ£ °ñµå¸¦ Ã¬±â¸ç ºñ¿­ÇÏ°Ô ¿ô°í ÀÖ½À´Ï´Ù!" << std::endl;
+            player->takeDamage(getAttack() / 2); // µµ¸Á ÁØºñ·Î ¾àÇØÁø °ø°İ
 
             if (dist(gen) <= 30) {
-                std::cout << "  \033[1;35m[ë„ì£¼] " << Name << "ì´(ê°€) ìˆ²ì†ìœ¼ë¡œ ë„ë§ì³¤ìŠµë‹ˆë‹¤!\033[0m" << std::endl;
+                std::cout << "  \033[1;35m[µµÁÖ] " << Name << "ÀÌ(°¡) ½£¼ÓÀ¸·Î µµ¸ÁÃÆ½À´Ï´Ù!\033[0m" << std::endl;
                 Health = 0;
-                return 3; // ë„ë§ ì„±ê³µ ë¦¬í„´
+                return 3; // µµ¸Á ¼º°ø ¸®ÅÏ
             }
         }
     }
@@ -65,11 +65,11 @@ void Goblin::onDeath() {
     if (hasStolen) {
         if (isEnraged) {
             player->setGold(player->getGold() + stolenGoldAmount);
-            std::cout << "  ì£½ì€ ê³ ë¸”ë¦°ì˜ ì†ì— ê½‰ ì¥ì—¬ì§„ ëª‡ ì•ˆ ë˜ëŠ” ë™ì „ì„ íšŒìˆ˜í–ˆìŠµë‹ˆë‹¤." << std::endl;
+            std::cout << "  Á×Àº °íºí¸°ÀÇ ¼Õ¿¡ ²Ë Áã¿©Áø ¸î ¾È µÇ´Â µ¿ÀüÀ» È¸¼öÇß½À´Ï´Ù." << std::endl;
         }
         else {
             player->setGold(player->getGold() + stolenGoldAmount);
-            std::cout << "\033[1;32m  [íšŒìˆ˜ ì„±ê³µ] ê³ ë¸”ë¦°ì´ í›”ì³ê°”ë˜ ê³¨ë“œ ì£¼ë¨¸ë‹ˆë¥¼ ë˜ì°¾ì•˜ìŠµë‹ˆë‹¤!\033[0m" << std::endl;
+            std::cout << "\033[1;32m  [È¸¼ö ¼º°ø] °íºí¸°ÀÌ ÈÉÃÄ°¬´ø °ñµå ÁÖ¸Ó´Ï¸¦ µÇÃ£¾Ò½À´Ï´Ù!\033[0m" << std::endl;
         }
     }
 }
