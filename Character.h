@@ -61,4 +61,5 @@ public:
 	void showStatus()const;
 	void setisBoosted(int boost);
 	void setBossSkill();
+	int AttackBossMonster(Monster* monster);
 };
