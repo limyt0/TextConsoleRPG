@@ -62,7 +62,7 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 
 
 	void Monster::onDeath() {
-		std::cout << "\n  " << Name << "이(가) 사망했다!" << std::endl;
+		std::cout << "\n  " << Name << "이(를) 처치했다!" << std::endl;
 	}
 
 

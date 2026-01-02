@@ -16,6 +16,7 @@ int Goblin::attackPlayer(Character * player) {
             int stolenTarget = (dist(gen) % 50) + 10; // 목표 금액 10~60
 
             if (player->getGold() >= stolenTarget) {
+				stolenGoldAmount = stolenTarget;
                 // 충분히 훔쳤을 때
                 player->setGold(player->getGold() - stolenTarget);
                 hasStolen = true;
@@ -23,7 +24,7 @@ int Goblin::attackPlayer(Character * player) {
             }
             else {
                 // 돈이 부족할 때 (분노 발생)
-                int shortage = stolenTarget - player->getGold();
+                stolenGoldAmount = stolenTarget - player->getGold();
                 int actualStolen = player->getGold();
                 player->setGold(0);
 
@@ -31,8 +32,8 @@ int Goblin::attackPlayer(Character * player) {
 				isEnraged = true; // 분노 true 설정
 
                 std::cout << "\n  \033[1;33m " << Name << "이(가) " << actualStolen << " 골드만 훔친 것에 분노했습니다!\033[0m" << std::endl;
-                Attack += shortage; // 못 훔친 만큼 공격력 상승
-                std::cout << "  \033[1;31m " << Name << "의 공격력이 " << shortage << "만큼 증가! (현재: " << Attack << ")\033[0m" << std::endl;
+                Attack += stolenGoldAmount; // 못 훔친 만큼 공격력 상승
+                std::cout << "  \033[1;31m " << Name << "의 공격력이 " << stolenGoldAmount << "만큼 증가! (현재: " << Attack << ")\033[0m" << std::endl;
             }
         }
         player->takeDamage(getAttack()); // 일반 공격 (분노 시 즉시 적용됨)
@@ -59,12 +60,16 @@ int Goblin::attackPlayer(Character * player) {
 }
 
 
-void Goblin::onDeath() {
+void Goblin::onDeath(Character* player) {
+	if (player == nullptr) return;
+
     if (hasStolen) {
         if (isEnraged) {
+			player->setGold(player->getGold() + stolenGoldAmount);
             std::cout << "  죽은 고블린의 손에 꽉 쥐여진 몇 안 되는 동전을 회수했습니다." << std::endl;
         }
         else {
+            player->setGold(player->getGold() + stolenGoldAmount);
             std::cout << "\033[1;32m  [회수 성공] 고블린이 훔쳐갔던 골드 주머니를 되찾았습니다!\033[0m" << std::endl;
         }
     }
