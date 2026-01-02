@@ -3,7 +3,7 @@
 
 
 int Slime::attackPlayer(Character* player) {
-	if (player == nullptr || player->getHealth() <= 0) return 0;
+	if (player == nullptr || player->getHealth() <= 0) return 2;
 
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
@@ -26,7 +26,6 @@ int Slime::attackPlayer(Character* player) {
 		if (dist(gen) <= 50 && player->getHealth() > 0) {
 			isGlued = false;
 			std::cout << player->getName() << "ÀÌ ¸öÀ» Èçµé¾î " << Name << "À»(¸¦) ¶¼¾î³Â½À´Ï´Ù!" << std::endl;
-			return 1;
 		}
 	}
 	return (player->getHealth() <= 0) ? 0 : 1;
