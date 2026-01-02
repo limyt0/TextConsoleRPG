@@ -42,8 +42,9 @@ Item* Shop::buyItem(int itemindex, Character* player)
 		return nullptr;
 	}
 	player->setGold(player->getGold() - sellList[itemindex]->getPrice());
-	player->addItem(sellList[itemindex]);
-	return sellList[itemindex];
+	Item* item = sellList[itemindex]->clone();
+	player->addItem(item);
+	return item;
 }
 
 int  Shop::itemSell(int index,Character*player)
