@@ -9,7 +9,7 @@ using namespace std;
 
 
 Character::Character(string name) :
-	_Name(name), _Level(1), _Health(200), _MaxHealth(200), _Attack(10), _Experence(0), _Gold(0),_isBoosted(false)
+	_Name(name), _Level(1), _Health(200), _MaxHealth(200), _Attack(30), _Experence(0), _Gold(0),_isBoosted(false)
 {
 }
 
