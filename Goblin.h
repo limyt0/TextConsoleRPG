@@ -5,13 +5,14 @@
 class Goblin : public Monster
 {
 private:
-	bool hasStolen = false; // ÇÃ·¹ÀÌ¾îÀÇ ¾ÆÀÌÅÛÀ» ÈÉÃÆ´ÂÁö ¿©ºÎ
-	bool isEnraged = false; // ºĞ³ë »óÅÂ ¿©ºÎ
+	bool hasStolen = false; // í”Œë ˆì´ì–´ì˜ ì•„ì´í…œì„ í›”ì³¤ëŠ”ì§€ ì—¬ë¶€
+	bool isEnraged = false; // ë¶„ë…¸ ìƒíƒœ ì—¬ë¶€
+	int stolenGoldAmount = 0; // í›”ì¹œ ê³¨ë“œ ì–‘
 public:
 	Goblin(int playerLevel);
 
 	virtual int attackPlayer(Character* player) override;
 	
-	virtual void onDeath() override;
+	virtual void onDeath(Character* player) override;
 };
 
