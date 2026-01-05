@@ -12,317 +12,268 @@
 
 bool Boss::isFirstPattern = true;
 
-Boss::Boss(Character* player) : Monster("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½", player)
+Boss::Boss(Character* player) : Monster("¸¶¿Õ ·ç½ÃÆÛ", player)
 {
-	Health += player->getLevel() * 1000; // ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ê½ï¿½
-	Attack += player->getLevel() * 10;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½Ê½ï¿½
+    Health += player->getLevel() * 1000; // º¸½º Ãß°¡ Ã¼·Â º¸³Ê½º
+    Attack += player->getLevel() * 10;   // º¸½º Ãß°¡ °ø°Ý·Â º¸³Ê½º
 
-	MaxHealth = Health;
+    MaxHealth = Health;
 
-	char text1[] = "\033[1;35m ï¿½ßµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô±ï¿½ï¿½ï¿½ ï¿½ï¿½ç¿© \033[0m";
-	char text2[] = "\033[1;35m ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ýºï¿½ï¿½Í´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. \033[0m";
-	char text3[] = "\033[1;35m ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¹ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¶ï¿½! \033[0m";
+    char text1[] = "\033[1;35m Àßµµ ¿©±â±îÁö ¿Ô±¸³ª ¿ë»ç¿© \033[0m";
+    char text2[] = "\033[1;35m Áö±Ý±îÁø ¿îÀÌ ÁÁ¾Ò°ÚÁö¸¸, Áö±ÝºÎÅÍ´Â ±× ¿îÀ» ¿ø¸ÁÇÏ°Ô µÉ °ÍÀÌ´Ù. \033[0m";
+    char text3[] = "\033[1;35m ÀÚ, ¾îµð ÇÑ¹ø ¿­½ÉÈ÷ ¹ß¹öµÕ ÃÄ º¸¾Æ¶ó! \033[0m";
 
-	string texts[] = { text1, text2, text3 };
+    string texts[] = { text1, text2, text3 };
 
-	for (const string& s : texts) {
-		for (char c : s) {
-			cout << c << flush;
-			this_thread::sleep_for(chrono::milliseconds(50));
-		}
-		this_thread::sleep_for(chrono::milliseconds(200));
-		std::cout << std::endl;
-	}
-	string bossArt = R"(
+    for (const string& s : texts) {
+        for (char c : s) {
+            cout << c << flush;
+            this_thread::sleep_for(chrono::milliseconds(50));
+        }
+        this_thread::sleep_for(chrono::milliseconds(200));
+        std::cout << std::endl;
+    }
+
+    string bossArt = R"(
 ######################~~..'|.##############.|`..~~#######################
 ##############~./`.~~./' ./ ################ \. `\. ~~.`\.~##############
-############~.' `.`-'   /   ~#############~ .  \   `-'.'  `.~############
+############~.' `.`-'    /   ~#############~ .  \   `-'.'  `.~############
 ##########~.'    |     |  .'\ ~##########~ /`.  |     |     `.~##########
 ########~.'      |     |  |`.`._ ~####~ _.'.'|  |     |       `.~########
 ######~.'        `.    |  `..`._|\.--./|_.'..'  |    .'         `.~######
 ####~.'            \   | #.`.`._`.'--`.'_.'.'.# |   /             `.~####
-##~.'       ......  \  | ###.`~'(o\||/o)`~'.### |  /  ......        `.~##
-~.`.......'~      `. \  \~####  |\_  _/|  ####~/  / .'      ~`........'.~
-;.'                 \ .----.__.'`(n||n)'`.__.----. /                  `;
-`.                  .'    .'   `. \`'/ .'   `.    `.                  .'
-#:               ..':      :    '. ~~ .`    :      :`..               :#
-#:             .'   :     .'     .'  `.     `.     :   `.             :#
-#:           .'    .`   .'       . || .       `.   '.    `.           :#
-#:         .'    .' :       ....'      `....       : `.    `.         :#
-#:       .'    .' ) )        (      )     (      (    )`.    `.       :#
-#:     ..'    .  ( ((   )  ) )) (  ((  (  ))  )  ))  ((  `.   `..     :#
-#:  ..'      .'# ) ) ) (( ( ( (  ) ) ) ))( ( (( ( (  ) ) #`.     `..  :#
-#;.'        .'##|((  ( ) ) ) ) )( (  (( ( ) )) ) ) )( (||##`.       `.:#
-#`.        .'###|\__  )( (( ( ( )  )  )) )  (  (( ( )_)/|###`.       .'#
-##.`       '#####\__~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~__/#####`      '.##
-###        #######  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  #######       ###
+##~.'        ......  \  | ###.`~'(o\||/o)`~'.### |  /  ......        `.~##
+~.`.......'~      `. \  \~####  |\_  _/|  ####~/  / .'       ~`........'.~
+;.'                  \ .----.__.'`(n||n)'`.__.----. /                 `;
+`.                  .'    .'    `. \`'/ .'    `.    `.                  .'
+#:                ..':      :     '. ~~ .`     :      :`..                :#
+#:               .'    :     .'     .'  `.      `.     :    `.              :#
+#:             .'    .`    .'        . || .        `.    '.    `.            :#
+#:           .'    .' :        ....'      `....        : `.    `.          :#
+#:         .'    .' ) )         (      )     (      (    )`.    `.        :#
+#:       ..'    .  ( ((    )  ) )) (  ((  (  ))  )  ))  ((  `.    `..      :#
+#:   ..'      .'# ) ) ) (( ( ( (  ) ) ) ))( ( (( ( (  ) ) #`.      `..  :#
+#;.'         .'##|((  ( ) ) ) ) )( (  (( ( ) )) ) ) )( (||##`.        `.:#
+#`.         .'###|\__  )( (( ( ( )  )  )) )  (  (( ( )_)/|###`.        .'#
+##.`        '#####\__~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~__/#####`       '.##
+###         #######  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  #######        ###
 )";
-	size_t pos = 0;
-	size_t next_pos;
-	while ((next_pos = bossArt.find('\n', pos)) != string::npos) {
-		string line = bossArt.substr(pos, next_pos - pos);
-		cout << line << endl;
-		this_thread::sleep_for(chrono::milliseconds(200));
-		pos = next_pos + 1;
-	}
-
+    size_t pos = 0;
+    size_t next_pos;
+    while ((next_pos = bossArt.find('\n', pos)) != string::npos) {
+        string line = bossArt.substr(pos, next_pos - pos);
+        cout << line << endl;
+        this_thread::sleep_for(chrono::milliseconds(200));
+        pos = next_pos + 1;
+    }
 }
 
 void Boss::takeDamage(int damage) {
-	if (isAlive == false) { return; } // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
-	Health -= damage;
-	cout << "  " << "\033[1;32m" << Name << "ï¿½ï¿½ï¿½ï¿½ " << damage << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!" << "\033[0m" << std::endl;
-	if (Health <= 0) {
-		isAlive = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ isAlive ï¿½ï¿½ï¿½Â¸ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		onDeath();
-	}
-	else
-	{
-		cout << "  " << Name << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ : " << getHealth() << std::endl;
-	}
+    if (isAlive == false) { return; }
+    Health -= damage;
+    cout << "  " << "\033[1;32m" << Name << "¿¡°Ô " << damage << "ÀÇ µ¥¹ÌÁö¸¦ ÁÖ¾ú½À´Ï´Ù!" << "\033[0m" << std::endl;
+    if (Health <= 0) {
+        isAlive = false;
+        onDeath();
+    }
+    else {
+        cout << "  " << Name << "ÀÇ ³²Àº Ã¼·Â : " << getHealth() << std::endl;
+    }
 }
 
 int Boss::attackPlayer() {
-	if (player == nullptr) return 2; // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ nullï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
-	random_device rd;
-	mt19937 gen(rd());
-	uniform_int_distribution<> dis(1, 100);
-	int UseBossSkill = dis(gen);
+    if (player == nullptr) return 2;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(1, 100);
+    int UseBossSkill = dis(gen);
 
-	if (UseBossSkill <= 55) // È®ï¿½ï¿½ ï¿½Ð±ï¿½
-	{
-		cout << "\n  " << "\033[1;31m" << Name << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½!" << "\033[0m" << std::endl; // 55% ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½
-		player->takeDamage(getAttack());
-	}
-	else { // 45% È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½
-		int currentPotions = Potion::countTotalPotions(player->getInventory());
+    if (UseBossSkill <= 55) {
+        cout << "\n  " << "\033[1;31m" << Name << "ÀÌ ´ç½ÅÀ» °ø°ÝÇÕ´Ï´Ù!" << "\033[0m" << std::endl;
+        player->takeDamage(getAttack());
+    }
+    else {
+        int currentPotions = Potion::countTotalPotions(player->getInventory());
+        GuardSummary summary = BossAttackGuard(currentPotions);
 
-		GuardSummary summary = BossAttackGuard(currentPotions);
+        if (summary.allSuccess && player->getHealth() > 0) {
+            int counterDamage = player->getAttack() * summary.successCount;
+            cout << "\n  \033[1;36m[Ä«¿îÅÍ] ¿Ïº®ÇÑ °¡µå! º¸½º¿¡°Ô °­·ÂÇÑ ¹Ý°ÝÀ» ³¯¸³´Ï´Ù!\033[0m" << endl;
+            cout << "  º¸½º¿¡°Ô " << counterDamage << "ÀÇ µ¥¹ÌÁö!" << endl;
+            this->takeDamage(counterDamage);
 
-		// ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½
-		if (summary.allSuccess && player->getHealth() > 0) {
-			int counterDamage = player->getAttack() * summary.successCount; // ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
-			cout << "\n  \033[1;36m[Ä«ï¿½ï¿½ï¿½ï¿½] ï¿½Ïºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!\033[0m" << endl;
-			cout << "  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " << counterDamage << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!" << endl;
-			this->takeDamage(counterDamage);
-			player->setHealth(player->getHealth() + counterDamage); // ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ Ã¼ï¿½ï¿½ È¸ï¿½ï¿½
-			cout << "\n  \033  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½Ç¾ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ " << counterDamage << " ï¿½ï¿½Å­ È¸ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!\033[0m" << endl;
-			cout << "  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½: " << player->getHealth() << endl;
-			this_thread::sleep_for(chrono::seconds(1));
-		}
+            player->setHealth(player->getHealth() + counterDamage);
+            cout << "\n  \033[1;32m  ÀÇÁö°¡ ÇÔ¾çµÇ¾î Ã¼·ÂÀÌ " << counterDamage << " ¸¸Å­ È¸º¹µÇ¾ú½À´Ï´Ù!\033[0m" << endl;
+            cout << "  ÇöÀç ³²Àº Ã¼·Â: " << player->getHealth() << endl;
+            this_thread::sleep_for(chrono::seconds(1));
+        }
+        return (player->getHealth() <= 0) ? 0 : 1;
+    }
 
-		return (player->getHealth() <= 0) ? 0 : 1;
-	}
-
-	if (player->getHealth() <= 0)
-	{
-		return 0;
-	}
-	else {
-		return 1;
-	}
-
+    return (player->getHealth() <= 0) ? 0 : 1;
 }
 
 void Boss::onDeath() {
+    std::cout << "\n\n\033[1;33m ´ç½ÅÀº " << Name << " ¸¦ ¹°¸®ÃÆ´Ù! \033[0m" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "\n  ´ç½ÅÀº ¼¼»óÀÇ ÆòÈ­¸¦ µÇÃ£¾Ò´Ù..." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
-	std::cout << "\n\n\033[1;33m ï¿½ï¿½ï¿½ï¿½ï¿½ " << Name << " ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½! \033[0m" << std::endl;
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::string credits[] = {
+        " ", " ", " ", " ", " ",
+        "          --- ENDING CREDITS ---",
+        "          TextConsole RPG by 5Á¶",
+        " ",
+        "Á¶Àå ¹× ¸ÞÀÎ ±¸Çö ¹× ÆÀ¿ø º¸Á¶ : ÀÓ¿µÅÃ  ",
+        "Ä³¸¯ÅÍ ¹× »óÁ¡ Å¬·¡½º ±¸Çö     : Á¤¾ßÈÄ  ",
+        "°ÔÀÓ ¸Å´ÏÀú Å¬·¡½º ±¸Çö        : ÀÌº´Çå  ",
+        "¾ÆÀÌÅÛ Å¬·¡½º ±¸Çö             : °­¹Î½Â  ",
+        "¸ó½ºÅÍ Å¬·¡½º ±¸Çö             : ÀÌÇöÁø  ",
+        "------------------------------------------",
+        "           THANKS FOR PLAYING!  "
+    };
 
-	std::cout << "\n  ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½Ã£ï¿½Ò´ï¿½..." << std::endl;
-	std::this_thread::sleep_for(std::chrono::seconds(2));
-
-	// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-	std::string credits[] = {
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"          --- ENDING CREDITS ---",
-		"          TextConsole RPG by 5ï¿½ï¿½",
-		"  ",
-		"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ",
-		"Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½      : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ",
-		"ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½        : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ",
-		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½             : ï¿½ï¿½ ï¿½Î½ï¿½  ",
-		"ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½             : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ",
-		"------------------------------------------",
-		"           THANKS FOR PLAYING!  "
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-		"  ",
-	};
-
-	for (const std::string& line : credits) {
-		std::cout << "      " << line << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(600)); // 0.6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-	}
+    for (const std::string& line : credits) {
+        std::cout << "      " << line << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(600));
+    }
 }
-
 
 GuardSummary Boss::BossAttackGuard(int& potionCount) {
+    if (isFirstPattern) {
+        showPatternGuide();
+    }
 
-	if (isFirstPattern) {
-		showPatternGuide();
-	}
+    system("cls");
+    system("color 07");
 
-	system("cls");
-	system("color 07");
+    random_device rd;
+    mt19937 gen(rd());
 
-	random_device rd;
-	mt19937 gen(rd());
+    bool isEnraged = (getHealth() < (getMaxHealth() / 2));
+    int judgeTime = isEnraged ? 400 : 1000;
+    int minWait = isEnraged ? 300 : 500;
+    int maxWait = isEnraged ? 1200 : 2500;
 
-	bool isEnraged = (getHealth() < (getMaxHealth() / 2)); // Ã¼ï¿½ï¿½ 50% ï¿½Ì¸ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½È­
+    uniform_int_distribution<> disCount(2, 4);
+    int totalPhase = disCount(gen);
 
-	// ï¿½Ï¹ï¿½: 1.0ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½È­: 0.4ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½)
-	int judgeTime = isEnraged ? 400 : 1000;
+    int successCount = 0;
+    int failCount = 0;
 
-	// ï¿½Ï¹ï¿½: 500~2500ms / ï¿½ï¿½ï¿½ï¿½È­: 300~1200ms (ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½)
-	int minWait = isEnraged ? 300 : 500;
-	int maxWait = isEnraged ? 1200 : 2500;
+    for (int phase = 1; phase <= totalPhase; ++phase) {
+        system("cls");
+        if (isEnraged) system("color 0C");
+        else system("color 07");
 
-	uniform_int_distribution<> disCount(2, 4); //ï¿½Ö¼ï¿½, ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
-	int totalPhase = disCount(gen);
+        cout << "\n\n\n";
+        if (isEnraged) cout << "  \033[1;31m[ !!!!! ENRAGED: ·ç½ÃÆÛ°¡ ÆøÁÖÇÕ´Ï´Ù !!!!! ]\033[0m" << endl;
+        else cout << "  \033[1;33m[ !!!!!!!! WARNING !!!!!!!! ]\033[0m" << endl;
 
-	int successCount = 0;
-	int failCount = 0;
+        cout << "  --------------------------------------------------" << endl;
+        cout << "  º¸½ºÀÇ ¿¬¼Ó °ø°Ý: " << phase << " / " << totalPhase << endl;
+        cout << "  ÇöÀç ³²Àº Ã¼·Â: " << player->getHealth() << endl;
+        cout << "  ³²Àº Æ÷¼Ç °³¼ö: ";
+        for (int i = 0; i < potionCount; ++i) cout << "\033[1;35m¡á \033[0m";
+        cout << "(" << potionCount << "°³)" << endl;
+        cout << "  --------------------------------------------------" << endl;
+        cout << "\n  ÁýÁßÇÏ¼¼¿ä... (¿¬Å¸ ±ÝÁö!)" << endl;
 
-	for (int phase = 1; phase <= totalPhase; ++phase) {
-		system("cls");
-		if (isEnraged) system("color 0C");
-		else system("color 07");
+        uniform_int_distribution<> disWait(minWait, maxWait);
+        int waitTime = disWait(gen);
 
-		cout << "\n\n\n";
-		if (isEnraged) cout << "  \033[1;31m[ !!!!! ENRAGED: ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½ !!!!! ]\033[0m" << endl;
-		else cout << "  \033[1;33m[ !!!!!!!! WARNING !!!!!!!! ]\033[0m" << endl;
+        auto waitStart = chrono::steady_clock::now();
+        bool cheated = false;
 
-		cout << "  --------------------------------------------------" << endl;
-		cout << "  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " << phase << " / " << totalPhase << endl;
-		cout << "  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½: " << player->getHealth() << endl;
-		cout << "  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ";
-		for (int i = 0; i < potionCount; ++i) cout << "\033[1;35mï¿½ï¿½ \033[0m";
-		cout << "(" << potionCount << "ï¿½ï¿½)" << endl;
-		cout << "  --------------------------------------------------" << endl;
-		cout << "\n  ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½... (ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½!)" << endl;
+        while (chrono::steady_clock::now() - waitStart < chrono::milliseconds(waitTime)) {
+            if (_kbhit()) {
+                _getch();
+                cheated = true;
+                break;
+            }
+            this_thread::sleep_for(chrono::milliseconds(10));
+        }
 
-		uniform_int_distribution<> disWait(minWait, maxWait);
-		int waitTime = disWait(gen);
+        bool pressed = false;
+        if (!cheated) {
+            system("color 47");
+            cout << "\n  >> Áö±ÝÀÔ´Ï´Ù!!! <<" << endl;
 
-		auto waitStart = chrono::steady_clock::now();
-		bool cheated = false; 
+            auto startTime = chrono::steady_clock::now();
+            while (chrono::steady_clock::now() - startTime < chrono::milliseconds(judgeTime)) {
+                if (_kbhit()) {
+                    if (_getch() == ' ') {
+                        pressed = true;
+                        break;
+                    }
+                }
+            }
+        }
 
-		while (chrono::steady_clock::now() - waitStart < chrono::milliseconds(waitTime)) {
-			if (_kbhit()) {
-				_getch();
-				cheated = true;
-				break;
-			}
-			this_thread::sleep_for(chrono::milliseconds(10));
-		}
+        if (pressed) {
+            successCount++;
+            system("color 17");
+            cout << "\n  [ ¼º°ø ] °ø°ÝÀ» ¸·¾Æ³Â½À´Ï´Ù!" << endl;
+        }
+        else {
+            failCount++;
+            system("color 40");
+            if (cheated) cout << "\n  [ ½ÇÆÐ ] ³Ê¹« ¼º±ÞÇß½À´Ï´Ù! (¿¬Å¸ °¨Áö)" << endl;
+            else cout << "\n  [ ½ÇÆÐ ] °¡µå Å¸ÀÌ¹ÖÀ» ³õÃÆ½À´Ï´Ù!" << endl;
 
-		bool pressed = false;
+            vector<Item*> inv = player->getInventory();
+            int potionIdx = -1;
+            for (int j = 0; j < (int)inv.size(); ++j) {
+                if (dynamic_cast<Potion*>(inv[j])) {
+                    potionIdx = j;
+                    break;
+                }
+            }
 
-		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		if (!cheated) {
-			system("color 47");
-			cout << "\n  >> ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½!!! <<" << endl;
+            if (potionIdx != -1) {
+                cout << "\n  [ ½ÇÆÐ ] °¡µå ½ÇÆÐ! Æ÷¼ÇÀÌ ±úÁö¸ç µ¥¹ÌÁö¸¦ ¸·¾Ò½À´Ï´Ù." << endl;
+                player->deleteItem(potionIdx);
+                potionCount--;
+            }
+            else {
+                cout << "\n  [ ½ÇÆÐ ] °¡µå ½ÇÆÐ! µ¥¹ÌÁö¸¦ ÀÔ½À´Ï´Ù!" << endl;
+                player->takeDamage(getAttack() * 2);
+            }
 
-			auto startTime = chrono::steady_clock::now();
-			while (chrono::steady_clock::now() - startTime < chrono::milliseconds(judgeTime)) {
-				if (_kbhit()) {
-					if (_getch() == ' ') {
-						pressed = true;
-						break;
-					}
-				}
-			}
-		}
+            if (player->getHealth() <= 0) {
+                cout << "\n  ÇÃ·¹ÀÌ¾î°¡ ¾²·¯Á³½À´Ï´Ù..." << endl;
+                this_thread::sleep_for(chrono::seconds(1));
+                break;
+            }
+        }
+        this_thread::sleep_for(chrono::milliseconds(800));
+    }
 
-		// ï¿½ï¿½ï¿½ï¿½
-		if (pressed) {
-			successCount++;
-			system("color 17");
-			cout << "\n  [ ï¿½ï¿½ï¿½ï¿½ ] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ³Â½ï¿½ï¿½Ï´ï¿½!" << endl;
-		}
-		else {
-			failCount++;
-			system("color 40");
+    system("cls");
+    system("color 07");
 
-			if (cheated) {
-				cout << "\n  [ ï¿½ï¿½ï¿½ï¿½ ] ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½! (ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½)" << endl;
-			}
-			else {
-				cout << "\n  [ ï¿½ï¿½ï¿½ï¿½ ] ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ½ï¿½ï¿½Ï´ï¿½!" << endl;
-			}
-
-			// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
-			vector<Item*> inv = player->getInventory();
-			int potionIdx = -1;
-			for (int j = 0; j < (int)inv.size(); ++j) {
-				if (dynamic_cast<Potion*>(inv[j])) {
-					potionIdx = j;
-					break;
-				}
-			}
-
-			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
-			if (potionIdx != -1) {
-				cout << "\n  [ ï¿½ï¿½ï¿½ï¿½ ] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½Ï´ï¿½." << endl;
-				player->deleteItem(potionIdx);
-				potionCount--; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ Ç¥ï¿½Ã¿ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
-			}
-			else {
-				cout << "\n  [ ï¿½ï¿½ï¿½ï¿½ ] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½Ï´ï¿½!" << endl;
-				player->takeDamage(getAttack() * 2);
-			}
-
-			// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
-			if (player->getHealth() <= 0) {
-				cout << "\n  ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½..." << endl;
-				this_thread::sleep_for(chrono::seconds(1));
-				break; // ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½
-			}
-		}
-		this_thread::sleep_for(chrono::milliseconds(800));
-	}
-
-	system("cls");
-	system("color 07");
-
-	return { (successCount == totalPhase), failCount, successCount };
+    return { (successCount == totalPhase), failCount, successCount };
 }
 
-
-
 void Boss::showPatternGuide() {
-	system("cls");
-	cout << "\n\n";
-	cout << "                   ==================================================" << endl;
-	cout << "                             [ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ]" << endl;
-	cout << "                   ==================================================" << endl;
-	cout << "              ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ \033[1;31mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\033[0mï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Õ´Ï´ï¿½!" << endl;
-	cout << "                    ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ \033[1;36m[SPACE]\033[0m Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." << endl;
-	cout << "\n                            \033[1;32m - ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿È­ \033[0m" << endl;
-	cout << "\n               \033[1;31m  - ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½) \033[0m" << endl;
-	cout << "\n            \033[1;34m   - ï¿½Ïºï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ý°Ý°ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½Õ´Ï´ï¿½! \033[0m" << endl;
-	cout << "                  ==================================================" << endl;
-	cout << "\n                     ï¿½Øºï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ [Enter] Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..." << endl;
+    system("cls");
+    cout << "\n\n";
+    cout << "                    ==================================================" << endl;
+    cout << "                               [ º¸½º ±â¹Í ¾Ë¸²: ¿¬¼Ó °ø°Ý ]" << endl;
+    cout << "                    ==================================================" << endl;
+    cout << "               º¸½º°¡ ±â¸¦ ¸ðÀº µÚ ·£´ýÇÑ ½Ã°£ µÚ È­¸éÀÌ \033[1;31m»¡°£»ö\033[0mÀ¸·Î º¯ÇÕ´Ï´Ù!" << endl;
+    cout << "                    ±× ¼ø°£ ºü¸£°Ô \033[1;36m[SPACE]\033[0m Å°¸¦ ´­·¯ ¹æ¾îÇÏ¼¼¿ä." << endl;
+    cout << "\n                            \033[1;32m - ¼º°ø: µ¥¹ÌÁö ¹«È¿È­ \033[0m" << endl;
+    cout << "\n               \033[1;31m  - ½ÇÆÐ: Áï½Ã ÇÇ°Ý (Æ÷¼ÇÀÌ ÀÖ´Ù¸é Æ÷¼ÇÀÌ ´ë½Å ÆÄ±«µÊ) \033[0m" << endl;
+    cout << "\n            \033[1;34m   - ¿Ïº® ¼º°ø: ¸ðµç ¿¬Å¸¸¦ ¸·¾Æ³»¸é ÇÃ·¹ÀÌ¾î°¡ ¹Ý°Ý°ú µ¿½Ã¿¡ Ã¼·ÂÀ» È¸º¹ÇÕ´Ï´Ù! \033[0m" << endl;
+    cout << "                    ==================================================" << endl;
+    cout << "\n                      ÁØºñ°¡ µÇ¾ú´Ù¸é [Enter] Å°¸¦ ´©¸£¼¼¿ä..." << endl;
 
-	// Enter ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½
-	while (true) {
-		if (_kbhit()) {
-			if (_getch() == 13) break;
-		}
-	}
-	system("color 07");
-	isFirstPattern = false;
+    while (true) {
+        if (_kbhit()) {
+            if (_getch() == 13) break;
+        }
+    }
+    system("color 07");
+    isFirstPattern = false;
 }
