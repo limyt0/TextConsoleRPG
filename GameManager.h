@@ -16,20 +16,27 @@
 class GameManager
 {
 private:
+    // 몬스터 클래스 포인터 변수
     Monster* monster;
+    // 게임 오버 여부 체크 변수
     bool isGameOver;
+    // 몬스터 처치 로그
     map<string, int> killCount;
 public:
+    // 게임매니저 생성자
     GameManager();
-
     // 몬스터 생성
-    Monster* generateMonster(int level);
+    Monster* generateMonster(Character* player);
     // 보스 몬스터 생성
-    Monster* generateBossMonster(int level);
+    Monster* generateBossMonster(Character* player);
     // 배틀
     void battle(Character* player);
     // 보스 배틀
     void bossBattle(Character* player);
+    // 랜덤 아이템 사용
+    void useRandomItem(Character* player);
+    // 부스트 초기화
+    void resetBoost(Character* player);
     // 상점 이용
     void useShop(Character* player);
     // 아이템 구매
@@ -37,9 +44,9 @@ public:
     // 아이템 판매
     void sellItem(Shop* shop, Character* player);
     // 인벤토리 출력
-    void displayInventory(Character* player);
+    void displayInventory(Character* player) const;
     // 처치 로그 출력
-    void displayKillCount(Character* player);
+    void displayKillCount(Character* player) const;
     // 게임오버 여부 반환
     bool getIsGameOver();
 };

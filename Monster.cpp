@@ -5,15 +5,16 @@
 
 
 // 몬스터 생성자 스탯 랜덤 생성
-Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) {
+Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true) {
+	this->player = player;
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
 	
 	//체력은 20~30 * 플레이어 레벨, 공격력은 5~10 * 플레이어 레벨 범위에서 랜덤 생성
-	std::uniform_int_distribution<int> healthDist(playerLevel * 20, playerLevel * 30);
+	std::uniform_int_distribution<int> healthDist(player -> getLevel() * 20, player->getLevel() * 30);
 	Health = healthDist(gen);
 
-	std::uniform_int_distribution<int> attackDist(playerLevel * 5, playerLevel * 10);
+	std::uniform_int_distribution<int> attackDist(player->getLevel() * 5, player->getLevel() * 10);
 	Attack = attackDist(gen);
 }
 
@@ -31,7 +32,6 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 
 	void Monster::takeDamage(int damage) {
 		if (isAlive == false) {return;} // 이미 사망한 몬스터인지 확인
-
 		Health -= damage;
 		cout << "  " << "\033[1;32m" << Name << "에게 " << damage << "의 데미지를 주었습니다!" << "\033[0m" << std::endl;
 		if (Health <= 0) {
@@ -44,10 +44,13 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 		}
 	}
 
-	int Monster::attackPlayer(Character* player) {
-		if (player == nullptr) return 2; // 플레이어가 null인지 확인
 
-		cout << "\n  " << "\033[1;31m" << Name << "이(가) " << player->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
+
+
+
+	int Monster::attackPlayer() {
+		if (player == nullptr) return 2; // 플레이어가 null인지 확인
+		cout << "\n  " << "\033[1;31m" << Name << "이 당신을 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack()); // 플레이어 공격
 
 		if (player->getHealth() <= 0) //플레이어의 체력이 0 이하인지 확인
@@ -62,7 +65,7 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 
 
 	void Monster::onDeath() {
-		std::cout << "\n  " << Name << "이(가) 사망했다!" << std::endl;
+		std::cout << "\n\n\033[1;33m  " << Name << "을(를) 처치했다!\033[0m" << std::endl;
 	}
 
 
@@ -80,10 +83,10 @@ Monster::Monster(std::string name, int playerLevel) : Name(name), isAlive(true) 
 
 	   switch (choice) {
 
-	   case 1: std::cout << "  " << Name << "이(가) 체력포션을 드랍했다!" << std::endl;
+	   case 1: std::cout << "  \033[1;34m" << Name << "이(가) 체력포션을 떨어뜨렸다!\033[0m" << std::endl;
 		   return new HealthPotion();
 
-	   case 2: std::cout << "  " << Name << "이(가) 공격력 포션을 드랍했다!" << std::endl;
+	   case 2: std::cout << "  \033[1;34m" << Name << "이(가) 공격력 포션을 떨어뜨렸다!\033[0m" << std::endl;
 		   return new AttackBoost();	
 
 	   default: return nullptr;

@@ -8,6 +8,7 @@ class GameMnager;
 class Monster;
 class Item;
 class Shop;
+class Skill;
 
 class Character
 {
@@ -21,8 +22,9 @@ private:
 	int _Gold;
 	vector<Item*> _inventory;
 	int _isBoosted;
-	
-	
+	bool _canAttack =true;
+	Skill* _Skill;
+	bool _UsingSkill = false;
 
 public:
 	
@@ -37,14 +39,20 @@ public:
 	int getisBoosted()const;
 	bool isAlive = true;
 	vector<Item*> getInventory();
-	
+	~Character();
+	bool getCanAttack()const;
+	void setCanAttack(bool setattack);
+	bool getUnsingSkill()const;
+	void seeUsingSkill();
+
+
 	void takeDamage(int damage);
 	int AttackMonster(Monster* monster);
 
 	void useItem(int index);
 	void deleteItem(int index);
 	void levelup();
-	
+	void setSkill();
 	void addItem(Item* item);
 	void setHealth(int health);
 	void setAttack(int attack);
@@ -52,4 +60,6 @@ public:
 	void setGold(int gold);
 	void showStatus()const;
 	void setisBoosted(int boost);
+	void setBossSkill();
+	int AttackBossMonster(Monster* monster);
 };

@@ -4,6 +4,9 @@
 class Troll : public Monster
 {
 public:
-	Troll(int playerLevel);
+	Troll(Character* player);
+
+	void takeDamage(int damage) override;
+
 };
 
