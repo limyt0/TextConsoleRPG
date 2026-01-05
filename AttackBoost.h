@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
-#include "Item.h"
+#include "Potion.h"
 
 class Character;
 
-class AttackBoost : public Item
+class AttackBoost : public Potion
 {
 public:
 	AttackBoost();
