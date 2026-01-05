@@ -49,4 +49,6 @@ public:
     void displayKillCount(Character* player) const;
     // 게임오버 여부 반환
     bool getIsGameOver();
+
+    void SleepEnter(int time);
 };

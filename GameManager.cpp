@@ -1,6 +1,9 @@
 #include "GameManager.h"
 #include <iostream>
 #include <Windows.h>
+#include <conio.h>
+#include <thread>
+
 
 using namespace std;
 
@@ -58,9 +61,9 @@ void GameManager::battle(Character* player)
     while (true)
     {
         if (monster == nullptr) break;
-        Sleep(1000);
+        SleepEnter(1000);
         int playerAttack = player->AttackMonster(monster);
-        Sleep(1000);
+        SleepEnter(1000);
         if (playerAttack == 0) // 몬스터 사망
         {
             if (killCount.find(monster->getName()) != killCount.end())
@@ -72,13 +75,13 @@ void GameManager::battle(Character* player)
             {
                 player->addItem(droppedItem);
                 cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
-                Sleep(1000);
+                SleepEnter(1000);
             }
             player->setExperence(player->getExperence() + monster->getExpReward());
             int gold = monster->getGoldReward();
             player->setGold(player->getGold() + gold);            
             cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << gold << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl << endl;
-            Sleep(1000);
+            SleepEnter(1000);
             player->levelup();
             break;
         }
@@ -88,9 +91,9 @@ void GameManager::battle(Character* player)
             break;
         }
         useRandomItem(player);
-        Sleep(1000);
+        SleepEnter(1000);
         int monsterAttack = monster->attackPlayer();
-        Sleep(1000);
+        SleepEnter(1000);
         if (monsterAttack == 0) // 플레이어 사망
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
@@ -125,9 +128,9 @@ void GameManager::bossBattle(Character* player)
     while (true)
     {
         if (monster == nullptr) break;
-        Sleep(1000);
+        SleepEnter(1000);
         int playerAttack = player->AttackBossMonster(monster);
-        Sleep(1000);
+        SleepEnter(1000);
         if (playerAttack == 0) // 몬스터 사망
         {
             isGameOver = true;
@@ -139,9 +142,9 @@ void GameManager::bossBattle(Character* player)
             break;
         }
         useRandomItem(player);
-        Sleep(1000);
+        SleepEnter(1000);
         int monsterAttack = monster->attackPlayer();
-        Sleep(1000);
+        SleepEnter(1000);
         if (monsterAttack == 0)
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
@@ -382,4 +385,21 @@ void GameManager::displayKillCount(Character* player) const
 bool GameManager::getIsGameOver()
 {
     return isGameOver;
+}
+
+void GameManager::SleepEnter(int time) {
+    int check = time / 10;
+    bool fastMode = false;
+    if (!fastMode) {
+        // 1초(1000ms) 동안 10ms씩 끊어서 키 입력을 체크
+        for (int i = 0; i < check; ++i) {
+            if (_kbhit()) { // 키보드 입력이 있는지 확인
+                if (_getch() == 13) { // 입력된 키가 엔터(ASCII 13)라면
+                    fastMode = true;
+                    break;
+                }
+            }
+            this_thread::sleep_for(chrono::milliseconds(10));
+        }
+    }
 }
