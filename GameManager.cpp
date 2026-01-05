@@ -237,10 +237,12 @@ void GameManager::buyItem(Shop* shop, Character* player)
     bool isContinue = true;
     while (isContinue)
     {
+        cout << "\n=================================== 보유 골드 ========================================" << endl;
+        cout << "  [" << player->getGold() << "G]" << endl;
         cout << "\n================================= 아이템 리스트 ======================================" << endl;
         for (int i = 0; i < shop->getSellList().size(); i++)
         {
-            cout << "  " << i+1 << ". [" << shop->getSellList()[i]->getName() << "]" << endl;
+            cout << "  " << i+1 << ". [" << shop->getSellList()[i]->getName() << " - " << shop->getSellList()[i]->getPrice() << "G]" << endl;
         }
         cout << "  0. [구매 취소하기]" << endl;
         cout << "======================================================================================" << endl;
@@ -293,6 +295,8 @@ void GameManager::buyItem(Shop* shop, Character* player)
                 else
                 {
                     cout << it->getName() << " 구매" << endl;
+                    cout << it->getName() << "를 장착하여 공격력이 증가했습니다." << endl;
+                    player->useItem(player->getInventory().size() - 1);
                 }
                 break;
             case 0:
@@ -361,7 +365,6 @@ void GameManager::displayInventory(Character* player) const
             cout << ", ";
         }
     }
-    cout << endl << "======================================================================================" << endl;
     cout << endl;
 }
 
@@ -374,7 +377,6 @@ void GameManager::displayKillCount(Character* player) const
     {
         cout << "  " << count.first << " 처치 횟수 [" << count.second << "]" << endl;
     }
-    cout << "======================================================================================" << endl;
 }
 
 bool GameManager::getIsGameOver()
