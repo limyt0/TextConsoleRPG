@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Entity;$(ProjectDir)Entity/Monster;$(ProjectDir)Entity/Player;$(ProjectDir)Item;$(ProjectDir)Item/Potion;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,43 +124,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="Goblin.cpp" />
-    <ClCompile Include="HealthPotion.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="AttackBoost.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Orc.cpp" />
-    <ClCompile Include="Potion.cpp" />
-    <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="Skill.cpp" />
-    <ClCompile Include="Slime.cpp" />
-    <ClCompile Include="Sword.cpp" />
-    <ClCompile Include="Troll.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AttackBoost.h" />
-    <ClInclude Include="Boss.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="Goblin.h" />
-    <ClInclude Include="HealthPotion.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Orc.h" />
-    <ClInclude Include="Potion.h" />
-    <ClInclude Include="Shop.h" />
-    <ClInclude Include="Skill.h" />
-    <ClInclude Include="Slime.h" />
-    <ClInclude Include="Sword.h" />
-    <ClInclude Include="Troll.h" />
-    <ClInclude Include="Types.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\GameManager.cpp" />
+    <ClCompile Include="Core\Shop.cpp" />
+    <ClCompile Include="Core\Skill.cpp" />
+    <ClCompile Include="Entity\Monster\Boss.cpp" />
+    <ClCompile Include="Entity\Monster\Goblin.cpp" />
+    <ClCompile Include="Entity\Monster\Monster.cpp" />
+    <ClCompile Include="Entity\Monster\Orc.cpp" />
+    <ClCompile Include="Entity\Monster\Slime.cpp" />
+    <ClCompile Include="Entity\Monster\Troll.cpp" />
+    <ClCompile Include="Entity\Player\Character.cpp" />
+    <ClCompile Include="Item\Item.cpp" />
+    <ClCompile Include="Item\Potion\AttackBoost.cpp" />
+    <ClCompile Include="Item\Potion\HealthPotion.cpp" />
+    <ClCompile Include="Item\Potion\Potion.cpp" />
+    <ClCompile Include="Item\Sword.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\GameManager.h" />
+    <ClInclude Include="Core\Shop.h" />
+    <ClInclude Include="Core\Skill.h" />
+    <ClInclude Include="Core\Types.h" />
+    <ClInclude Include="Entity\Monster\Boss.h" />
+    <ClInclude Include="Entity\Monster\Goblin.h" />
+    <ClInclude Include="Entity\Monster\Monster.h" />
+    <ClInclude Include="Entity\Monster\Orc.h" />
+    <ClInclude Include="Entity\Monster\Slime.h" />
+    <ClInclude Include="Entity\Monster\Troll.h" />
+    <ClInclude Include="Entity\Player\Character.h" />
+    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\Potion\AttackBoost.h" />
+    <ClInclude Include="Item\Potion\HealthPotion.h" />
+    <ClInclude Include="Item\Potion\Potion.h" />
+    <ClInclude Include="Item\Sword.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
