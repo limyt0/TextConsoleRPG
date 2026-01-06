@@ -12,6 +12,7 @@
 #include "Boss.h"
 #include "Item.h"
 #include "Shop.h"
+#include "Types.h"
 
 class GameManager
 {
