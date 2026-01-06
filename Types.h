@@ -3,5 +3,7 @@
 enum class EntityState {
 	NotFound,
 	ALIVE,
-	Dead
+	Dead,
+    CannotAttack,
+	Run
 };
