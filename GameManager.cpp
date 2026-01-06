@@ -227,6 +227,7 @@ void GameManager::useShop(Character* player)
         case 3:
             cout << "상점을 나갑니다." << endl;
             isContinue = false;
+            delete shop;
             break;
         default:
             break;
