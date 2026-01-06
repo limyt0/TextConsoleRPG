@@ -5,5 +5,5 @@ class Orc : public Monster
 {
 public:
 	Orc(Character* player);
-	int attackPlayer() override;
+	EntityState attackPlayer() override;
 };

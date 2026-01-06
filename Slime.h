@@ -9,7 +9,7 @@ private:
 public:
 	Slime(Character* player);
 
-    virtual int attackPlayer() override;
+    virtual EntityState attackPlayer() override;
 
 	virtual void onDeath() override;
 };
