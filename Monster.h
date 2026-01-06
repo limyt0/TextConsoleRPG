@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include "Types.h"
 
 class Item; // 전방 선언
 class Character;
