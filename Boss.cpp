@@ -81,8 +81,8 @@ void Boss::takeDamage(int damage) {
     }
 }
 
-int Boss::attackPlayer() {
-    if (player == nullptr) return 2;
+EntityState Boss::attackPlayer() {
+    if (player == nullptr) return EntityState::NotFound;
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(1, 100);
@@ -107,10 +107,10 @@ int Boss::attackPlayer() {
             cout << "  현재 남은 체력: " << player->getHealth() << endl;
             this_thread::sleep_for(chrono::seconds(1));
         }
-        return (player->getHealth() <= 0) ? 0 : 1;
+        return (player->getHealth() <= 0) ? EntityState::Dead : EntityState::ALIVE;
     }
 
-    return (player->getHealth() <= 0) ? 0 : 1;
+    return (player->getHealth() <= 0) ? EntityState::Dead : EntityState::ALIVE;
 }
 
 void Boss::onDeath() {

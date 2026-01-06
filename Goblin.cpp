@@ -4,8 +4,8 @@ Goblin::Goblin(Character* player) : Monster("고블린", player) {
     Attack += player->getLevel(); // 고블린 추가 공격력 보너스
 }
 
-int Goblin::attackPlayer() {
-    if (player == nullptr) return 2; // 플레이어가 null인지 확인
+EntityState Goblin::attackPlayer() {
+    if (player == nullptr) return EntityState::NotFound; // 플레이어가 null인지 확인
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -52,12 +52,12 @@ int Goblin::attackPlayer() {
             if (dist(gen) <= 30) {
                 std::cout << "  \033[1;35m[도주] " << Name << "이(가) 당신을 조롱하며 도망쳤습니다!\033[0m" << std::endl;
                 Health = 0;
-                return 3; // 도망 성공 리턴
+                return EntityState::Run; // 도망 성공 리턴
             }
         }
     }
 
-    return (player->getHealth() <= 0) ? 0 : 1;
+    return (player->getHealth() <= 0) ? EntityState::Dead : EntityState::ALIVE;
 }
 
 void Goblin::onDeath() {

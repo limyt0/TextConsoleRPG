@@ -5,8 +5,8 @@
 
 Slime::Slime(Character* player) : Monster("½½¶óÀÓ", player) {}
 
-int Slime::attackPlayer() {
-	if (player == nullptr || player->getHealth() <= 0) return 2;
+EntityState Slime::attackPlayer() {
+	if (player == nullptr || player->getHealth() <= 0) return EntityState::NotFound;
 
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
@@ -34,7 +34,7 @@ int Slime::attackPlayer() {
 		}
 	}
 	player->setCanAttack(!isGlued);
-	return (player->getHealth() <= 0) ? 0 : 1;
+	return (player->getHealth() <= 0) ? EntityState::Dead : EntityState::ALIVE;
 }
 
 void Slime::onDeath() {
