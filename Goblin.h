@@ -11,7 +11,7 @@ private:
 public:
 	Goblin(Character* player);
 
-	virtual int attackPlayer() override;
+	virtual EntityState attackPlayer() override;
 
 	virtual void onDeath() override;
 };
