@@ -72,18 +72,18 @@ bool Character::getCanAttack()const
 	return _canAttack;
 }
 
-int Character::AttackMonster(Monster* monster)
+EntityState Character::AttackMonster(Monster* monster)
 {
 	
 	if (getCanAttack() == false)
 	{
 		cout <<_Name<<"이(가)"<< "공격할수없습니다" << endl;
-		return 4;
+		return EntityState::CannotAttack;
 	}
 
 	if (monster == nullptr)
 	{
-		return 2;
+		return EntityState::NotFound;
 	}
 	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
 	int temp = getAttack();
@@ -93,12 +93,11 @@ int Character::AttackMonster(Monster* monster)
 	setAttack(temp);
 	if (monster->getHealth() <= 0)
 	{
-		return 0;
+		return EntityState::Dead;
 	}
-
 	else
 	{
-		return 1;
+		return EntityState::ALIVE;
 	}
 	
 }
@@ -243,18 +242,18 @@ void Character::showStatus()const
 }
 
 //어택보스함수따로만들기
-int Character::AttackBossMonster(Monster* monster)
+EntityState  Character::AttackBossMonster(Monster* monster)
 {
 
 	if (getCanAttack() == false)
 	{
 		cout << _Name << "이(가)" << "공격할수없습니다" << endl;
-		return 4;
+		return EntityState::CannotAttack;
 	}
 
 	if (monster == nullptr)
 	{
-		return 2;
+		return EntityState::NotFound;
 	}
 	cout << "\n  " << "\033[1;32m" << _Name << "이(가) " << monster->getName() << "을(를) 공격합니다!" << "\033[0m" << std::endl;
 	int temp = getAttack();
@@ -264,12 +263,12 @@ int Character::AttackBossMonster(Monster* monster)
 	setAttack(temp);
 	if (monster->getHealth() <= 0)
 	{
-		return 0;
+		return EntityState::Dead;
 	}
 
 	else
 	{
-		return 1;
+		return EntityState::ALIVE;
 	}
 
 }

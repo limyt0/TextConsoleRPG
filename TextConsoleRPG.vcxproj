@@ -156,6 +156,7 @@
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="Troll.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
