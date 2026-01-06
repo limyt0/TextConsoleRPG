@@ -187,9 +187,10 @@ GuardSummary Boss::BossAttackGuard(int& potionCount) {
 
         while (chrono::steady_clock::now() - waitStart < chrono::milliseconds(waitTime)) {
             if (_kbhit()) {
-                _getch();
-                cheated = true;
-                break;
+                if (_getch() == ' '){
+                    cheated = true;
+                    break;
+                }
             }
             this_thread::sleep_for(chrono::milliseconds(10));
         }
@@ -248,6 +249,8 @@ GuardSummary Boss::BossAttackGuard(int& potionCount) {
         }
         this_thread::sleep_for(chrono::milliseconds(800));
     }
+
+
 
     system("cls");
     system("color 07");
