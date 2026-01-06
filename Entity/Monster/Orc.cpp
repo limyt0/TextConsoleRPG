@@ -6,8 +6,8 @@ Orc::Orc(Character* player) : Monster("오크", player) {
    Attack += player->getLevel() * 3; // 오크 추가 공격력 보너스
 }
 
-int Orc::attackPlayer() {
-	if (player == nullptr || player->getHealth() <= 0) return 2;
+EntityState Orc::attackPlayer() {
+	if (player == nullptr || player->getHealth() <= 0) return EntityState::NotFound;
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(1, 100);
@@ -20,5 +20,5 @@ int Orc::attackPlayer() {
 		cout << "\n  " << "\033[1;31m" << Name << "이(가) 당신을 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack());
 	}
-	return (player->getHealth() <= 0) ? 0 : 1;
+	return (player->getHealth() <= 0) ? EntityState::Dead : EntityState::ALIVE;
 }

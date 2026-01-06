@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Types.h"
 
 using namespace std;
 class GameMnager;
@@ -47,7 +48,7 @@ public:
 
 
 	void takeDamage(int damage);
-	int AttackMonster(Monster* monster);
+	EntityState AttackMonster(Monster* monster);
 
 	void useItem(int index);
 	void deleteItem(int index);
@@ -61,5 +62,5 @@ public:
 	void showStatus()const;
 	void setisBoosted(int boost);
 	void setBossSkill();
-	int AttackBossMonster(Monster* monster);
+	EntityState AttackBossMonster(Monster* monster);
 };

@@ -48,16 +48,16 @@ Monster::Monster(std::string name, Character* player) : Name(name), isAlive(true
 
 
 
-	int Monster::attackPlayer() {
-		if (player == nullptr) return 2; // 플레이어가 null인지 확인
+	EntityState Monster::attackPlayer() {
+		if (player == nullptr) return EntityState::NotFound; // 플레이어가 null인지 확인
 		cout << "\n  " << "\033[1;31m" << Name << "이 당신을 공격합니다!" << "\033[0m" << std::endl;
 		player->takeDamage(getAttack()); // 플레이어 공격
 
 		if (player->getHealth() <= 0) //플레이어의 체력이 0 이하인지 확인
 		{
-			return 0; // 플레이어가 사망했음을 나타내는 값 반환
+			return EntityState::Dead; // 플레이어가 사망했음을 나타내는 값 반환
 		}else{
-			return 1; // 플레이어가 살아있음을 나타내는 값 반환
+			return EntityState::ALIVE; // 플레이어가 살아있음을 나타내는 값 반환
 		}
 
     }

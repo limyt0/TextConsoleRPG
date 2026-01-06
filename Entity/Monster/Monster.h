@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include "Types.h"
 
 class Item; // 전방 선언
 class Character;
@@ -32,7 +33,7 @@ public:
   virtual void takeDamage(int damage);
 
   //몬스터가 플레이어를 공격할 때 호출되는 가상 함수입니다.
-  virtual int attackPlayer();
+  virtual EntityState attackPlayer();
 
   //몬스터가 죽었을때 호출되는 가상 함수입니다.
   virtual void onDeath();

@@ -62,9 +62,9 @@ void GameManager::battle(Character* player)
     {
         if (monster == nullptr) break;
         SleepEnter(1000);
-        int playerAttack = player->AttackMonster(monster);
+        EntityState playerAttack = player->AttackMonster(monster);
         SleepEnter(1000);
-        if (playerAttack == 0) // 몬스터 사망
+        if (playerAttack == EntityState::Dead) // 몬스터 사망
         {
             if (killCount.find(monster->getName()) != killCount.end())
             {
@@ -85,26 +85,26 @@ void GameManager::battle(Character* player)
             player->levelup();
             break;
         }
-        else if (playerAttack == 2) // 몬스터가 nullptr
+        else if (playerAttack == EntityState::NotFound) // 몬스터가 nullptr
         {
             cout << "  error. 몬스터가 존재하지 않습니다." << endl;
             break;
         }
         useRandomItem(player);
         SleepEnter(1000);
-        int monsterAttack = monster->attackPlayer();
+        EntityState monsterAttack = monster->attackPlayer();
         SleepEnter(1000);
-        if (monsterAttack == 0) // 플레이어 사망
+        if (monsterAttack == EntityState::Dead) // 플레이어 사망
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
             break;
         }
-        else if (monsterAttack == 3) // 몬스터 도망
+        else if (monsterAttack == EntityState::Run) // 몬스터 도망
         {
             break;
         }
-        else if (monsterAttack == 2) // 플레이어가 nullptr
+        else if (monsterAttack == EntityState::NotFound) // 플레이어가 nullptr
         {
             cout << "  error. 플레이어가 존재하지 않습니다." << endl;
             break;
@@ -129,23 +129,23 @@ void GameManager::bossBattle(Character* player)
     {
         if (monster == nullptr) break;
         SleepEnter(1000);
-        int playerAttack = player->AttackBossMonster(monster);
+        EntityState playerAttack = player->AttackBossMonster(monster);
         SleepEnter(1000);
-        if (playerAttack == 0) // 몬스터 사망
+        if (playerAttack == EntityState::Dead) // 몬스터 사망
         {
             isGameOver = true;
             break;
         }
-        else if (playerAttack == 2) // 몬스터가 nullptr
+        else if (playerAttack == EntityState::NotFound) // 몬스터가 nullptr
         {
             cout << "  error. 몬스터가 존재하지 않습니다." << endl;
             break;
         }
         useRandomItem(player);
         SleepEnter(1000);
-        int monsterAttack = monster->attackPlayer();
+        EntityState monsterAttack = monster->attackPlayer();
         SleepEnter(1000);
-        if (monsterAttack == 0)
+        if (monsterAttack == EntityState::Dead)
         {
             cout << "  " << player->getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
             isGameOver = true;
@@ -227,6 +227,7 @@ void GameManager::useShop(Character* player)
         case 3:
             cout << "상점을 나갑니다." << endl;
             isContinue = false;
+            delete shop;
             break;
         default:
             break;

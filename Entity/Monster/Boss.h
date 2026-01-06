@@ -16,7 +16,7 @@ private:
 public:
     Boss(Character* player);
 
-    int attackPlayer() override;
+    EntityState attackPlayer() override;
 
     void takeDamage(int damage) override;
 
