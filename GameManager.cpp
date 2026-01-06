@@ -55,9 +55,9 @@ void GameManager::battle(Character* player)
         cout << "몬스터가 생성되어있지 않습니다." << endl;
         return;
     }
-    cout << "\n=============================== 몬스터 등장 ==========================================" << endl;
+    cout << "\n==================================== 몬스터 등장 =====================================" << endl;
     cout << "  이름: " << monster->getName() << ", 체력: " << monster->getHealth() << ", 공격력: " << monster->getAttack() << endl;
-    cout << "\n================================ 배틀  시작 ==========================================" << endl;
+    cout << "\n===================================== 배틀  시작 =====================================" << endl;
     while (true)
     {
         if (monster == nullptr) break;
@@ -74,13 +74,13 @@ void GameManager::battle(Character* player)
             if (droppedItem != nullptr)
             {
                 player->addItem(droppedItem);
-                cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다.\n" << endl;
+                cout << "  " << player->getName() << "이(가) " << droppedItem->getName() << " 한 개를 획득했습니다." << endl;
                 SleepEnter(1000);
             }
             player->setExperence(player->getExperence() + monster->getExpReward());
             int gold = monster->getGoldReward();
             player->setGold(player->getGold() + gold);            
-            cout << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << gold << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl << endl;
+            cout << endl << "  " << player->getName() << "이(가) [" << monster->getExpReward() << "] EXP 와 [" << gold << "] 골드를 획득했습니다. 현재 EXP [" << player->getExperence() << " / 100], 골드 [" << player->getGold() << "]" << endl << endl;
             SleepEnter(1000);
             player->levelup();
             break;
@@ -124,7 +124,7 @@ void GameManager::bossBattle(Character* player)
     }
     cout << "\n=============================== 보스 몬스터 등장 ===============================" << endl;
     cout << "  이름: " << monster->getName() << ", 체력: " << monster->getHealth() << ", 공격력: " << monster->getAttack() << endl;
-    cout << "\n================================ 배틀  시작 ====================================" << endl;
+    cout << "\n================================== 배틀  시작 ==================================" << endl;
     while (true)
     {
         if (monster == nullptr) break;
