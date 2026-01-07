@@ -44,6 +44,9 @@
 ### 상점 진행
 <img width="539" height="682" alt="상점 진행 drawio" src="https://github.com/user-attachments/assets/7343880b-8340-4f4c-8614-b897f2f1fb69" />
 
+### 클래스 다이어그램
+<img width="2183" height="2294" alt="클래스다이어그램" src="https://github.com/user-attachments/assets/738ecbbc-414e-41ac-bd7a-3f67b7fabf6b" />
+
 ## 팀원
 
 | 이름           | 담당 작업                            |
